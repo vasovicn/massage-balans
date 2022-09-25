@@ -1,0 +1,142 @@
+{
+  "massages": [
+    {
+      "id": 123,
+      "name": "Madero",
+      "length": 45,
+      "price": 2000,
+      "info": "SUPER MADERO MASAZA",
+      "image": "@/assets/slika_masaze1.jpg"
+    },
+    {
+      "id": 456,
+      "name": "Relaks",
+      "length": 30,
+      "price": 1500,
+      "info": "SUPER Relaks MASAZA",
+      "image": "@/assets/slika_masaze2.jpg"
+    },
+    {
+      "id": 789,
+      "name": "Terapeutska",
+      "length": 60,
+      "price": 2500,
+      "info": "SUPER TERAPEUTSKA MASAZA",
+      "image": "@/assets/slika_masaze3.jpg"
+    }
+  ],
+  "reservedTime": [
+    {
+      "id": 444,
+      "date": "2022-09-25",
+      "time": "16:00",
+      "length": 45
+    },
+    {
+      "id": 555,
+      "date": "2022-09-25",
+      "time": "18:30",
+      "length": 60
+    },
+    {
+      "id": 666,
+      "date": "2022-09-26",
+      "time": "13:15",
+      "length": 30
+    },
+    {
+      "id": "b4d2751c-9da0-4717-9fb9-fb57423e494e",
+      "date": "",
+      "time": "",
+      "length": 45
+    },
+    {
+      "id": "37c068a4-7d27-4b46-b3a4-335bd8608eb4",
+      "date": "2022-09-13",
+      "time": "13:15",
+      "length": 45
+    },
+    {
+      "id": "e9097708-52ae-454a-8fb4-0c11bf8873c4",
+      "date": "2022-09-13",
+      "time": "14:30",
+      "length": 45
+    },
+    {
+      "id": "c89dd056-1815-4b1c-ad38-7f236236d061",
+      "date": "2022-09-22",
+      "time": "13:15",
+      "length": 45
+    },
+    {
+      "id": "6739d25f-3084-4f4e-8f93-e3229d5807cb",
+      "date": "2022-09-05",
+      "time": "13:30",
+      "length": 45
+    },
+    {
+      "id": "51428fd2-5d33-4fd4-a518-2ff3132174ac",
+      "date": "2022-09-06",
+      "time": "10:00",
+      "length": 45
+    },
+    {
+      "id": "be5c15f9-d83c-4ca7-92b8-c3cfdf60de79",
+      "date": "2022-09-21",
+      "time": "13:30",
+      "length": 45
+    },
+    {
+      "id": "1f4b370c-b8e0-4032-8548-9860e414b8a5",
+      "date": "2022-09-25",
+      "time": "17:30",
+      "length": 45
+    },
+    {
+      "id": "5fbd38c1-ba2f-4659-817c-9e3bc3d02626",
+      "date": "2022-09-25",
+      "time": "13:30",
+      "length": 45
+    },
+    {
+      "id": "4be97a9d-7934-4adf-a61a-d978569b0502",
+      "date": "2022-09-20",
+      "time": "13:15",
+      "length": 45
+    },
+    {
+      "id": "0f1d683f-3cc1-4e1f-988a-7bf5c9091bb0",
+      "date": "2022-09-13",
+      "time": "19:00",
+      "length": 45
+    },
+    {
+      "id": "e221a1ce-fe13-459c-9c09-56ce2f0ee4cc",
+      "date": "2022-09-30",
+      "time": "13:30",
+      "length": 30
+    },
+    {
+      "id": "dfe7722a-3e07-4710-add9-65e3f5b89981",
+      "date": "2022-09-13",
+      "time": "18:45",
+      "length": 45
+    }
+  ],
+  "masseuers": [
+    {
+      "id": 900,
+      "name": "Andrea",
+      "age": 24,
+      "info": "Dobra devojka koja se trudi",
+      "image": "@/assets/logo.png"
+    },
+    {
+      "id": 409,
+      "name": "Olivera",
+      "age": 47,
+      "info": "Profesionalac ozbiljan",
+      "image": "@/assets/1256397.jpg"
+    }
+  ]
+}
