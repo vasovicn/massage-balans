@@ -1,4 +1,5 @@
 <template>
+    <router-link :to="{ name: 'HomeView' }">Home</router-link>
       <div v-for="reservation in reservations" :key="reservation.id" style="min-height:50px">
         <div v-if="reservation.date > currentDate">
           MANJIII
@@ -36,6 +37,7 @@ export default {
       const test = this.$store.state.reservations
       // U OVOM TRENUTKU JOS UVEK NIJE GOTOV POZIV IZ LINIJE 24
       console.log('TEST:', test)
+      console.log('TEST SORT:', test.sort())
     }
 }
 </script>
