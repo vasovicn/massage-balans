@@ -1,5 +1,6 @@
 <template>
     <div class="massage">
+        <router-link :to="{ name: 'HomeView' }">Home</router-link>
         <h2>Vasa rezervacija je uspesno poslata</h2>
         <p>Vidimo se {{reservation.date}} u {{reservation.time}} </p>
     </div>
