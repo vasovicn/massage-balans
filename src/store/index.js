@@ -47,7 +47,6 @@ export default createStore({
       state.reservation = reservation
     },
     SET_RESERVATIONS(state, reservations) {
-      console.log('SASASASA:', reservations)
       state.reservations = reservations
     }
   },
@@ -115,7 +114,6 @@ export default createStore({
     fetchAllReservations({ commit }) {
       return MassageService.getAllReservations()
         .then(response => {
-          console.log(response.data)
           commit('SET_RESERVATIONS', response.data)
         })
         .catch(error => {
