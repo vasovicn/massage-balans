@@ -68,7 +68,9 @@ export default {
             const reservation = {"id": uuid.v4(),
                                  "date":this.date,
                                  "time": this.time,
-                                 "length": this.massage.length}
+                                 "length": this.massage.length,
+                                 "type": this.massage.name
+                                }
             this.$store.dispatch('postReservedTime', reservation)
             this.$router.push({ name: 'MassageConfirmation', params: {id: reservation.id}})
 

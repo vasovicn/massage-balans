@@ -30,319 +30,71 @@
       "id": 444,
       "date": "2022-09-25",
       "time": "16:00",
-      "length": 45
+      "length": 45,
+      "type": "Madero"
     },
     {
       "id": 555,
       "date": "2022-09-25",
       "time": "18:30",
-      "length": 60
+      "length": 60,
+      "type": "Terapeutska"
     },
     {
       "id": 666,
       "date": "2022-09-26",
       "time": "13:15",
-      "length": 30
+      "length": 30,
+      "type": "Relaks"
     },
     {
       "id": "37c068a4-7d27-4b46-b3a4-335bd8608eb4",
       "date": "2022-09-13",
       "time": "13:15",
-      "length": 45
+      "length": 45,
+      "type": "Madero"
     },
     {
       "id": "e9097708-52ae-454a-8fb4-0c11bf8873c4",
       "date": "2022-09-13",
       "time": "14:30",
-      "length": 45
+      "length": 45,
+      "type": "Madero"
     },
     {
       "id": "c89dd056-1815-4b1c-ad38-7f236236d061",
       "date": "2022-09-22",
       "time": "13:15",
-      "length": 45
+      "length": 45,
+      "type": "Madero"
     },
     {
       "id": "6739d25f-3084-4f4e-8f93-e3229d5807cb",
       "date": "2022-09-05",
       "time": "13:30",
-      "length": 45
+      "length": 45,
+      "type": "Madero"
     },
     {
-      "id": "51428fd2-5d33-4fd4-a518-2ff3132174ac",
-      "date": "2022-09-06",
-      "time": "10:00",
-      "length": 45
+      "id": "55fb01da-6432-4a08-b93d-6c4b7b393c2d",
+      "date": "2022-10-07",
+      "time": "16:15",
+      "length": 45,
+      "type": "Madero"
     },
     {
-      "id": "be5c15f9-d83c-4ca7-92b8-c3cfdf60de79",
-      "date": "2022-09-21",
-      "time": "13:30",
-      "length": 45
-    },
-    {
-      "id": "1f4b370c-b8e0-4032-8548-9860e414b8a5",
-      "date": "2022-09-25",
-      "time": "17:30",
-      "length": 45
-    },
-    {
-      "id": "5fbd38c1-ba2f-4659-817c-9e3bc3d02626",
-      "date": "2022-09-25",
-      "time": "13:30",
-      "length": 45
-    },
-    {
-      "id": "4be97a9d-7934-4adf-a61a-d978569b0502",
-      "date": "2022-09-20",
-      "time": "13:15",
-      "length": 45
-    },
-    {
-      "id": "0f1d683f-3cc1-4e1f-988a-7bf5c9091bb0",
-      "date": "2022-09-13",
-      "time": "19:00",
-      "length": 45
-    },
-    {
-      "id": "e221a1ce-fe13-459c-9c09-56ce2f0ee4cc",
-      "date": "2022-09-30",
-      "time": "13:30",
-      "length": 30
-    },
-    {
-      "id": "dfe7722a-3e07-4710-add9-65e3f5b89981",
-      "date": "2022-09-13",
-      "time": "18:45",
-      "length": 45
-    },
-    {
-      "id": "abc7c878-74df-4dc3-a45e-13a1ccaa1b4c",
-      "date": "2022-09-21",
-      "time": "13:00",
-      "length": 45
-    },
-    {
-      "id": "dae67870-8ba3-4ddb-b59b-ab5ef92bbc80",
-      "date": "2022-09-14",
-      "time": "17:00",
-      "length": 45
-    },
-    {
-      "id": "ef8395e7-ab51-459f-865d-62bf20e7ff35",
-      "date": "2022-09-06",
-      "time": "21:15",
-      "length": 45
-    },
-    {
-      "id": "949e5dcc-a542-4287-b45b-f81367e3c1e1",
-      "date": "2022-09-28",
-      "time": "13:15",
-      "length": 45
-    },
-    {
-      "id": "03fcf77b-8da9-4fa5-a091-d7d4a106fb45",
-      "date": "2022-09-25",
-      "time": "10:30",
-      "length": 45
-    },
-    {
-      "id": "ea761082-5c02-47d3-aec8-bc4796a41ba4",
-      "date": "2022-09-07",
-      "time": "17:00",
-      "length": 45
-    },
-    {
-      "id": "38b18787-566a-4de5-be77-457f798fb3c9",
-      "date": "2022-09-14",
-      "time": "16:45",
-      "length": 45
-    },
-    {
-      "id": "60c94d4c-1cb4-4f99-bec4-267ca3a6020e",
-      "date": "2022-09-15",
-      "time": "17:15",
-      "length": 45
-    },
-    {
-      "id": "99fed8e9-b593-481a-b282-ce7b57bbb3e4",
-      "date": "2022-09-07",
-      "time": "16:45",
-      "length": 45
-    },
-    {
-      "id": "cbb79b45-89b3-45cb-8a7c-501dee0d8653",
-      "date": "2022-09-14",
-      "time": "08:00",
-      "length": 45
-    },
-    {
-      "id": "1d9af2fb-1b02-4182-bffd-c9596812552e",
-      "date": "2022-09-21",
-      "time": "08:00",
-      "length": 45
-    },
-    {
-      "id": "ce3fe575-148e-41ae-9460-b832ad5f2212",
-      "date": "2022-09-21",
-      "time": "08:15",
-      "length": 45
-    },
-    {
-      "id": "38cf76f8-ca17-408d-aa21-bf7b1f55bdbd",
-      "date": "2022-09-21",
-      "time": "21:00",
-      "length": 45
-    },
-    {
-      "id": "631bcdd6-fb6b-4537-80fe-528bfd35a404",
-      "date": "2022-09-21",
-      "time": "09:00",
-      "length": 45
-    },
-    {
-      "id": "5549bb0c-06a6-4f51-9f07-15527770f58c",
-      "date": "2022-09-14",
-      "time": "13:00",
-      "length": 45
-    },
-    {
-      "id": "b94c8e76-5e73-41f7-9dcc-79d54d1882bd",
-      "date": "2022-09-21",
-      "time": "15:00",
-      "length": 45
-    },
-    {
-      "id": "e4287c58-ed4b-45ff-82db-c871c0576d4d",
-      "date": "2022-09-20",
-      "time": "12:00",
-      "length": 45
-    },
-    {
-      "id": "6e2ff78d-daed-4d5c-a01c-b509c1665ade",
-      "date": "2022-09-20",
-      "time": "08:00",
-      "length": 45
-    },
-    {
-      "id": "6c9f219b-6507-4f58-aa9d-7619e39937f5",
-      "date": "2022-09-20",
-      "time": "10:00",
-      "length": 45
-    },
-    {
-      "id": "d765586b-9ccb-4525-bfbe-c10e2bf656ac",
-      "date": "2022-09-20",
-      "time": "09:00",
-      "length": 45
-    },
-    {
-      "id": "adf7ffd5-b5aa-481a-aa17-3fdf70a772cc",
-      "date": "2022-09-20",
-      "time": "08:15",
-      "length": 45
-    },
-    {
-      "id": "4a64a789-9f5a-483d-be8c-9dbfdf0ab5df",
-      "date": "2022-09-22",
-      "time": "08:00",
-      "length": 45
-    },
-    {
-      "id": "8db90296-a076-4c48-9001-6132a20c3ed1",
-      "date": "2022-09-18",
-      "time": "08:00",
-      "length": 30
-    },
-    {
-      "id": "c1439c95-a5de-41cb-bdff-8c44fa0ada70",
-      "date": "2022-06-08",
-      "time": "09:00",
-      "length": 60
-    },
-    {
-      "id": "ae86ef3c-d439-4aff-bdd1-79701ee47269",
-      "date": "2022-06-08",
-      "time": "17:00",
-      "length": 45
-    },
-    {
-      "id": "cb689451-3971-44c4-93c6-375875184914",
-      "date": "2022-06-08",
-      "time": "13:15",
-      "length": 30
-    },
-    {
-      "id": "75ce86d8-de98-4fed-9723-16d00f43fbfb",
-      "date": "2022-05-24",
-      "time": "09:00",
-      "length": 60
-    },
-    {
-      "id": "4c1e4985-b280-49e8-abde-7a32c219acd2",
-      "date": "2022-05-24",
-      "time": "21:00",
-      "length": 60
-    },
-    {
-      "id": "4b6f062c-9a37-400e-b761-ceeb05392431",
-      "date": "2022-02-15",
-      "time": "08:00",
-      "length": 45
-    },
-    {
-      "id": "d5cb5341-fd70-4a99-a98f-1405c8bbf264",
-      "date": "2022-02-15",
-      "time": "10:00",
-      "length": 60
-    },
-    {
-      "id": "bb78d63f-8e2d-4559-bbc7-526c13aef6ed",
-      "date": "2022-02-15",
-      "time": "14:00",
-      "length": 30
-    },
-    {
-      "id": "95cdb07d-9bf5-4f78-ab38-8c9bfb56a240",
-      "date": "2022-09-13",
+      "id": "d359556e-dd58-4b6a-963e-9198a9747b83",
+      "date": "2022-09-29",
       "time": "16:00",
-      "length": 45
+      "length": 45,
+      "type": "Madero"
     },
     {
-      "id": "57995a6e-fdf0-458c-9bc4-c1d568a0ee71",
-      "date": "2022-10-12",
-      "time": "13:00",
-      "length": 45
-    },
-    {
-      "id": "4342cedc-6ab2-4f1a-99da-635163fc8734",
-      "date": "2022-10-12",
-      "time": "14:00",
-      "length": 45
-    },
-    {
-      "id": "1e0e041b-62c6-42da-8cce-30852cbddfa9",
-      "date": "2022-09-27",
-      "time": "19:15",
-      "length": 60
-    },
-    {
-      "id": "399f9166-e4bc-49ac-85c3-6df38f1e2a63",
-      "date": "2022-09-15",
-      "time": "13:00",
-      "length": 30
-    },
-    {
-      "id": "ebe6e4de-eb07-4567-b82a-63f390963b34",
-      "date": "2022-09-26",
-      "time": "14:30",
-      "length": 45
-    },
-    {
-      "id": "a11f2db7-c4b0-4357-8849-c8e0cad85ec8",
-      "date": "2022-09-28",
-      "time": "18:00",
-      "length": 45
+      "id": "642deefa-2a57-42d9-8434-d68ad6a27f24",
+      "date": "2022-09-30",
+      "time": "19:45",
+      "length": 60,
+      "type": "Terapeutska"
     }
   ],
   "masseuers": [
