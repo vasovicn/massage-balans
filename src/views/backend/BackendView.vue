@@ -2,12 +2,16 @@
     <router-link :to="{ name: 'HomeView' }">Home</router-link>
       <!-- This is all today and future reservations -->
       <div v-for="reservationDate in sortedReservationsDates.filter(x => Date.parse(x) >= Date.parse(currentDate))" :key="reservationDate.id" style="border:1px solid;min-height:50px;">
-        <h3>{{reservationDate}}</h3>
-        <div v-for="reservation in this.reservations.filter(x => x.date === reservationDate)" :key="reservation">
+        <div v-if="Date.parse(reservationDate) === Date.parse(currentDate)">
+          <h3>TODAY ({{reservationDate}})</h3>
+        </div>
+        <div v-else>
+          <h3>{{reservationDate}}</h3>
+        </div>
+        <div v-for="reservation in this.reservations.filter(x => x.date === reservationDate).sort(function (a, b) {return a.time.localeCompare(b.time)})" :key="reservation">
           <div style="border:1px solid">
-            {{reservation.date}}
             {{reservation.time}}
-            {{reservation.length}}
+            {{reservation.length}} min
             {{reservation.type}}
           </div>
         </div>
@@ -17,11 +21,10 @@
         <div v-if="pastReservations">
           <div v-for="reservationDate in sortedReservationsDates.filter(x => Date.parse(x) < Date.parse(currentDate))" :key="reservationDate.id" style="border:1px solid;min-height:50px">
             <h3>{{reservationDate}}</h3>
-            <div v-for="reservation in this.reservations.filter(x => x.date === reservationDate)" :key="reservation">
+            <div v-for="reservation in this.reservations.filter(x => x.date === reservationDate).sort(function (a, b) {return a.time.localeCompare(b.time)})" :key="reservation">
               <div style="border:1px solid">
-                {{reservation.date}}
                 {{reservation.time}}
-                {{reservation.length}}
+                {{reservation.length}} min
                 {{reservation.type}}
               </div>
             </div>
@@ -47,7 +50,6 @@ export default {
       currentDate() {
         const current = new Date();
         const currentDate = `${current.getFullYear()}-${current.getMonth()+1}-${current.getDate()}`;
-        console.log(currentDate)
         return currentDate;
       }
     },

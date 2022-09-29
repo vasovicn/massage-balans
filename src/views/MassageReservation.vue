@@ -15,7 +15,7 @@
         <div class="time" v-if="date && !clicked" @click="this.clicked = !this.clicked">
             Vreme:{{time}}
         </div>
-        <button v-if="date && time" style="margin: 20px;" class="button" @click="sendReservation()">Posalji rezervaciju</button>
+        <button v-if="date && !clicked" style="margin: 20px;" class="button" @click="sendReservation()">Posalji rezervaciju</button>
     </div>
 </template>
     

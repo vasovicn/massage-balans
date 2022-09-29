@@ -95,6 +95,153 @@
       "time": "19:45",
       "length": 60,
       "type": "Terapeutska"
+    },
+    {
+      "id": "c919d197-6604-41a5-9408-df9d0a9b53e9",
+      "date": "2022-09-30",
+      "time": "09:30",
+      "length": 45,
+      "type": "Madero"
+    },
+    {
+      "id": "b82f912b-12f9-4064-8e9d-53620d2ba54e",
+      "date": "2022-09-30",
+      "time": "14:30",
+      "length": 45,
+      "type": "Madero"
+    },
+    {
+      "id": "acd24b26-f1c3-4983-a5b4-8bf2aab10de7",
+      "date": "2022-09-30",
+      "time": "11:00",
+      "length": 45,
+      "type": "Madero"
+    },
+    {
+      "id": "f1ba80ac-c2f2-4346-97c4-2fc7461eaf2d",
+      "date": "2022-09-29",
+      "time": "20:00",
+      "length": 45,
+      "type": "Madero"
+    },
+    {
+      "id": "94cd2d40-cf56-4115-abf6-247542c9a4a7",
+      "date": "2022-09-29",
+      "time": "21:00",
+      "length": 45,
+      "type": "Madero"
+    },
+    {
+      "id": "6a0e4dbe-b915-463f-a8bc-15a1b083f569",
+      "date": "2022-09-30",
+      "time": "12:30",
+      "length": 45,
+      "type": "Madero"
+    },
+    {
+      "id": "76f5d2ac-da81-47af-a4cd-5e8071589eed",
+      "date": "2022-09-30",
+      "time": "16:00",
+      "length": 45,
+      "type": "Madero"
+    },
+    {
+      "id": "ac1e039f-c680-4334-83bf-6a01867066fa",
+      "date": "2022-09-30",
+      "time": "17:00",
+      "length": 45,
+      "type": "Madero"
+    },
+    {
+      "id": "20ee57c8-527c-4415-acfa-8d841011f162",
+      "date": "2022-10-10",
+      "time": "12:00",
+      "length": 45,
+      "type": "Madero"
+    },
+    {
+      "id": "a439989b-e393-4d77-823e-ab3f5ec4071c",
+      "date": "2022-10-15",
+      "time": "09:00",
+      "length": 45,
+      "type": "Madero"
+    },
+    {
+      "id": "a0643f16-079a-458a-9c70-d074dce77629",
+      "date": "2022-10-30",
+      "time": "08:00",
+      "length": 45,
+      "type": "Madero"
+    },
+    {
+      "id": "7fb35c33-4f2f-4b4b-87e1-bb0824c1bcce",
+      "date": "2022-10-30",
+      "time": "10:00",
+      "length": 45,
+      "type": "Madero"
+    },
+    {
+      "id": "c530408d-932e-4996-80d1-72c0c5d8f9e7",
+      "date": "2022-10-30",
+      "time": "12:00",
+      "length": 45,
+      "type": "Madero"
+    },
+    {
+      "id": "ba306720-43a3-483f-9428-d62af656c6fb",
+      "date": "2022-10-30",
+      "time": "14:30",
+      "length": 45,
+      "type": "Madero"
+    },
+    {
+      "id": "4e7ae058-cb67-4e79-b3c5-e674439c5660",
+      "date": "2022-10-30",
+      "time": "16:30",
+      "length": 45,
+      "type": "Madero"
+    },
+    {
+      "id": "1537587e-eb08-45d3-af22-2079b9b0e998",
+      "date": "2022-10-29",
+      "time": "16:15",
+      "length": 45,
+      "type": "Madero"
+    },
+    {
+      "id": "33290273-0a8f-4704-892e-8169748f669d",
+      "date": "2022-10-29",
+      "time": "18:15",
+      "length": 60,
+      "type": "Terapeutska"
+    },
+    {
+      "id": "5e9ba325-b63b-47e7-9be3-bf8eb3b84443",
+      "date": "2022-09-30",
+      "time": "18:30",
+      "length": 45,
+      "type": "Madero"
+    },
+    {
+      "id": "98b99800-e4fe-4390-bdc9-0a220123ab5f",
+      "date": "2022-10-08",
+      "time": "16:00",
+      "length": 45,
+      "type": "Madero"
+    },
+    {
+      "id": "db2e0afb-eeaa-4ad7-a55f-4a888afef86b",
+      "date": "2022-09-30",
+      "time": "13:30",
+      "length": 45,
+      "type": "Madero"
+    },
+    {
+      "id": "aaf194c2-80fb-4ed5-b8e6-e1451e3629e5",
+      "date": "2022-10-04",
+      "time": "20:00",
+      "length": 60,
+      "type": "Terapeutska"
     }
   ],
   "masseuers": [

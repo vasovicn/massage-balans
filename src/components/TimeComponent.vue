@@ -8,10 +8,9 @@
               {{time}}
       </div>
     </div>
-    <div v-else>
+  </div>
+  <div class="time" v-if="!timesToDisplay">
         <h1>All termins are booked!</h1>
-        {{timesToDisplay}}
-    </div>
   </div>
 </template>
 
@@ -47,7 +46,7 @@ methods: {
 
         var helperMinutes = minutes
         var helperHour = hour
-        for (let i = 0; i < this.massage.length/15; i++) {
+        for (let i = 0; i < element.length/15; i++) {
           if (helperMinutes === 45) {
             helperHour += 1
             helperMinutes = 0
@@ -71,7 +70,7 @@ methods: {
         });
     const finalListOfReservedTimes = all.filter(x => !listReservedTime.includes(x))
     
-    // Aditional times to be deleted beacouse of lenght of massage
+    // Aditional times to be deleted because of lenght of massage
     var moreTimesToBeDeleted = []
     finalListOfReservedTimes.forEach(time => {
       var helpHour = parseInt(time.slice(0, 2))
@@ -119,10 +118,8 @@ methods: {
     // but also if currentTime is 19:55 he can reserve time 20:00 but he shouldn't be able.
     var aditionalDelete = []
     if (this.date === this.currentDate) {
-      var hours = this.currentTime.slice(0, 2)
-      if (parseInt(this.currentTime.slice(-2)) > 30) {
-        hours +=hours +1
-      }
+      var hours = parseInt(this.currentTime.slice(0, 2))
+      hours += 1
       timesToDisplay.forEach(time => {
         if (parseInt(time.slice(0, 2)) < hours) {
           aditionalDelete.push(time)
@@ -131,6 +128,7 @@ methods: {
     }
     const finalTimes = timesToDisplay.filter(x => !aditionalDelete.includes(x))
     this.timesToDisplay = finalTimes
+    console.log(finalTimes)
     },
     hoverFunc(time) {
       const length = this.massage.length/15
@@ -189,7 +187,7 @@ methods: {
 
 }
 .times {
-  padding:10px
+  padding:10px;
 }
 .time:hover {
   background-color: white;
