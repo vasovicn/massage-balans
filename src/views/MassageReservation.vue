@@ -15,7 +15,7 @@
         <div class="time" v-if="date && !clicked" @click="this.clicked = !this.clicked">
             Vreme:{{time}}
         </div>
-        <button v-if="date && time" style="margin: 20px;" class="button" @click="sendReservation()">Posalji rezervaciju</button>
+        <button v-if="date && !clicked" style="margin: 20px;" class="button" @click="sendReservation()">Posalji rezervaciju</button>
     </div>
 </template>
     
@@ -68,7 +68,9 @@ export default {
             const reservation = {"id": uuid.v4(),
                                  "date":this.date,
                                  "time": this.time,
-                                 "length": this.massage.length}
+                                 "length": this.massage.length,
+                                 "type": this.massage.name
+                                }
             this.$store.dispatch('postReservedTime', reservation)
             this.$router.push({ name: 'MassageConfirmation', params: {id: reservation.id}})
 

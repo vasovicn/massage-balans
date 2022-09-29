@@ -26,7 +26,6 @@ export default {
     return apiClient.get('/reservedTime/', { params: { date: date } })
   },
   postReservation(reservation) {
-    console.log(reservation)
     return apiClient.post('/reservedTime', reservation)
   },
   getAllReservations() {

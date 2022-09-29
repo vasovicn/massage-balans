@@ -1,16 +1,36 @@
 <template>
     <router-link :to="{ name: 'HomeView' }">Home</router-link>
-      <div v-for="reservation in reservations" :key="reservation.id" style="min-height:50px">
-        <div v-if="reservation.date > currentDate">
-          MANJIII
+      <!-- This is all today and future reservations -->
+      <div v-for="reservationDate in sortedReservationsDates.filter(x => Date.parse(x) >= Date.parse(currentDate))" :key="reservationDate.id" style="border:1px solid;min-height:50px;">
+        <div v-if="Date.parse(reservationDate) === Date.parse(currentDate)">
+          <h3>TODAY ({{reservationDate}})</h3>
         </div>
-        <div class="reservations">
-          {{reservation.date}}
-          {{reservation.time}}
-          {{reservation.length}}
+        <div v-else>
+          <h3>{{reservationDate}}</h3>
+        </div>
+        <div v-for="reservation in this.reservations.filter(x => x.date === reservationDate).sort(function (a, b) {return a.time.localeCompare(b.time)})" :key="reservation">
+          <div style="border:1px solid">
+            {{reservation.time}}
+            {{reservation.length}} min
+            {{reservation.type}}
+          </div>
         </div>
       </div>
-      <button @click="currentDate">TEST</button>
+      <div @click="togglePastReservations"  style="border:1px solid;cursor:pointer;background-color:gray;max-width: 450px;">
+        <h5 style="margin: auto;">Past Reservations</h5>
+        <div v-if="pastReservations">
+          <div v-for="reservationDate in sortedReservationsDates.filter(x => Date.parse(x) < Date.parse(currentDate))" :key="reservationDate.id" style="border:1px solid;min-height:50px">
+            <h3>{{reservationDate}}</h3>
+            <div v-for="reservation in this.reservations.filter(x => x.date === reservationDate).sort(function (a, b) {return a.time.localeCompare(b.time)})" :key="reservation">
+              <div style="border:1px solid">
+                {{reservation.time}}
+                {{reservation.length}} min
+                {{reservation.type}}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </template>
     
 <script>   
@@ -18,26 +38,42 @@ export default {
       name: 'BackendView',
       data() {
         return {
-            reservations: []
+            reservations: [],
+            sortedReservationsDates: [],
+            pastReservations: false
         }
       },
       created() {
         this.$store.dispatch('fetchAllReservations').then(this.reservations = this.$store.state.reservations)
     },
-    methods: {
+    computed: {
       currentDate() {
         const current = new Date();
         const currentDate = `${current.getFullYear()}-${current.getMonth()+1}-${current.getDate()}`;
-        console.log(currentDate)
         return currentDate;
+      }
+    },
+    methods: {
+      togglePastReservations() {
+        this.pastReservations = !this.pastReservations
       }
     },
     mounted() {
       this.reservations = this.$store.state.reservations
-      const test = this.$store.state.reservations
-      // U OVOM TRENUTKU JOS UVEK NIJE GOTOV POZIV IZ LINIJE 24
-      console.log('TEST:', test)
-      console.log('TEST SORT:', test.sort())
+
+      var reservationDates = []
+        var reservations = this.reservations
+        reservations.forEach(res => {
+          if (!reservationDates.includes(res.date)) {
+            reservationDates.push(res.date)
+          }
+        })
+        const sortedAsc = reservationDates.sort(
+          (objA, objB) => {
+            return +new Date(objA) - +new Date(objB)
+          }
+        );
+        this.sortedReservationsDates = sortedAsc
     }
 }
 </script>
