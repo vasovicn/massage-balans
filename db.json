@@ -242,6 +242,69 @@
       "time": "20:00",
       "length": 60,
       "type": "Terapeutska"
+    },
+    {
+      "id": "66043535-b949-4126-a9b7-9070277eeb2c",
+      "date": "2022-10-07",
+      "time": "21:15",
+      "length": 45,
+      "type": "Madero"
+    },
+    {
+      "id": "13b2aaea-e953-4078-9326-21541db42453",
+      "date": "2022-10-13",
+      "time": "10:00",
+      "length": 30,
+      "type": "Relaks"
+    },
+    {
+      "id": "c8ac6db5-18ce-4cd9-b519-9c9c1c8de61b",
+      "date": "2022-10-19",
+      "time": "16:00",
+      "length": 45,
+      "type": "Madero"
+    },
+    {
+      "id": "9b5a4b25-6646-488c-9278-19cc49a6e2fa",
+      "date": "2022-10-26",
+      "time": "16:00",
+      "length": 60,
+      "type": "Terapeutska"
+    },
+    {
+      "id": "fc24535a-d28c-4265-8acc-4d6f6d5e7919",
+      "date": "2022-10-01",
+      "time": "16:00",
+      "length": 45,
+      "type": "Madero"
+    },
+    {
+      "id": "4a5ed189-1984-4fed-9dc1-f047e8e87a1c",
+      "date": "2022-10-01",
+      "time": "17:00",
+      "length": 60,
+      "type": "Terapeutska"
+    },
+    {
+      "id": "809621a2-4f55-4ac5-8040-3ce3de4678e8",
+      "date": "2022-10-01",
+      "time": "18:15",
+      "length": 30,
+      "type": "Relaks"
+    },
+    {
+      "id": "d990a55f-3aaf-4776-9771-34fdc948cebd",
+      "date": "2022-10-01",
+      "time": "19:00",
+      "length": 45,
+      "type": "Madero"
+    },
+    {
+      "id": "d2b0548e-399c-4daf-aa9b-b191807bcc01",
+      "date": "2022-10-01",
+      "time": "20:00",
+      "length": 45,
+      "type": "Madero"
     }
   ],
   "masseuers": [

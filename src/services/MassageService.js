@@ -30,5 +30,11 @@ export default {
   },
   getAllReservations() {
     return apiClient.get('/reservedTime')
+  },
+  deleteMassage(massage) {
+    return apiClient.delete('/massages/' + massage.id)
+  },
+  postMassage(massage) {
+    return apiClient.post('/massages', massage)
   }
 }

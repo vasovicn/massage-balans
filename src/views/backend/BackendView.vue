@@ -31,6 +31,14 @@
           </div>
         </div>
       </div>
+      <div>
+        <h1>Masaze:</h1>
+        <div v-for="massage in massages" :key="massage.id">
+          {{massage.name}}
+          <button @click="deleteMassage(massage)">delete</button>
+        </div>
+        <router-link :to="{ name: 'CreateNewMassage' }">add new massage</router-link>
+      </div>
     </template>
     
 <script>   
@@ -51,11 +59,17 @@ export default {
         const current = new Date();
         const currentDate = `${current.getFullYear()}-${current.getMonth()+1}-${current.getDate()}`;
         return currentDate;
+      },
+      massages() {
+        return this.$store.state.massages
       }
     },
     methods: {
       togglePastReservations() {
         this.pastReservations = !this.pastReservations
+      },
+      deleteMassage(massage) {
+        this.$store.dispatch('deleteMassage', massage)
       }
     },
     mounted() {
