@@ -48,6 +48,12 @@ export default createStore({
     },
     SET_RESERVATIONS(state, reservations) {
       state.reservations = reservations
+    },
+    DELETE_MASSAGE(state, massage) {
+      console.log('DELETE_MASSAGE:', massage)
+      console.log('DELETE_MASSAGE--', state.massages)
+      state.massages - massage
+      console.log('DELETE_MASSAGE----', state.massages)
     }
   },
   actions: {
@@ -120,5 +126,19 @@ export default createStore({
           console.log(error)
         })
   },
+  deleteMassage({dispatch}, massage) {
+    return MassageService.deleteMassage(massage)
+    .then(dispatch('fetchMassages'))
+    .catch(error => {
+      console.log(error)
+    })
+  },
+  addMassage({dispatch}, massage) {
+    return MassageService.postMassage(massage)
+    .then(dispatch('fetchMassages'))
+    .catch(error => {
+      console.log(error)
+    })
+  }
   }
 })

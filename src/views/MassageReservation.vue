@@ -40,6 +40,7 @@ export default {
     created() {
         this.$store.dispatch('fetchMassage', this.id)
         this.timeMin()
+        
     },
     computed: {
         massage() {

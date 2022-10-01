@@ -1,6 +1,6 @@
 <template>
   <!-- <div style="column-count: 2;"> -->
-    <router-link :to="{ name: 'BackendView' }">Reservations</router-link>
+    <router-link :to="{ name: 'BackendView' }">Admin View</router-link>
     <MassageList/>
     <div style="min-height:600px">
       <MasseurList/>

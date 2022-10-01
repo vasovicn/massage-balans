@@ -3,6 +3,7 @@ import HomeView from '../views/HomeView.vue'
 import MassageReservation from '../views/MassageReservation.vue'
 import MassageConfirmation from '../views/MassageConfirmation.vue'
 import BackendView from '../views/backend/BackendView.vue'
+import CreateNewMassage from '../views/backend/CreateNewMassage'
 
 const routes = [
   {
@@ -28,6 +29,11 @@ const routes = [
     props: true,
     component: BackendView
   },
+  {
+    path: '/create-new-masasge',
+    name: 'CreateNewMassage',
+    component: CreateNewMassage
+  }
 ]
 
 const router = createRouter({
