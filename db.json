@@ -1,14 +1,6 @@
 {
   "massages": [
     {
-      "id": 123,
-      "name": "Madero",
-      "length": 45,
-      "price": 2000,
-      "info": "SUPER MADERO MASAZA",
-      "image": "@/assets/slika_masaze1.jpg"
-    },
-    {
       "id": 456,
       "name": "Relaks",
       "length": 30,
@@ -23,6 +15,30 @@
       "price": 2500,
       "info": "SUPER TERAPEUTSKA MASAZA",
       "image": "@/assets/slika_masaze3.jpg"
+    },
+    {
+      "id": "e158d680-b7a1-4b69-a7bd-6213b080336c",
+      "name": "Madero",
+      "lenght": "45",
+      "price": "2000",
+      "info": "SUPER MADERO MASAZA",
+      "image": null
+    },
+    {
+      "id": "1f2e2459-48b5-424a-b036-757304dcacfc",
+      "name": "3213213",
+      "lenght": 321321,
+      "price": 321321,
+      "info": "321321",
+      "image": null
+    },
+    {
+      "id": "90190439-f667-4e6b-9ab8-4bb39845bc62",
+      "name": "dsadas",
+      "lenght": "dsad",
+      "price": "dsadas",
+      "info": "dsadas",
+      "image": null
     }
   ],
   "reservedTime": [
