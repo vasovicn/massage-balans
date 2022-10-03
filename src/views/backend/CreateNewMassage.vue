@@ -3,8 +3,8 @@
     <fieldset>
       <h2 class="fs-title">Create Massage</h2>
       <input type="text" placeholder="Name" v-model="name"/>
-      <input type="text" placeholder="Lenght" v-model="lenght"/>
-      <input type="text" placeholder="Price" v-model="price"/>
+      <input type="text" placeholder="Lenght" v-model.number="lenght"/>
+      <input type="text" placeholder="Price" v-model.number="price"/>
       <textarea type="text" placeholder="Info" v-model="info"/>
       <div class="container">
         <div class="avatar-upload">
@@ -31,8 +31,8 @@ import { uuid } from 'vue-uuid';
       data () {
         return {
           "name": "",
-          "lenght": "",
-          "price": "",
+          "lenght": null,
+          "price": null,
           "info": "",
           "image": null,
           "imagePreview": "@/assets/add-image2.jpg"
