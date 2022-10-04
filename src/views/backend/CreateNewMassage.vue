@@ -3,7 +3,7 @@
     <fieldset>
       <h2 class="fs-title">Create Massage</h2>
       <input type="text" placeholder="Name" v-model="name"/>
-      <input type="text" placeholder="Lenght" v-model.number="lenght"/>
+      <input type="text" placeholder="Lenght" v-model.number="length"/>
       <input type="text" placeholder="Price" v-model.number="price"/>
       <textarea type="text" placeholder="Info" v-model="info"/>
       <div class="container">
@@ -13,7 +13,7 @@
                 <label for="imageUpload"></label>
             </div>
             <div class="avatar-preview" >
-                <div id="imagePreview" :style="{ backgroundImage: `url(require(${imagePreview}))` }">
+                <div id="imagePreview" :style="{backgroundImage: 'url(' + require('@/assets/' + imagePreview) + ')' }">
                 </div>
             </div>
         </div>
@@ -25,24 +25,25 @@
     
 <script>
 import { uuid } from 'vue-uuid';
+import axios from 'axios'
 
   export default {
       name: 'CreateNewMassage',
       data () {
         return {
           "name": "",
-          "lenght": null,
+          "length": null,
           "price": null,
           "info": "",
           "image": null,
-          "imagePreview": "@/assets/add-image2.jpg"
+          "imagePreview": "add-image2.jpg"
         }
       },
       methods: {
         async addMassage() {
           const massage = {"id": uuid.v4(),
                            "name": this.name,
-                           "lenght": this.lenght,
+                           "length": this.length,
                            "price": this.price,
                            "info": this.info,
                            "image": this.image,
@@ -52,8 +53,9 @@ import { uuid } from 'vue-uuid';
         },
         readURL(event) {
           const image = event.target.files[0]
-          this.image = '@/assets/' + image.name
-          this.imagePreview = '@/assets/' + image.name
+          this.image = image.name
+          console.log(image.name)
+          this.imagePreview = image.name
 }
       },
       components: {}

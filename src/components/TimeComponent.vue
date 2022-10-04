@@ -1,6 +1,6 @@
 <template>
   <div class="times">
-    <div v-if="timesToDisplay">
+    <div v-if="timesToDisplay.length">
       <div class="time"
             v-for="time in timesToDisplay" 
           :key="time.id" 
@@ -8,9 +8,11 @@
               {{time}}
       </div>
     </div>
+    <div v-else>
+    <div>
+      <h1>All termins are booked!</h1>
+    </div>
   </div>
-  <div class="time" v-if="!timesToDisplay">
-        <h1>All termins are booked!</h1>
   </div>
 </template>
 
@@ -70,7 +72,7 @@ methods: {
         });
     const finalListOfReservedTimes = all.filter(x => !listReservedTime.includes(x))
     
-    // Aditional times to be deleted because of lenght of massage
+    // Aditional times to be deleted because of length of massage
     var moreTimesToBeDeleted = []
     finalListOfReservedTimes.forEach(time => {
       var helpHour = parseInt(time.slice(0, 2))

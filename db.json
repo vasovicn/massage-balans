@@ -6,7 +6,7 @@
       "length": 30,
       "price": 1500,
       "info": "SUPER Relaks MASAZA",
-      "image": "@/assets/slika_masaze2.jpg"
+      "image": "slika_masaze2.jpg"
     },
     {
       "id": 789,
@@ -14,31 +14,55 @@
       "length": 60,
       "price": 2500,
       "info": "SUPER TERAPEUTSKA MASAZA",
-      "image": "@/assets/slika_masaze3.jpg"
+      "image": "slika_masaze3.jpg"
     },
     {
       "id": "e158d680-b7a1-4b69-a7bd-6213b080336c",
       "name": "Madero",
-      "lenght": "45",
+      "length": "45",
       "price": "2000",
       "info": "SUPER MADERO MASAZA",
-      "image": null
+      "image": "slika_masaze3.jpg"
     },
     {
       "id": "1f2e2459-48b5-424a-b036-757304dcacfc",
       "name": "3213213",
-      "lenght": 321321,
+      "length": 321321,
       "price": 321321,
       "info": "321321",
-      "image": null
+      "image": "slika_masaze3.jpg"
     },
     {
       "id": "90190439-f667-4e6b-9ab8-4bb39845bc62",
       "name": "dsadas",
-      "lenght": "dsad",
+      "length": "dsad",
       "price": "dsadas",
       "info": "dsadas",
-      "image": null
+      "image": "slika_masaze3.jpg"
+    },
+    {
+      "id": "e2dd15c9-195f-4b3d-b466-454e174c3a27",
+      "name": "sdadsa",
+      "length": null,
+      "price": null,
+      "info": "",
+      "image": "Download-Icon.jpg"
+    },
+    {
+      "id": "93e98978-3ecf-4f24-9470-9c19d35705f7",
+      "name": "3213",
+      "length": 3231,
+      "price": 3213,
+      "info": "3213",
+      "image": "Download-Icon.jpg"
+    },
+    {
+      "id": "18acb78b-b99f-4cfe-9c55-9ded14a5c43c",
+      "name": "Nikola",
+      "length": 2312312,
+      "price": 23321,
+      "info": "DASDAS",
+      "image": "add-image1.png"
     }
   ],
   "reservedTime": [
@@ -321,6 +345,27 @@
       "time": "20:00",
       "length": 45,
       "type": "Madero"
+    },
+    {
+      "id": "c900c0d1-c3bf-47af-a85e-f4665617e35f",
+      "date": "2022-10-13",
+      "time": "20:45",
+      "length": "45",
+      "type": "Madero"
+    },
+    {
+      "id": "264fe22f-b417-4dfc-9b5d-6b1829d99ed8",
+      "date": "2022-10-13",
+      "time": "15:00",
+      "length": 30,
+      "type": "Relaks"
+    },
+    {
+      "id": "020874c1-7051-47a8-b571-c672f51fde62",
+      "date": "2022-10-13",
+      "time": "17:00",
+      "length": 60,
+      "type": "Terapeutska"
     }
   ],
   "masseuers": [

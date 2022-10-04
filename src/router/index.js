@@ -1,21 +1,15 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
-import MassageReservation from '../views/MassageReservation.vue'
 import MassageConfirmation from '../views/MassageConfirmation.vue'
 import BackendView from '../views/backend/BackendView.vue'
 import CreateNewMassage from '../views/backend/CreateNewMassage'
+import MassageDetails from '../views/MassageDetails'
 
 const routes = [
   {
     path: '/',
     name: 'HomeView',
     component: HomeView
-  },
-  {
-    path: '/massage/:id',
-    name: 'MassageReservation',
-    props: true,
-    component: MassageReservation
   },
   {
     path: '/massage-confirmation/:id',
@@ -33,7 +27,13 @@ const routes = [
     path: '/create-new-masasge',
     name: 'CreateNewMassage',
     component: CreateNewMassage
-  }
+  },
+  {
+    path: '/massage-details/:id',
+    name: 'MassageDetails',
+    props: true,
+    component: MassageDetails
+  },
 ]
 
 const router = createRouter({

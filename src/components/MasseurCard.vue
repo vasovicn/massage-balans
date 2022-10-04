@@ -29,10 +29,10 @@
   transition: all 0.1s ease-in;
 }
 
-.card:hover {
+/* .card:hover {
   top: -2px;
   box-shadow: 0 4px 5px rgba(0, 0, 0, 0.2);
-}
+} */
 
 .card article {
   padding: 20px;
@@ -67,9 +67,9 @@
   background-size: cover;
   background-position: center center;
 }
-.card:hover {
+/* .card:hover {
   cursor: pointer;
-}
+} */
 </style>
 
   

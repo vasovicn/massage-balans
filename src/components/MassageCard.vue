@@ -1,37 +1,38 @@
 <template>
-  <router-link :to="{ name: 'MassageReservation'}">
-    <div class="massage" @click="togleDetails()">
-    <div>
-      <span class="card">
-        <div class="thumb"
-          style="background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/210284/flex-1.jpg);"></div>
+    <div class="massage" >
+    <div class="card" :style="{backgroundImage: 'url(' + require('@/assets/' + massage.image) + ')' }">
+      <span>
+        <div ></div>
         <article>
           <h1>{{massage.name}}</h1>
+          <button class="button" @click="toggleReservation()">Rezervisi</button>
+
         </article>
       </span>
     </div>
+    <MassageReservation v-if="reservationOpen" :massageID="massage.id"/>
     <!-- <MassageDetails v-if="detailsOpen" :massageID="massage.id" /> -->
   </div>
-  </router-link>
 </template>
   
 <script>
+import MassageReservation from '@/components/MassageReservation.vue';
 // import MassageDetails from '@/components/MassageDetails'
 
 export default {
   components: {
-    // MassageDetails
-  },
+    MassageReservation
+},
   name: 'MassageCard',
   data() {
     return {
-      detailsOpen: false
+      reservationOpen: false
     }
   },
   props: ['massage'],
   methods: {
-    togleDetails() {
-      this.detailsOpen = !this.detailsOpen
+    toggleReservation() {
+      this.reservationOpen = !this.reservationOpen
     }
   }
 }
@@ -60,10 +61,10 @@ header {
   transition: all 0.1s ease-in;
 }
 
-.card:hover {
+/* .card:hover {
   top: -2px;
   box-shadow: 0 4px 5px rgba(0, 0, 0, 0.2);
-}
+} */
 
 .card article {
   padding: 20px;
@@ -98,7 +99,10 @@ header {
   background-size: cover;
   background-position: center center;
 }
-.card:hover {
+/* .card:hover {
+  cursor: pointer;
+} */
+.button:hover {
   cursor: pointer;
 }
 </style>
