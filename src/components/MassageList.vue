@@ -15,12 +15,12 @@ export default {
   name: 'MassageList',
   components: {
     MassageCard
-  },
+    },
   created() {
     this.$store.dispatch('fetchMassages')
-      .catch(error => {
-        console.log(error)
-      })
+        .catch(error => {
+          console.log(error)
+        })
   },
   computed: {
     massages() {
