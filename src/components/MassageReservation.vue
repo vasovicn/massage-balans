@@ -1,10 +1,9 @@
 <template>
-    <router-link :to="{ name: 'HomeView' }">Home</router-link>
     <div v-if="massage" class="massage">
-        <h1>{{massage.name}}</h1>
         <p>Trajanje masaze: {{massage.length}} min</p>
         <p> Cena masaze: {{massage.price}} RSD</p>
         <p>{{massage.info}}</p>
+        <p>Pick a date</p>
         <input id="date_picker" :min="dateMin" type="date" v-model="date" @change="changedDate"/>
         <TimeComponent v-if="date && clicked" 
                        :date="date" 
@@ -36,9 +35,9 @@ export default {
     components: {
     TimeComponent
 },
-    props: ['id'],
+    props: ['massageID'],
     created() {
-        this.$store.dispatch('fetchMassage', this.id)
+        this.$store.dispatch('fetchMassage', this.massageID)
         this.timeMin()
         
     },
@@ -101,7 +100,8 @@ export default {
   }
   .time {
     margin-top: 10px;
-    padding:3px
+    padding:3px;
+    min-height: 20px;
   }
   .time:hover {
     background-color: rgb(218, 218, 218);
