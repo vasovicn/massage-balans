@@ -1,5 +1,4 @@
 <template>
-    <h1 style="text-align:center">Maseri</h1>
     <div class="band">
       <MasseurCard v-for="masseur in masseuers" :key="masseur.id" :masseur="masseur"/>
     </div>
@@ -36,7 +35,7 @@
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: auto;
   gap: 10px;
-  padding:10px;
+  padding:20px;
 }
 
 @media (min-width: 30em) {

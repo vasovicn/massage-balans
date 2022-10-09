@@ -15,7 +15,7 @@ export default {
     name: 'MassageDetails',
     props: ['id'],
     created() {
-        this.$store.dispatch('fetchMassage', this.id)
+        this.$store.dispatch('fetchMassageDjango', this.id)
     },
     computed: {
         massage() {

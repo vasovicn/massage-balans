@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'massages.apps.MassagesConfig',
+    'reservation.apps.ReservationConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -158,3 +159,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # CORS_ORIGIN_ALLOW_ALL = True
 
 CORS_ORIGIN_ALLOW_ALL = True
+CSRF_TRUSTED_ORIGINS = ['http://localhost:8080','http://127.0.0.1']

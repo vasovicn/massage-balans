@@ -35,7 +35,7 @@ def create(request):
     print(request.body)
     r =json.loads(request.body)
     print(r)
-    massage = Massages(name=r['name'], info=r['info'], price = r['price'])
+    massage = Massages(name=r['name'], info=r['info'], price = r['price'], length = r['length'], image = r['image'])
     massage.save()
     print("sacuvano")
     return HttpResponse(status=200)

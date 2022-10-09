@@ -6,3 +6,5 @@ class Massages(models.Model):
     name = models.CharField(max_length=200)
     price = models.IntegerField(default=0)
     info = models.CharField(max_length=200)
+    length = models.IntegerField(default=0)
+    image = models.CharField(max_length=200, default="")

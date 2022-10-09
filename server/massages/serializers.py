@@ -3,4 +3,4 @@ from .models import Massages
 class MassageSerializer(serializers.ModelSerializer):
     class Meta:
         model = Massages
-        fields = ['id', 'name', 'info', 'price']
+        fields = ['id', 'name', 'info', 'price', 'length', 'image']

@@ -18,14 +18,14 @@
             </div>
         </div>
       </div>
-      <input type="button"  class="next action-button" value="Create" @click="addMassage"/>
+      <input type="button"  class="next action-button" value="Create" @click="addMassageDjango"/>
     </fieldset>
   </form>
 </template>
     
 <script>
 import { uuid } from 'vue-uuid';
-import axios from 'axios'
+// import axios from 'axios'
 
   export default {
       name: 'CreateNewMassage',
@@ -40,7 +40,7 @@ import axios from 'axios'
         }
       },
       methods: {
-        async addMassage() {
+        async addMassageDjango() {
           const massage = {"id": uuid.v4(),
                            "name": this.name,
                            "length": this.length,
@@ -48,13 +48,12 @@ import axios from 'axios'
                            "info": this.info,
                            "image": this.image,
           }
-          await this.$store.dispatch('addMassage', massage)
+          await this.$store.dispatch('addMassageDjango', massage)
           this.$router.push({ name: 'BackendView'})
         },
         readURL(event) {
           const image = event.target.files[0]
           this.image = image.name
-          console.log(image.name)
           this.imagePreview = image.name
 }
       },
