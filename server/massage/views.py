@@ -5,7 +5,7 @@ from django.http import Http404
 from django.shortcuts import render
 from django.template import loader
 
-from .models import Massages
+from .models import Massage
 from .forms import NameForm
 import json
 from .serializers import MassageSerializer
@@ -14,7 +14,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 def index(request):
     print('get')
-    messages_list = Massages.objects.all()
+    messages_list = Massage.objects.all()
     print(messages_list)
     serializer = MassageSerializer(messages_list, many=True)
     print(serializer)
@@ -22,9 +22,9 @@ def index(request):
 
 def get(request, id):
     print("GET")
-    massage = Massages.objects.get(pk=id)
+    massage = Massage.objects.get(pk=id)
     print(massage)
-    template = loader.get_template('massages/detail.html')
+    template = loader.get_template('massage/detail.html')
     context = {
         'massage': massage,
     }
@@ -35,7 +35,7 @@ def create(request):
     print(request.body)
     r =json.loads(request.body)
     print(r)
-    massage = Massages(name=r['name'], info=r['info'], price = r['price'], length = r['length'], image = r['image'])
+    massage = Massage(name=r['name'], info=r['info'], price = r['price'], length = r['length'], image = r['image'])
     massage.save()
     print("sacuvano")
     return HttpResponse(status=200)

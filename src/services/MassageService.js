@@ -51,22 +51,21 @@ export default {
     return apiClient.delete('/reservedTime/' + reservation.id)
   },
   getMassagesDjango() {
-    return apiClientDjango.get('/massages')
+    return apiClientDjango.get('/massage')
   },
   postDjangoMassage(massage) {
-    return apiClientDjango.post('/massages/create', massage)
+    return apiClientDjango.post('/massage/create', massage)
   },
   postDjangoReservation(reservation) {
     return apiClientDjango.post('/reservation/create', reservation)
   },
   getMassageDjango(id) {
-    return apiClientDjango.get('/massages/' + id)
+    return apiClientDjango.get('/massage/' + id)
   },
   getReservedTimeDjango(date) {
-    return apiClientDjango.get('/reservation/', { params: { date: date } })
+    return apiClientDjango.get('/reservation/', { params: { date: String(date) } })
   },
   getAllReservationsDjango() {
     return apiClientDjango.get('/reservation')
-  },
-  
+  }
 }

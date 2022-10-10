@@ -1,11 +1,5 @@
 <template>
   <MassageCard v-for="massage in massages" :key="massage" :massage="massage" />  
-  <!-- <div v-for="massage in massages" :key="massage">
-    {{massage.name}}
-    {{massage.info}}
-    {{massage.price}}
-    {{massage.length}}
-  </div> -->
 </template>
 
 <script>

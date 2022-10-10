@@ -1,9 +1,9 @@
-from email.message import Message
-import imp
+# from email.message import Message
+# import imp
 from django.http import HttpResponse, JsonResponse
-from django.http import Http404
-from django.shortcuts import render
-from django.template import loader
+# from django.http import Http404
+# from django.shortcuts import render
+# from django.template import loader
 
 from .models import Reservation
 import json
@@ -12,11 +12,14 @@ from .serializers import ReservationSerializer
 from django.views.decorators.csrf import csrf_exempt
 
 def index(request):
-    reservations_list = Reservation.objects.all()
+    if request.GET.get('date'):
+        reservations_list = Reservation.objects.filter(date=request.GET.get('date'))
+    else:
+        reservations_list = Reservation.objects.all()
     serializer = ReservationSerializer(reservations_list, many=True)
     return JsonResponse(serializer.data,safe=False)
 
-def get(request, id):
+def get(id):
     reservation = Reservation.objects.get(pk=id)
     serializer = ReservationSerializer(reservation)
     return JsonResponse(serializer.data,safe=False)

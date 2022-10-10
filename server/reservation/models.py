@@ -8,3 +8,6 @@ class Reservation(models.Model):
     length = models.IntegerField(default=0)
     type = models.CharField(max_length=200, default="")
     # customer_id = models.ForeignKey(Customer, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.date + ' ' + self.time

@@ -208,6 +208,5 @@ export default createStore({
           console.log(error)
         })
     },
-
   }
 })
