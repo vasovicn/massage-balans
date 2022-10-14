@@ -10,4 +10,5 @@ router = routers.DefaultRouter()
 urlpatterns = [
     path('login', views.login, name='login'),
     path('home', views.home, name="home"),
+    path('verifyPassword', views.verifyPassword, name='verifyPassword')
 ]
