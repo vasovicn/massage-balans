@@ -48,7 +48,6 @@ export default {
     },
     methods: {
         sendReservation() {
-            console.log(this.reservation)
             this.$emit('submitReservation', this.reservation)
         }
 

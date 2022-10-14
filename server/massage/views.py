@@ -13,17 +13,12 @@ from .serializers import MassageSerializer
 from django.views.decorators.csrf import csrf_exempt
 
 def index(request):
-    print('get')
     messages_list = Massage.objects.all()
-    print(messages_list)
     serializer = MassageSerializer(messages_list, many=True)
-    print(serializer)
     return JsonResponse(serializer.data,safe=False)
 
 def get(request, id):
-    print("GET")
     massage = Massage.objects.get(pk=id)
-    print(massage)
     template = loader.get_template('massage/detail.html')
     context = {
         'massage': massage,
@@ -32,10 +27,7 @@ def get(request, id):
 
 @csrf_exempt
 def create(request):
-    print(request.body)
     r =json.loads(request.body)
-    print(r)
     massage = Massage(name=r['name'], info=r['info'], price = r['price'], length = r['length'], image = r['image'])
     massage.save()
-    print("sacuvano")
     return HttpResponse(status=200)

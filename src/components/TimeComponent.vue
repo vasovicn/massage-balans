@@ -35,7 +35,6 @@ export default {
       await this.$store.dispatch('fetchReservedTimeDjango', this.date)
 
       const reserved = this.$store.state.reservedTime
-      console.log('RESERVED', reserved)
       const all = this.$store.state.allTermins
       var listReservedTime = []
       // SVE REZERVACIJE -------------------------------

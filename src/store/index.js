@@ -1,13 +1,12 @@
 import { createStore } from 'vuex'
 import MassageService from '@/services/MassageService'
 import axios from 'axios'
-import  VueCookies  from 'vue-cookies'
 
 export default createStore({
   state: {
     token: '',
+    username: '',
     isAuthenticated: false,
-    user: 'Adam Jahr',
     massages: [],
     reservedTime: [],
     massage: null,
@@ -63,6 +62,9 @@ export default createStore({
     REMOVE_TOKEN(state) {
       state.token = ''
       state.isAuthenticated = false
+    },
+    SET_USERNAME(state, username) {
+      state.username = username
     }
   },
   actions: {
@@ -101,7 +103,6 @@ export default createStore({
     getMassagesDjango({ commit }) {
       return MassageService.getMassagesDjango()
         .then(response => {
-          console.log(response.data)
           commit('SET_MASSAGES', response.data)
         })
         .catch(error => {
@@ -158,36 +159,33 @@ export default createStore({
         })
     },
     initialToken() {
-        if (localStorage.getItem('token')) {
-          this.state.token = localStorage.getItem('token')
-          this.state.isAuthenticated = true
-        }
-        else {
-          this.state.token = ''
-          this.state.isAuthenticated = false
-        }
+      if (localStorage.getItem('token')) {
+        this.state.token = localStorage.getItem('token')
+        this.state.isAuthenticated = true
+      }
+      else {
+        this.state.token = ''
+        this.state.isAuthenticated = false
+      }
     },
-    loginDjango({commit}, formData) {
+    loginDjango({ commit }, formData) {
       return MassageService.loginDjango(formData)
-      .then(response => {
-        if (response.status === 200 && formData.username === 'nikola') {
-          console.log('TOKEN', response.data.auth_token)
-          VueCookies.set("sessionid", response.data.auth_token)
-          window.location = 'http://localhost:8000/admin'
-        }
-        else {
-          console.log('dasdasdasdas', response.data.auth_token)
+        .then(response => {
+
           const token = response.data.auth_token
           commit('SET_TOKEN', token)
           axios.defaults.headers.common["Authorization"] = "Token" + token
           localStorage.setItem("token", token)
-        }
-      })
+          console.log(formData.username)
+          commit('SET_USERNAME', formData.username)
+        })
     },
-    signupDjango({dispatch}, credentials) {
+    signupDjango({ dispatch }, credentials) {
       return MassageService.signupDjango(credentials)
-      .then(dispatch('loginDjango', credentials)
-      )
+        .then(response => {
+          console.log('SRANJE', response.data)
+          dispatch('loginDjango', credentials)
+    })
     }
   }
 })

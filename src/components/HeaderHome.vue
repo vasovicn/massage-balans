@@ -70,6 +70,29 @@
                         </div>
                     </div>
                 </div>
+                <div class="nav-item dropdown">
+                        <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle mr-4">Login</a>
+                        <div class="dropdown-menu action-form">
+                            <form @submit.prevent="resetPassword">
+                                <div class="form-group">
+                                    <input type="password" class="form-control" placeholder="Old Password"
+                                        required="required" v-model="reset.oldPassword">
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" class="form-control" placeholder="New Password"
+                                        required="required" v-model="reset.newPassword">
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" class="form-control" placeholder="Confirm Password"
+                                        required="required" v-model="reset.newPasswordConfirm">
+                                </div>
+                                <input type="submit" class="btn btn-primary btn-block" value="Reset Password">
+                            </form>
+                        </div>
+                    </div>
+                <div v-if="this.$store.state.isAuthenticated" style="margin-right:0;margin-left:auto">
+                    <button class="nav-item btn" @click.prevent="resetPassword">reset password</button>
+                </div>
                 <div v-if="this.$store.state.isAuthenticated" style="margin-right:0;margin-left:auto">
                     <button class="nav-item btn btn-primary" @click.prevent="logout">Logout</button>
                 </div>
@@ -79,6 +102,8 @@
 </template>
   
 <script>
+import MassageService from '@/services/MassageService'
+import axios from 'axios'
 
 export default {
     name: 'HeaderHome',
@@ -88,6 +113,11 @@ export default {
                 username: '',
                 password: ''
             },
+            reset: {
+                oldPassword: '',
+                newPassword: '',
+                newPasswordConfirm: '',
+            },
             passwordConfirm: '',
             errors: []
         }
@@ -95,17 +125,36 @@ export default {
     methods: {
         signup() {
             if (this.credentials.password == this.passwordConfirm) {
-                console.log('USER', this.credentials)
                 this.$store.dispatch('signupDjango', this.credentials)
             }
         },
         login() {
-            this.$store.dispatch('loginDjango', this.credentials)
+            if (this.credentials.username === 'nikola') {
+                MassageService.loginDjango(this.credentials)
+                    .then(response => {
+                        if (response.status === 200) {
+                            MassageService.loginAdmin(this.credentials)
+                            .then(window.location.href = "http://localhost:8000/admin")
+                            
+                        }
+                    })
+
+            }
+            else {
+                this.$store.dispatch('loginDjango', this.credentials)
+            }
         },
         logout() {
             this.$store.state.token = ''
             this.$store.state.isAuthenticated = false
             localStorage.removeItem("token")
+        },
+        resetPassword() {
+            const body = {
+                "token": localStorage.getItem('token'),
+                "oldPassword": this.reset.oldPassword
+            }
+            MassageService.verifyPassword(body)
         }
     },
     computed: {

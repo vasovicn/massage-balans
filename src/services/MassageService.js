@@ -19,35 +19,16 @@ const apiClientDjango = axios.create({
 })
 
 export default {
-  // getMassages() {
-  //   return apiClient.get('/massages')
-  // },
-  // getMassage(id) {
-  //   return apiClient.get('/massages/' + id)
-  // },
   getMasseuers() {
     return apiClient.get('/masseuers')
   },
   getMasseur(id) {
     return apiClient.get('/masseuers/' + id)
   },
-  // getReservedTime(date) {
-  //   return apiClient.get('/reservedTime/', { params: { date: date } })
-  // },
-  // postReservation(reservation) {
-  //   return apiClient.post('/reservedTime', reservation)
-  // },
-  // getAllReservations() {
-  //   return apiClient.get('/reservedTime')
-  // },
   deleteMassage(massage) {
     return apiClient.delete('/massages/' + massage.id)
   },
-  // postMassage(massage) {
-  //   return apiClient.post('/massages', massage)
-  // },
   deleteReservation(reservation) {
-    console.log(reservation.id)
     return apiClient.delete('/reservedTime/' + reservation.id)
   },
   getMassagesDjango() {
@@ -57,24 +38,29 @@ export default {
     return apiClientDjango.post('/massage/create', massage)
   },
   postDjangoReservation(reservation) {
-    console.log('reservation', reservation)
     return apiClientDjango.post('/reservation/create', reservation)
   },
   getMassageDjango(id) {
     return apiClientDjango.get('/massage/' + id)
   },
   getReservedTimeDjango(date) {
-    console.log('DATEDATE', date)
     return apiClientDjango.get('/reservation/', { params: { date: String(date) } })
   },
   getAllReservationsDjango() {
     return apiClientDjango.get('/reservation')
   },
   loginDjango(credentials) {
+    console.log('DJANGO', credentials)
     return apiClientDjango.post('/api/v1/token/login', credentials)
   },
   signupDjango(credentials) {
-    console.log('cr', credentials)
     return apiClientDjango.post('/api/v1/users/',  credentials)
+  },
+  loginAdmin(credentials) {
+    console.log(credentials)
+    return apiClientDjango.post('/user/login', credentials)
+  },
+  verifyPassword(body) {
+    return apiClientDjango.post('/user/verifyPassword', body)
   }
 }

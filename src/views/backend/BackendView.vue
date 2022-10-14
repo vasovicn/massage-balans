@@ -107,7 +107,6 @@ export default {
       this.toggleReservation = !this.toggleReservation;
     },
     reloadOnReserved() {
-      console.log('reload')
       window.location.reload();
     }
   },

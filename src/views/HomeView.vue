@@ -1,7 +1,5 @@
 <template>
   <HeaderHome/>
-  <!-- <router-link :to="{ name: 'BackendView' }">Admin View</router-link> -->
-  <a href="http://localhost:8000/admin">Admin</a>
   <div class="row" style="margin:50px">
     <div class="col-8">
       <MassageList />
