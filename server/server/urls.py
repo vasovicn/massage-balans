@@ -18,6 +18,7 @@ from django.urls import include, path
 
 urlpatterns = [
     path('massage/', include('massage.urls')),
+    path('user/', include('user.urls')),
     path('reservation/', include('reservation.urls')),
     path('admin/', admin.site.urls),
     path('api/v1/', include('djoser.urls')),
