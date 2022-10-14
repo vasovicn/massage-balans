@@ -6,7 +6,7 @@
         <input id="date_picker" :min="dateMin" type="date" v-model="date" @change="changedDate" />
         <TimeComponent v-if="date && clicked" :date="date" :massage="massage" :currentTime="currentTime"
             :currentDate="dateMin" @clicked-time="clickedTime" />
-        <div v-if="date && !clicked" @click="this.clicked = !this.clicked">
+        <div class="choosen-time" v-if="date && !clicked" @click="this.clicked = !this.clicked">
             Vreme:{{time}}
         </div>
         <button v-if="date && !clicked" class="button" data-toggle="modal" data-target="#myModal">Posalji
@@ -143,6 +143,17 @@ export default {
 .button:hover {
     box-shadow: rgba(44, 187, 99, .35) 0 -25px 18px -14px inset, rgba(44, 187, 99, .25) 0 1px 2px, rgba(44, 187, 99, .25) 0 2px 4px, rgba(44, 187, 99, .25) 0 4px 8px, rgba(44, 187, 99, .25) 0 8px 16px, rgba(44, 187, 99, .25) 0 16px 32px;
     transform: scale(1.05);
+}
+
+.choosen-time {
+    padding: 10px;
+}
+
+.choosen-time:hover {
+    transform: scale(1.05);
+    background-color: #c2fbd7;
+    cursor: pointer;
+    border-radius: 5px;
 }
 </style>
   

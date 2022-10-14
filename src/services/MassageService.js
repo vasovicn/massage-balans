@@ -57,15 +57,24 @@ export default {
     return apiClientDjango.post('/massage/create', massage)
   },
   postDjangoReservation(reservation) {
+    console.log('reservation', reservation)
     return apiClientDjango.post('/reservation/create', reservation)
   },
   getMassageDjango(id) {
     return apiClientDjango.get('/massage/' + id)
   },
   getReservedTimeDjango(date) {
+    console.log('DATEDATE', date)
     return apiClientDjango.get('/reservation/', { params: { date: String(date) } })
   },
   getAllReservationsDjango() {
     return apiClientDjango.get('/reservation')
+  },
+  loginDjango(credentials) {
+    return apiClientDjango.post('/api/v1/token/login', credentials)
+  },
+  signupDjango(credentials) {
+    console.log('cr', credentials)
+    return apiClientDjango.post('/api/v1/users/',  credentials)
   }
 }

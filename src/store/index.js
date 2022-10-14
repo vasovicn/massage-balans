@@ -1,8 +1,12 @@
 import { createStore } from 'vuex'
 import MassageService from '@/services/MassageService'
+import axios from 'axios'
+import  VueCookies  from 'vue-cookies'
 
 export default createStore({
   state: {
+    token: '',
+    isAuthenticated: false,
     user: 'Adam Jahr',
     massages: [],
     reservedTime: [],
@@ -29,9 +33,7 @@ export default createStore({
   },
   mutations: {
     SET_MASSAGES(state, massages) {
-      console.log('eto', massages)
       state.massages = massages
-      console.log(state.massages)
     },
     SET_MASSAGE(state, massage) {
       state.massage = massage
@@ -46,7 +48,6 @@ export default createStore({
       state.masseur = masseur
     },
     POST_RESERVE_TIME(state, reservation) {
-      console.log("POST", reservation)
       state.reservation = reservation
     },
     SET_RESERVATIONS(state, reservations) {
@@ -54,68 +55,17 @@ export default createStore({
     },
     DELETE_MASSAGE(state, massage) {
       state.massages - massage
+    },
+    SET_TOKEN(state, token) {
+      state.token = token
+      state.isAuthenticated = true
+    },
+    REMOVE_TOKEN(state) {
+      state.token = ''
+      state.isAuthenticated = false
     }
   },
   actions: {
-    // fetchMassages({ commit }) {
-    //   return MassageService.getMassages()
-    //     .then(response => {
-    //       console.log('etoga', response.data)
-    //       commit('SET_MASSAGES', response.data)
-    //     })
-    //     .catch(error => {
-    //       console.log(error)
-    //     })
-    // },
-    // fetchMassage({ commit, state }, id) {
-    // const massage = state.massages.find(massage => massage.id === id)
-    //   if (massage) {
-    //     commit('SET_MASSAGE', massage)
-    //   } else {
-    //     return MassageService.getMassage(id)
-    //       .then(response => {
-    //         commit('SET_MASSAGE', response.data)
-    //       })
-    //       .catch(error => {
-    //         console.log(error)
-    //       })
-    // }
-    // },
-    // fetchReservedTime({ commit }, date) {
-    //     return MassageService.getReservedTime(date)
-    //       .then(response => {
-    //         commit('SET_RESERVE_TIME', response.data)
-    //       })
-    //       .catch(error => {
-    //         console.log(error)
-    //       })
-
-    // },
-    // postReservedTime({ commit }, reservation) {
-    //   return MassageService.postReservation(reservation)
-    //       .then(response => {
-    //         commit('POST_RESERVE_TIME', response.data)
-    //       })
-    //       .catch(error => {
-    //         console.log(error)
-    //       })
-    // },
-    //   fetchAllReservations({ commit }) {
-    //     return MassageService.getAllReservations()
-    //       .then(response => {
-    //         commit('SET_RESERVATIONS', response.data)
-    //       })
-    //       .catch(error => {
-    //         console.log(error)
-    //       })
-    // },
-    // addMassage({dispatch}, massage) {
-    //   return MassageService.postMassage(massage)
-    //   .then(dispatch('fetchMassages'))
-    //   .catch(error => {
-    //     console.log(error)
-    //   })
-    // },
     fetchMasseur({ commit }) {
       return MassageService.getMasseur()
         .then(response => {
@@ -191,7 +141,6 @@ export default createStore({
     fetchReservedTimeDjango({ commit }, date) {
       return MassageService.getReservedTimeDjango(date)
         .then(response => {
-          console.log('OVOOO', response.data)
           commit('SET_RESERVE_TIME', response.data)
         })
         .catch(error => {
@@ -208,5 +157,37 @@ export default createStore({
           console.log(error)
         })
     },
+    initialToken() {
+        if (localStorage.getItem('token')) {
+          this.state.token = localStorage.getItem('token')
+          this.state.isAuthenticated = true
+        }
+        else {
+          this.state.token = ''
+          this.state.isAuthenticated = false
+        }
+    },
+    loginDjango({commit}, formData) {
+      return MassageService.loginDjango(formData)
+      .then(response => {
+        if (response.status === 200 && formData.username === 'nikola') {
+          console.log('TOKEN', response.data.auth_token)
+          VueCookies.set("sessionid", response.data.auth_token)
+          window.location = 'http://localhost:8000/admin'
+        }
+        else {
+          console.log('dasdasdasdas', response.data.auth_token)
+          const token = response.data.auth_token
+          commit('SET_TOKEN', token)
+          axios.defaults.headers.common["Authorization"] = "Token" + token
+          localStorage.setItem("token", token)
+        }
+      })
+    },
+    signupDjango({dispatch}, credentials) {
+      return MassageService.signupDjango(credentials)
+      .then(dispatch('loginDjango', credentials)
+      )
+    }
   }
 })

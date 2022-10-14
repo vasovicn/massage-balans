@@ -1,4 +1,5 @@
 <template>
+  <HeaderHome/>
   <!-- <router-link :to="{ name: 'BackendView' }">Admin View</router-link> -->
   <a href="http://localhost:8000/admin">Admin</a>
   <div class="row" style="margin:50px">
@@ -15,13 +16,28 @@
 <script>
 import MassageList from '@/components/MassageList.vue'
 import MasseurList from '@/components/MasseurList.vue'
+import HeaderHome from '@/components/HeaderHome.vue'
+import axios from 'axios'
 
 export default {
   name: 'HomeView',
   components: {
     MassageList,
-    MasseurList
+    MasseurList,
+    HeaderHome
+  },
+  beforeCreate() {
+    this.$store.dispatch('initialToken')
+    const token = this.$store.state.token
+
+    if ( token ) {
+      axios.defaults.headers.common['Authorization'] = 'Token' + token
+    }
+    else {
+      axios.defaults.headers.common['Authorization'] = ''
+    }
   }
+  
 }
 </script>
   

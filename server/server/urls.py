@@ -20,4 +20,6 @@ urlpatterns = [
     path('massage/', include('massage.urls')),
     path('reservation/', include('reservation.urls')),
     path('admin/', admin.site.urls),
+    path('api/v1/', include('djoser.urls')),
+    path('api/v1/', include('djoser.urls.authtoken')),
 ]
