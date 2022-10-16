@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from .models import Massage
 class MassageSerializer(serializers.ModelSerializer):
-    # image_url = serializers.SerializerMethodField('get_image_url')    
+    # photo_url = serializers.SerializerMethodField()  
     class Meta:
         model = Massage
         fields = ['id', 'name', 'info', 'price', 'length', 'image']
@@ -9,7 +9,7 @@ class MassageSerializer(serializers.ModelSerializer):
 
 
 
-    # def get_image_url(self, obj):
+    # def get_photo_url(self, massage):
     #     request = self.context.get('request')
-    #     image_url = obj.image.url
-    #     return request.build_absolute_uri(image_url)
+    #     photo_url = massage.image.url
+    #     return request.build_absolute_uri(photo_url)

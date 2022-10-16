@@ -7,7 +7,7 @@ class Massage(models.Model):
     price = models.IntegerField(default=0)
     info = models.CharField(max_length=200)
     length = models.IntegerField(default=0)
-    image = models.ImageField(upload_to ='uploads/')
+    image = models.ImageField(upload_to ='')
 
     def __str__(self):
         return self.name

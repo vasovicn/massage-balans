@@ -2,9 +2,6 @@
     <header>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <a href="#" class="navbar-brand">Masaza<b>Balans</b></a>
-            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
-                <span class="navbar-toggler-icon"></span>
-            </button>
             <!-- Collection of nav links, forms, and other content for toggling -->
             <div id="navbarCollapse" class="collapse navbar-collapse justify-content-start">
                 <div class="navbar-nav">
@@ -31,7 +28,8 @@
                                 </div>
                                 <div class="form-group">
                                     <input type="password" class="form-control" placeholder="Password"
-                                        required="required" v-model="credentials.password">
+                                        required="required" v-model="credentials.password" @input="this.wrongCredentials=''">
+                                        <a style="color:red">{{wrongCredentials}}</a>
                                 </div>
                                 <input type="submit" class="btn btn-primary btn-block" value="Login">
                                 <div class="text-center mt-2">
@@ -48,15 +46,15 @@
                                 <p class="hint-text">Fill in this form to create your account!</p>
                                 <div class="form-group">
                                     <input type="text" class="form-control" placeholder="Username" required="required"
-                                        v-model="credentials.username">
+                                        v-model="signupCredentials.username">
                                 </div>
                                 <div class="form-group">
                                     <input type="password" class="form-control" placeholder="Password"
-                                        required="required" v-model="credentials.password">
+                                        required="required" v-model="signupCredentials.password">
                                 </div>
                                 <div class="form-group">
                                     <input type="password" class="form-control" placeholder="Confirm Password"
-                                        required="required" v-model="passwordConfirm">
+                                        required="required" v-model="signupCredentials.passwordConfirm">
                                     <p style="color: red;" class="hint-text" v-if="!matchingPasswords">Passwords are not
                                         matching!</p>
 
@@ -65,35 +63,38 @@
                                     <label class="form-check-label"><input type="checkbox" required="required"> I accept
                                         the <a href="#">Terms &amp; Conditions</a></label>
                                 </div>
-                                <input type="submit" class="btn btn-primary btn-block" value="Sign up">
+                                <ul v-for="error in signupErrors" :key="error" style="color:red">
+                                    <li>{{error}}</li>
+                                </ul>
+                                <input type="submit" class="btn btn-primary btn-block" value="Sign up" :disabled="!matchingPasswords">
                             </form>
                         </div>
                     </div>
                 </div>
-                <div class="nav-item dropdown">
-                        <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle mr-4">Login</a>
-                        <div class="dropdown-menu action-form">
-                            <form @submit.prevent="resetPassword">
-                                <div class="form-group">
-                                    <input type="password" class="form-control" placeholder="Old Password"
-                                        required="required" v-model="reset.oldPassword">
-                                </div>
-                                <div class="form-group">
-                                    <input type="password" class="form-control" placeholder="New Password"
-                                        required="required" v-model="reset.newPassword">
-                                </div>
-                                <div class="form-group">
-                                    <input type="password" class="form-control" placeholder="Confirm Password"
-                                        required="required" v-model="reset.newPasswordConfirm">
-                                </div>
-                                <input type="submit" class="btn btn-primary btn-block" value="Reset Password">
-                            </form>
-                        </div>
+                <div v-if="this.$store.state.isAuthenticated" class="nav-item dropdown" style="margin-right:0;margin-left:auto">
+                    <a href="#" id="reset" data-toggle="dropdown" class="nav-link dropdown-toggle mr-4">Reset Password</a>
+                    <div class="dropdown-menu action-form">
+                        <form @submit.prevent="resetPassword">
+                            <div class="form-group">
+                                <input type="password" class="form-control" placeholder="Old Password"
+                                    required="required" v-model="reset.oldPassword" @input="this.wrongPassword = ''">
+                                <a style="color:red">{{wrongPassword}}</a>
+                            </div>
+                            <div class="form-group">
+                                <input type="password" class="form-control" placeholder="New Password"
+                                    required="required" v-model="reset.newPassword">
+                            </div>
+                            <div class="form-group">
+                                <input type="password" class="form-control" placeholder="Confirm Password"
+                                    required="required" v-model="reset.newPasswordConfirm">
+                            </div>
+                            <p style="color: red;" class="hint-text" v-if="!matchingResetPasswords">Passwords are not
+                                        matching!</p>
+                            <input type="submit" class="btn btn-primary btn-block" value="Reset Password" :disabled="!matchingResetPasswords">
+                        </form>
                     </div>
-                <div v-if="this.$store.state.isAuthenticated" style="margin-right:0;margin-left:auto">
-                    <button class="nav-item btn" @click.prevent="resetPassword">reset password</button>
                 </div>
-                <div v-if="this.$store.state.isAuthenticated" style="margin-right:0;margin-left:auto">
+                <div v-if="this.$store.state.isAuthenticated" style="margin-right:0;margin-left:0">
                     <button class="nav-item btn btn-primary" @click.prevent="logout">Logout</button>
                 </div>
             </div>
@@ -103,7 +104,6 @@
   
 <script>
 import MassageService from '@/services/MassageService'
-import axios from 'axios'
 
 export default {
     name: 'HeaderHome',
@@ -118,14 +118,34 @@ export default {
                 newPassword: '',
                 newPasswordConfirm: '',
             },
-            passwordConfirm: '',
-            errors: []
+            signupCredentials: {
+                username: '',
+                password: '',
+                passwordConfirm: '',
+            },
+            errors: [],
+            wrongPassword: '',
+            wrongCredentials: '',
+            signupErrors: []
         }
     },
     methods: {
         signup() {
-            if (this.credentials.password == this.passwordConfirm) {
-                this.$store.dispatch('signupDjango', this.credentials)
+            if (this.signupCredentials.password == this.signupCredentials.passwordConfirm) {
+                this.$store.dispatch('signupDjango', this.signupCredentials)
+                .then(response => {
+                    console.log('MAJMUN', response.data)
+                }
+                )
+                .catch(error => {
+                    if(JSON.parse(error.response.request.responseText).username) {
+                        this.signupErrors = JSON.parse(error.response.request.responseText).username
+                    }
+                    else if(JSON.parse(error.response.request.responseText).password) {
+                        this.signupErrors = JSON.parse(error.response.request.responseText).password 
+                    }
+
+                })
             }
         },
         login() {
@@ -134,14 +154,17 @@ export default {
                     .then(response => {
                         if (response.status === 200) {
                             MassageService.loginAdmin(this.credentials)
-                            .then(window.location.href = "http://localhost:8000/admin")
-                            
+                                .then(window.location.href = "http://localhost:8000/admin")
+
                         }
                     })
 
             }
             else {
-                this.$store.dispatch('loginDjango', this.credentials)
+                this.$store.dispatch('loginDjango', this.credentials).catch(error => {
+                    console.log(error)
+                    this.wrongCredentials = 'Wrong credentials'
+                })
             }
         },
         logout() {
@@ -150,16 +173,40 @@ export default {
             localStorage.removeItem("token")
         },
         resetPassword() {
-            const body = {
-                "token": localStorage.getItem('token'),
-                "oldPassword": this.reset.oldPassword
+            if (this.reset.newPassword === this.reset.newPasswordConfirm) {
+                const body = {
+                    "token": localStorage.getItem('token'),
+                    "oldPassword": this.reset.oldPassword,
+                    "newPassword": this.reset.newPassword
+                }
+                MassageService.verifyPassword(body)
+                    .then(response => {
+                        if (response.status === 200) {
+                            document.querySelector('#reset').click()
+                            this.reset.oldPassword = ''
+                            this.reset.newPassword = ''
+                            this.reset.newPasswordConfirm = ''
+                        }
+                    })
+                    .catch(error => {
+                        console.log(error)
+                        this.wrongPassword = 'Wrong password'
+                    }
+                    )
             }
-            MassageService.verifyPassword(body)
         }
     },
     computed: {
         matchingPasswords() {
-            if (this.credentials.password == this.passwordConfirm || this.passwordConfirm === '') {
+            if (this.signupCredentials.password == this.signupCredentials.passwordConfirm || this.signupCredentials.passwordConfirm === '') {
+                return true
+            }
+            else {
+                return false
+            }
+        },
+        matchingResetPasswords() {
+            if (this.reset.newPassword == this.reset.newPasswordConfirm || this.reset.newPasswordConfirm === '') {
                 return true
             }
             else {

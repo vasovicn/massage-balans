@@ -1,4 +1,4 @@
-from http.client import HTTPResponse
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User, auth
 from django.views.decorators.csrf import csrf_exempt
@@ -26,13 +26,17 @@ def home(request):
     users = User.objects.all()
     return render(request, 'index.html', {'users': users})
 
-def verifyPassword(requsts):
-    token = request.body.token
-    oldPassword = request.body.odlPassword
-
-    user = User.objects.get(key=token)
-    user = auth.authenticate(username=user.username, password=oldPassword)
-
+@csrf_exempt 
+def verifyPassword(request):
+    token = json.loads(request.body)['token']
+    old_password = json.loads(request.body)['oldPassword']
+    new_password = json.loads(request.body)['newPassword']
+    
+    user = User.objects.get(auth_token=token)
+    user = auth.authenticate(username=user.username, password=old_password)
+    print(user)
     if user:
+        user.set_password(new_password)
+        user.save()
         return HttpResponse(status=200)
     return HttpResponse(status=404)

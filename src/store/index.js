@@ -176,16 +176,16 @@ export default createStore({
           commit('SET_TOKEN', token)
           axios.defaults.headers.common["Authorization"] = "Token" + token
           localStorage.setItem("token", token)
-          console.log(formData.username)
           commit('SET_USERNAME', formData.username)
         })
     },
     signupDjango({ dispatch }, credentials) {
       return MassageService.signupDjango(credentials)
         .then(response => {
-          console.log('SRANJE', response.data)
-          dispatch('loginDjango', credentials)
-    })
+            dispatch('loginDjango', credentials)
+            console.log(response)
+        }
+    )
     }
   }
 })

@@ -50,7 +50,6 @@ export default {
     return apiClientDjango.get('/reservation')
   },
   loginDjango(credentials) {
-    console.log('DJANGO', credentials)
     return apiClientDjango.post('/api/v1/token/login', credentials)
   },
   signupDjango(credentials) {
@@ -62,5 +61,8 @@ export default {
   },
   verifyPassword(body) {
     return apiClientDjango.post('/user/verifyPassword', body)
+  },
+  resetPassword(credentials) {
+    return apiClientDjango.post('/api/v1/users/reset_password_confirm', credentials)
   }
 }
