@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <HeaderHome></HeaderHome>
     <router-view />
   </div>
 </template>
@@ -17,9 +18,13 @@
 </template> -->
 
 <script>
+import HeaderHome from './components/HeaderHome.vue'
 
 export default {
   name: 'App',
+  components: {
+    HeaderHome
+  }
 }
 </script>
 

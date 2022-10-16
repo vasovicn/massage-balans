@@ -9,7 +9,9 @@
         <div class="choosen-time" v-if="date && !clicked" @click="this.clicked = !this.clicked">
             Vreme:{{time}}
         </div>
-        <button v-if="date && !clicked" class="button" data-toggle="modal" data-target="#myModal">Posalji
+        <button v-if="!this.$store.state.isAuthenticated && date && !clicked" class="button" data-toggle="modal" data-target="#myModal">Posalji
+            rezervaciju</button>
+        <button v-if="this.$store.state.isAuthenticated && date && !clicked" class="button" @click="sendReservation">Posalji
             rezervaciju</button>
         <ModalReserve @submitReservation="sendReservation" :massage="massage" :time="time" />
 
@@ -72,11 +74,16 @@ export default {
                 "time": this.time,
                 "length": this.massage.length,
                 "type": this.massage.name,
-                "client": {
+            }
+            if(reservation.name != undefined) {
+                reservedTermin["client"] = {
                     'name': reservation.name,
                     'email': reservation.email,
                     'phone': reservation.phone,
                 }
+            }
+            else {
+                reservedTermin["token"] = this.$store.state.token
             }
             this.$store.dispatch('postReservationDjango', reservedTermin)
             // this.$router.push({ name: 'MassageConfirmation', params: {id: reservation.id}})

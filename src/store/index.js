@@ -65,7 +65,10 @@ export default createStore({
     },
     SET_USERNAME(state, username) {
       state.username = username
-    }
+    },
+    // SET_USER_PORTAL(state, data) {
+    //   // set data
+    // }
   },
   actions: {
     fetchMasseur({ commit }) {
@@ -186,6 +189,19 @@ export default createStore({
             console.log(response)
         }
     )
+    },
+    fetchUserReservations({commit}, token) {
+      return MassageService.fetchUserReservations(token)
+      .then(response => {
+        commit('SET_USER_RESERVATIONS', response.data)
+      })
     }
+    // userPortal({commit}) {
+    //   return MassageService.userPortal(localStorage.removeItem("token"))
+    //   .then(response => {
+    //     console.log(response)
+    //     commit('SET_USER_PORTAL', response.data)
+    //   })
+    // }
   }
 })

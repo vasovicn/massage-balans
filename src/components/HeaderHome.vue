@@ -1,11 +1,12 @@
 <template>
     <header>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a href="#" class="navbar-brand">Masaza<b>Balans</b></a>
+            <router-link :to="{ name: 'HomeView' }" class="navbar-brand">Masaza<b>Balans</b></router-link>
             <!-- Collection of nav links, forms, and other content for toggling -->
             <div id="navbarCollapse" class="collapse navbar-collapse justify-content-start">
                 <div class="navbar-nav">
                     <a href="#" class="nav-item nav-link">Contact</a>
+                    <router-link :to="{ name: 'UserPortal' }" v-if="loggedIn">My portal</router-link> 
                 </div>
                 <form class="navbar-form form-inline">
                     <div class="input-group search-box">
@@ -17,7 +18,7 @@
                         </div>
                     </div>
                 </form>
-                <div class="navbar-nav ml-auto action-buttons" v-if="!this.$store.state.isAuthenticated">
+                <div class="navbar-nav ml-auto action-buttons" v-if="!loggedIn">
                     <div class="nav-item dropdown">
                         <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle mr-4">Login</a>
                         <div class="dropdown-menu action-form">

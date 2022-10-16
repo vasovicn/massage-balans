@@ -1,4 +1,3 @@
-AKO NEMA VREMENA ZA PRIKAZ PRIKAZI All termins are booked! !!!!!!!!!!!!!!!!!!!!
-SREDI PRIKAZ SLIKA DINAMCKI KAD SE KREIRA MASAZA I KAD SE UCITAVA MASAZA NA MassageCard
-Sredi cuvanje slike na upload
-SRedi BackendView kada se ulazi u componentu da je cela data tu
+login kao admin
+forgot password
+ucitavanje slika iz djanga

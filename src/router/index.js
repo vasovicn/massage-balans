@@ -4,6 +4,7 @@ import MassageConfirmation from '../views/MassageConfirmation.vue'
 import BackendView from '../views/backend/BackendView.vue'
 import CreateNewMassage from '../views/backend/CreateNewMassage'
 import MassageDetails from '../views/MassageDetails'
+import UserPortal from '../views/UserPortal'
 
 const routes = [
   {
@@ -33,6 +34,12 @@ const routes = [
     name: 'MassageDetails',
     props: true,
     component: MassageDetails
+  },
+  {
+    path: '/user-portal',
+    name: 'UserPortal',
+    props: true,
+    component: UserPortal
   },
 ]
 

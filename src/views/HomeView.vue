@@ -1,5 +1,4 @@
 <template>
-  <HeaderHome/>
   <div class="row" style="margin:50px">
     <div class="col-8">
       <MassageList />
@@ -14,7 +13,6 @@
 <script>
 import MassageList from '@/components/MassageList.vue'
 import MasseurList from '@/components/MasseurList.vue'
-import HeaderHome from '@/components/HeaderHome.vue'
 import axios from 'axios'
 
 export default {
@@ -22,7 +20,6 @@ export default {
   components: {
     MassageList,
     MasseurList,
-    HeaderHome
   },
   beforeCreate() {
     this.$store.dispatch('initialToken')

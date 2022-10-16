@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="card">
-      <!-- <img class="card-img-top" :src="require('@/assets/' + massage.image)" /> -->
+      <!-- <img class="card-img-top" :src="massage.photo_url" /> -->
       <div class="card-body">
         <h5 class="card-title">{{massage.name}}</h5>
         <p class="card-text">{{massage.info}}</p>

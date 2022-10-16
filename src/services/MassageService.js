@@ -64,5 +64,11 @@ export default {
   },
   resetPassword(credentials) {
     return apiClientDjango.post('/api/v1/users/reset_password_confirm', credentials)
+  },
+  // removeItem(token) {
+  //   return apiClientDjango.get('', token)
+  // },
+  fetchUserReservations(token) {
+    return apiClientDjango.get('/reservation/', { params: { token: token } })
   }
 }
