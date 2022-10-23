@@ -1,7 +1,7 @@
 from django.urls import path, re_path
 from django.conf import settings
 from django.conf.urls.static import static
-from .views import MasseurList
+from masseur import views
 
 # from . import views
 # from rest_framework import routers
@@ -11,5 +11,5 @@ from .views import MasseurList
 # # router.register(r'messsages', views.MassageViewSet)
 
 urlpatterns = [
-    path('', MasseurList.as_view()),
+    path('', views.index),
 ]
