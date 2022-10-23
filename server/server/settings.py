@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-x3si7vr$r9vv5zf+_qb80d8k=%-2i!pswo_2%7wcy@i*sl7kcd
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost','127.0.0.1']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
@@ -42,6 +42,7 @@ REST_FRAMEWORK = {
 
 INSTALLED_APPS = [
     'user',
+    'masseur',
     'rest_framework',
     'rest_framework.authtoken',
     'djoser',
@@ -172,8 +173,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # CORS_ORIGIN_ALLOW_ALL = True
 
 CORS_ORIGIN_ALLOW_ALL = True
-CORS_ALLOWED_ORIGINS = ['http://localhost:8080', 'http://127.0.0.1:8080', 'http://localhost:8081', 'http://127.0.0.1:8081']
-CSRF_TRUSTED_ORIGINS = ['http://localhost:8080','http://127.0.0.1']
+CORS_ALLOWED_ORIGINS = ['http://localhost:8080', 'http://127.0.0.1:8080',
+                        'http://localhost:8081', 'http://127.0.0.1:8081']
+CSRF_TRUSTED_ORIGINS = ['http://localhost:8080', 'http://127.0.0.1']
 
 # MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_ROOT = 'media'
