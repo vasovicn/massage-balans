@@ -1,6 +1,8 @@
 from email.policy import default
 from django.db import models
+from masseur.models import Masseur
 from user.models import Profile
+
 
 class Reservation(models.Model):
     id = models.AutoField(primary_key=True)
@@ -9,6 +11,8 @@ class Reservation(models.Model):
     length = models.IntegerField(default=0)
     type = models.CharField(max_length=200, default="")
     user_id = models.ForeignKey(Profile, on_delete=models.CASCADE, null=True)
+    masseur_id = models.ForeignKey(
+        Masseur, on_delete=models.CASCADE, null=True)
     guest_name = models.CharField(max_length=200, default="")
     guest_email = models.CharField(max_length=200, default="")
     guest_phone = models.CharField(max_length=200, default="")
