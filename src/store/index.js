@@ -15,6 +15,7 @@ export default createStore({
     reservation: [],
     reservations: [],
     userReservations: [],
+    userInfo: null,
     allTermins: ['08:00', '08:15', '08:30', '08:45',
       '09:00', '09:15', '09:30', '09:45',
       '10:00', '10:15', '10:30', '10:45',
@@ -69,6 +70,9 @@ export default createStore({
     },
     SET_USER_PORTAL(state, data) {
       state.userReservations = data
+    },
+    SET_USER_INFO(state, data) {
+      state.userInfo = data
     }
   },
   actions: {
@@ -99,105 +103,124 @@ export default createStore({
     },
     deleteReservation({ dispatch }, reservation) {
       return MassageService.deleteReservation(reservation)
-        .then(dispatch('fetchMassages'))
-        .catch(error => {
-          console.log(error)
-        })
-    },
-    getMassagesDjango({ commit }) {
-      return MassageService.getMassagesDjango()
         .then(response => {
-          commit('SET_MASSAGES', response.data)
-        })
+          dispatch('userPortal')
+          console.log(response)
+    } )
         .catch(error => {
-          console.log(error)
-        })
-    },
-    addMassageDjango({ dispatch }, massage) {
-      return MassageService.postDjangoMassage(massage)
-        .then(dispatch('fetchMassages'))
-        .catch(error => {
-          console.log(error)
-        })
-    },
-    postReservationDjango({ commit }, reservation) {
-      return MassageService.postDjangoReservation(reservation)
-        .then(response => {
-          commit('POST_RESERVE_TIME', response.data)
-        })
-        .catch(error => {
-          console.log(error)
-        })
-    },
-    fetchMassageDjango({ commit, state }, id) {
-      const massage = state.massages.find(massage => massage.id === id)
-      if (massage) {
-        commit('SET_MASSAGE', massage)
-      } else {
-        return MassageService.getMassageDjango(id)
-          .then(response => {
-            commit('SET_MASSAGE', response.data)
-          })
-          .catch(error => {
-            console.log(error)
-          })
-      }
-    },
-    fetchReservedTimeDjango({ commit }, date) {
-      return MassageService.getReservedTimeDjango(date)
-        .then(response => {
-          commit('SET_RESERVE_TIME', response.data)
-        })
-        .catch(error => {
-          console.log(error)
-        })
-
-    },
-    fetchAllReservationsDjango({ commit }) {
-      return MassageService.getAllReservationsDjango()
-        .then(response => {
-          commit('SET_RESERVATIONS', response.data)
-        })
-        .catch(error => {
-          console.log(error)
-        })
-    },
-    initialToken({commit}) {
-      if (localStorage.getItem('token')) {
-        commit('SET_TOKEN',localStorage.getItem('token') )
-      }
-    },
-    loginDjango({ commit }, formData) {
-      return MassageService.loginDjango(formData)
-        .then(response => {
-
-          const token = response.data.auth_token
-          commit('SET_TOKEN', token)
-          axios.defaults.headers.common["Authorization"] = "Token" + token
-          localStorage.setItem("token", token)
-          commit('SET_USERNAME', formData.username)
-        })
-    },
-    signupDjango({ dispatch }, credentials) {
-      return MassageService.signupDjango(credentials)
-        .then(response => {
-            dispatch('loginDjango', credentials)
-            console.log(response)
-        }
-    )
-    },
-    fetchUserReservations({commit}, token) {
-      return MassageService.fetchUserReservations(token)
+      console.log(error)
+    })
+  },
+  getMassagesDjango({ commit }) {
+    return MassageService.getMassagesDjango()
       .then(response => {
-        commit('SET_USER_RESERVATIONS', response.data)
+        commit('SET_MASSAGES', response.data)
       })
-    },
-    userPortal({commit}) {
-      return MassageService.fetchUserReservations(localStorage.getItem("token"))
+      .catch(error => {
+        console.log(error)
+      })
+  },
+  addMassageDjango({ dispatch }, massage) {
+    return MassageService.postDjangoMassage(massage)
+      .then(dispatch('fetchMassages'))
+      .catch(error => {
+        console.log(error)
+      })
+  },
+  postReservationDjango({ commit }, reservation) {
+    return MassageService.postDjangoReservation(reservation)
+      .then(response => {
+        commit('POST_RESERVE_TIME', response.data)
+      })
+      .catch(error => {
+        console.log(error)
+      })
+  },
+  fetchMassageDjango({ commit, state }, id) {
+    const massage = state.massages.find(massage => massage.id === id)
+    if (massage) {
+      commit('SET_MASSAGE', massage)
+    } else {
+      return MassageService.getMassageDjango(id)
+        .then(response => {
+          commit('SET_MASSAGE', response.data)
+        })
+        .catch(error => {
+          console.log(error)
+        })
+    }
+  },
+  fetchReservedTimeDjango({ commit }, reservation_data) {
+    return MassageService.getReservedTimeDjango(reservation_data)
+      .then(response => {
+        commit('SET_RESERVE_TIME', response.data)
+      })
+      .catch(error => {
+        console.log(error)
+      })
+
+  },
+  fetchAllReservationsDjango({ commit }) {
+    return MassageService.getAllReservationsDjango()
+      .then(response => {
+        commit('SET_RESERVATIONS', response.data)
+      })
+      .catch(error => {
+        console.log(error)
+      })
+  },
+  initialToken({ commit }) {
+    if (localStorage.getItem('token')) {
+      commit('SET_TOKEN', localStorage.getItem('token'))
+    }
+  },
+  loginDjango({ commit }, formData) {
+    return MassageService.loginDjango(formData)
+      .then(response => {
+
+        const token = response.data.auth_token
+        commit('SET_TOKEN', token)
+        axios.defaults.headers.common["Authorization"] = "Token" + token
+        localStorage.setItem("token", token)
+        commit('SET_USERNAME', formData.username)
+      })
+  },
+  signupDjango({ dispatch }, credentials) {
+    return MassageService.signupDjango(credentials)
+      .then(response => {
+        dispatch('loginDjango', credentials)
+        console.log(response)
+      }
+      )
+  },
+  userPortal({ commit }) {
+    return MassageService.fetchUserReservations(localStorage.getItem("token"))
       .then(response => {
         console.log(response)
         commit('SET_USER_PORTAL', response.data)
       })
-    }
+      .catch(error => {
+        console.log(error)
+      })
+  },
+  getUserInfo({ commit }) {
+    return MassageService.getUserInfo(localStorage.getItem("token"))
+      .then(response => {
+        console.log(response)
+        commit('SET_USER_INFO', response.data)
+      })
+      .catch(error => {
+        console.log(error)
+      })
+  },
+  updateInfo({commit}, userInfo) {
+    return MassageService.updateInfo(userInfo, localStorage.getItem("token"))
+      .then(response => {
+        commit('SET_USER_INFO', response.data)
+      })
+      .catch(error => {
+        console.log(error)
+      })
   }
+}
 })

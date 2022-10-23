@@ -3,15 +3,27 @@
         <p>Trajanje masaze: {{massage.length}} min</p>
         <p> Cena masaze: {{massage.price}} RSD</p>
         <p>{{massage.info}}</p>
+
+        <div>
+            <select v-if="masseuers" @change="onChange($event)">
+                <option disabled selected value> -- select masseur -- </option>
+                <option v-for="masseur in masseuers" :key="masseur" :value="masseur.id">
+                    {{ masseur.user.first_name }}
+                </option>
+            </select>
+        </div>
+        <br/>
         <input id="date_picker" :min="dateMin" type="date" v-model="date" @change="changedDate" />
-        <TimeComponent v-if="date && clicked" :date="date" :massage="massage" :currentTime="currentTime"
+        <TimeComponent v-if="date && clicked" :date="date" :massage="massage" :currentTime="currentTime" :masseur_id="this.masseur_id"
             :currentDate="dateMin" @clicked-time="clickedTime" />
         <div class="choosen-time" v-if="date && !clicked" @click="this.clicked = !this.clicked">
             Vreme:{{time}}
         </div>
-        <button v-if="!this.$store.state.isAuthenticated && date && !clicked" class="button" data-toggle="modal" data-target="#myModal">Posalji
+        <button v-if="!this.$store.state.isAuthenticated && date && !clicked" class="button" data-toggle="modal"
+            data-target="#myModal">Posalji
             rezervaciju</button>
-        <button v-if="this.$store.state.isAuthenticated && date && !clicked" class="button" @click="sendReservation">Posalji
+        <button v-if="this.$store.state.isAuthenticated && date && !clicked" class="button"
+            @click="sendReservation">Posalji
             rezervaciju</button>
         <ModalReserve @submitReservation="sendReservation" :massage="massage" :time="time" />
 
@@ -32,6 +44,7 @@ export default {
             clicked: false,
             time: "",
             currentTime: "",
+            masseur_id: 1
         }
     },
     components: {
@@ -55,6 +68,9 @@ export default {
             var yyyy = today.getFullYear();
             today = yyyy + '-' + mm + '-' + dd;
             return today
+        },
+        masseuers() {
+            return this.$store.state.masseuers
         }
     },
     methods: {
@@ -75,7 +91,7 @@ export default {
                 "length": this.massage.length,
                 "type": this.massage.name,
             }
-            if(reservation.name != undefined) {
+            if (reservation.name != undefined) {
                 reservedTermin["client"] = {
                     'name': reservation.name,
                     'email': reservation.email,
@@ -85,6 +101,7 @@ export default {
             else {
                 reservedTermin["token"] = this.$store.state.token
             }
+            reservedTermin['masseur_id'] = parseInt(this.masseur_id)
             this.$store.dispatch('postReservationDjango', reservedTermin)
             // this.$router.push({ name: 'MassageConfirmation', params: {id: reservation.id}})
             this.$emit('reserved')
@@ -99,6 +116,9 @@ export default {
         },
         closeModal() {
             this.toggleModal = false
+        },
+        onChange(e) {
+            this.masseur_id = e.target.value
         }
     }
 }

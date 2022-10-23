@@ -5,7 +5,7 @@
         {{time}}
       </div>
     </div>
-    <div v-else>
+    <div v-if="this.allTerminsBooked">
       <div>
         <h1>All termins are booked!</h1>
       </div>
@@ -18,12 +18,16 @@ export default {
   name: 'TimeComponent',
   data() {
     return {
-      timesToDisplay: []
+      timesToDisplay: [],
+      allTerminsBooked: false
     }
   },
-  props: ['date', 'massage', 'currentTime', 'currentDate'],
+  props: ['date', 'massage', 'currentTime', 'currentDate', "masseur_id"],
   watch: {
     date() {
+      this.calcReserved()
+    },
+    masseur_id() {
       this.calcReserved()
     }
   },
@@ -32,7 +36,7 @@ export default {
   },
   methods: {
     async calcReserved() {
-      await this.$store.dispatch('fetchReservedTimeDjango', this.date)
+      await this.$store.dispatch('fetchReservedTimeDjango', {'date':this.date, "masseur_id": this.masseur_id})
 
       const reserved = this.$store.state.reservedTime
       const all = this.$store.state.allTermins
@@ -45,7 +49,7 @@ export default {
 
         var helperMinutes = minutes
         var helperHour = hour
-        for (let i = 0; i < element.length / 15; i++) {
+        for (let i = 0; i < element.massage_id.length / 15; i++) {
           if (helperMinutes === 45) {
             helperHour += 1
             helperMinutes = 0
@@ -127,6 +131,9 @@ export default {
       }
       const finalTimes = timesToDisplay.filter(x => !aditionalDelete.includes(x))
       this.timesToDisplay = finalTimes
+      if(!finalTimes.length) {
+        this.allTerminsBooked = true
+      }
     },
     hoverFunc(time) {
       const length = this.massage.length / 15

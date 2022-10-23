@@ -29,7 +29,7 @@ export default {
     return apiClient.delete('/massages/' + massage.id)
   },
   deleteReservation(reservation) {
-    return apiClient.delete('/reservedTime/' + reservation.id)
+    return apiClientDjango.delete('/reservation/delete/' + reservation.id)
   },
   getMassagesDjango() {
     return apiClientDjango.get('/massage')
@@ -43,8 +43,8 @@ export default {
   getMassageDjango(id) {
     return apiClientDjango.get('/massage/' + id)
   },
-  getReservedTimeDjango(date) {
-    return apiClientDjango.get('/reservation/', { params: { date: String(date) } })
+  getReservedTimeDjango(reservation_data) {
+    return apiClientDjango.get('/reservation/', { params: { date: String(reservation_data.date), masseur_id: reservation_data.masseur_id } })
   },
   getAllReservationsDjango() {
     return apiClientDjango.get('/reservation')
@@ -56,7 +56,6 @@ export default {
     return apiClientDjango.post('/api/v1/users/',  credentials)
   },
   loginAdmin(credentials) {
-    console.log(credentials)
     return apiClientDjango.post('/user/login', credentials)
   },
   verifyPassword(body) {
@@ -70,5 +69,11 @@ export default {
   // },
   fetchUserReservations(token) {
     return apiClientDjango.get('/reservation/', { params: { token: token } })
+  },
+  getUserInfo(token) {
+    return apiClientDjango.get('/user', { params: { token: token } })
+  },
+  updateInfo(userInfo, token) {
+    return apiClientDjango.put('/user/update', { params: { token: token }, body:userInfo })
   }
 }

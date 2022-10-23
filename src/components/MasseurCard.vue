@@ -1,7 +1,13 @@
 <template>
+    <div class="container">
     <div class="card">
-      <img src="@/assets/logo.png" style="max-width: 20px;max-height: 20px;"/>{{masseur.name}}
+      <img class="card-img-top" :src="masseur.photo_url" />
+      <div class="card-body">
+        <h5 class="card-title">{{masseur.user.first_name}}</h5>
+        <p class="card-text">{{masseur.info}}</p>
+      </div>
     </div>
+  </div>
 </template>
   
 <script>

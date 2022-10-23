@@ -72,7 +72,7 @@
                         </div>
                     </div>
                 </div>
-                <div v-if="this.$store.state.isAuthenticated" class="nav-item dropdown" style="margin-right:0;margin-left:auto">
+                <div v-if="loggedIn" class="nav-item dropdown" style="margin-right:0;margin-left:auto">
                     <a href="#" id="reset" data-toggle="dropdown" class="nav-link dropdown-toggle mr-4">Reset Password</a>
                     <div class="dropdown-menu action-form">
                         <form @submit.prevent="resetPassword">
@@ -95,7 +95,7 @@
                         </form>
                     </div>
                 </div>
-                <div v-if="this.$store.state.isAuthenticated" style="margin-right:0;margin-left:0">
+                <div v-if="loggedIn" style="margin-right:0;margin-left:0">
                     <button class="nav-item btn btn-primary" @click.prevent="logout">Logout</button>
                 </div>
             </div>
@@ -105,6 +105,7 @@
   
 <script>
 import MassageService from '@/services/MassageService'
+import axios from 'axios'
 
 export default {
     name: 'HeaderHome',
@@ -135,7 +136,7 @@ export default {
             if (this.signupCredentials.password == this.signupCredentials.passwordConfirm) {
                 this.$store.dispatch('signupDjango', this.signupCredentials)
                 .then(response => {
-                    console.log('MAJMUN', response.data)
+                    console.log(response)
                 }
                 )
                 .catch(error => {
@@ -222,7 +223,18 @@ export default {
                 return false
             }
         }
+    },
+    beforeCreate() {
+    this.$store.dispatch('initialToken')
+    const token = this.$store.state.token
+
+    if (token) {
+      axios.defaults.headers.common['Authorization'] = 'Token' + token
     }
+    else {
+      axios.defaults.headers.common['Authorization'] = ''
+    }
+  },
 }
 // Prevent dropdown menu from closing when click inside the form
 // $(document).on("click", ".action-buttons .dropdown-menu", function(e){

@@ -14,8 +14,8 @@
         :key="reservation">
         <div style="border:1px solid">
           {{reservation.time}}
-          {{reservation.length}} min
-          {{reservation.type}}
+          {{reservation.massage_id.length}} min
+          {{reservation.massage_id.type}}
           <button @click="deleteReservation(reservation)">otkazi</button>
         </div>
       </div>
@@ -32,8 +32,8 @@
             :key="reservation">
             <div style="border:1px solid">
               {{reservation.time}}
-              {{reservation.length}} min
-              {{reservation.type}}
+              {{reservation.massage_id.length}} min
+              {{reservation.massage_id.type}}
             </div>
           </div>
         </div>
