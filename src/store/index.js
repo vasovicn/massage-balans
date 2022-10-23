@@ -14,6 +14,7 @@ export default createStore({
     masseur: null,
     reservation: [],
     reservations: [],
+    userReservations: [],
     allTermins: ['08:00', '08:15', '08:30', '08:45',
       '09:00', '09:15', '09:30', '09:45',
       '10:00', '10:15', '10:30', '10:45',
@@ -66,9 +67,9 @@ export default createStore({
     SET_USERNAME(state, username) {
       state.username = username
     },
-    // SET_USER_PORTAL(state, data) {
-    //   // set data
-    // }
+    SET_USER_PORTAL(state, data) {
+      state.userReservations = data
+    }
   },
   actions: {
     fetchMasseur({ commit }) {
@@ -161,15 +162,16 @@ export default createStore({
           console.log(error)
         })
     },
-    initialToken() {
+    initialToken({commit}) {
       if (localStorage.getItem('token')) {
-        this.state.token = localStorage.getItem('token')
-        this.state.isAuthenticated = true
+        commit('SET_TOKEN',localStorage.getItem('token') )
+        // this.state.token = localStorage.getItem('token')
+        // this.state.isAuthenticated = true
       }
-      else {
-        this.state.token = ''
-        this.state.isAuthenticated = false
-      }
+      // else {
+      //   this.state.token = ''
+      //   this.state.isAuthenticated = false
+      // }
     },
     loginDjango({ commit }, formData) {
       return MassageService.loginDjango(formData)
@@ -195,13 +197,13 @@ export default createStore({
       .then(response => {
         commit('SET_USER_RESERVATIONS', response.data)
       })
+    },
+    userPortal({commit}) {
+      return MassageService.fetchUserReservations(localStorage.getItem("token"))
+      .then(response => {
+        console.log(response)
+        commit('SET_USER_PORTAL', response.data)
+      })
     }
-    // userPortal({commit}) {
-    //   return MassageService.userPortal(localStorage.removeItem("token"))
-    //   .then(response => {
-    //     console.log(response)
-    //     commit('SET_USER_PORTAL', response.data)
-    //   })
-    // }
   }
 })

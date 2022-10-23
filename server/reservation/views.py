@@ -15,8 +15,9 @@ from django.views.decorators.csrf import csrf_exempt
 def index(request):
     if request.GET.get('date'):
         reservations_list = Reservation.objects.filter(date=request.GET.get('date'))
-    # elif request.GET.get('token'):
-    #     reservations_list = Reservation.objects.filter(user_id=request.GET.get('token'))
+    elif request.GET.get('token'):
+        token = Token.objects.get(key=request.GET.get('token'))
+        reservations_list = Reservation.objects.filter(user_id=token.user.profile)
     else:
         reservations_list = Reservation.objects.all()
     serializer = ReservationSerializer(reservations_list, many=True)

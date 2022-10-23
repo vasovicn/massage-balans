@@ -1,32 +1,44 @@
 <template>
-   <div></div>
+  <div></div>
 </template>
     
-  <script>
-  
-  export default {
-    name: 'UserPortal',
-    data() {
-        return {
-            reservations: '',
-            phone: '',
-            email: '',
-            firstname: '',
-            lastname: '',
-            dateOfBirth: '',
+<script>
+import axios from 'axios'
 
-        }
-    },
-    components: {
-    },
-    created() {
-        // this.$store.dispatch('userPortal')
-        
-    }  
+export default {
+  name: 'UserPortal',
+  data() {
+    return {
+      reservations: '',
+      phone: '',
+      email: '',
+      firstname: '',
+      lastname: '',
+      dateOfBirth: '',
+
+    }
+  },
+  components: {
+  },
+  created() {
+    this.$store.dispatch('userPortal')
+
+  },
+  beforeCreate() {
+    this.$store.dispatch('initialToken')
+    const token = this.$store.state.token
+
+    if (token) {
+      axios.defaults.headers.common['Authorization'] = 'Token' + token
+    }
+    else {
+      axios.defaults.headers.common['Authorization'] = ''
+    }
   }
-  </script>
+}
+</script>
     
-  <style scoped>
-  @import'~bootstrap/dist/css/bootstrap.css'
-  </style>
+<style scoped>
+@import'~bootstrap/dist/css/bootstrap.css'
+</style>
     
