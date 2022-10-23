@@ -165,13 +165,7 @@ export default createStore({
     initialToken({commit}) {
       if (localStorage.getItem('token')) {
         commit('SET_TOKEN',localStorage.getItem('token') )
-        // this.state.token = localStorage.getItem('token')
-        // this.state.isAuthenticated = true
       }
-      // else {
-      //   this.state.token = ''
-      //   this.state.isAuthenticated = false
-      // }
     },
     loginDjango({ commit }, formData) {
       return MassageService.loginDjango(formData)

@@ -20,7 +20,7 @@ const apiClientDjango = axios.create({
 
 export default {
   getMasseuers() {
-    return apiClient.get('/masseuers')
+    return apiClientDjango.get('/masseuer/')
   },
   getMasseur(id) {
     return apiClient.get('/masseuers/' + id)
