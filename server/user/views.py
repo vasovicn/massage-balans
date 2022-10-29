@@ -28,6 +28,8 @@ def login(request):
 
 def get(request):
     token = request.GET.get('token')
+    if not token:
+        return JsonResponse({})
     user = User.objects.get(auth_token=token)
     profile = Profile.objects.get(user=user)
     serializer = ProfileSerializer(profile)

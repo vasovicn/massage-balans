@@ -173,6 +173,7 @@ export default {
             this.$store.state.token = ''
             this.$store.state.isAuthenticated = false
             localStorage.removeItem("token")
+            this.$router.push({ name: 'HomeView'})
         },
         resetPassword() {
             if (this.reset.newPassword === this.reset.newPasswordConfirm) {
