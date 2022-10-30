@@ -59,7 +59,7 @@ export default {
     return apiClientDjango.post('/user/login', credentials)
   },
   verifyPassword(body) {
-    return apiClientDjango.post('/user/verifyPassword', body)
+    return apiClientDjango.post('/user/verify_password', body)
   },
   resetPassword(credentials) {
     return apiClientDjango.post('/api/v1/users/reset_password_confirm', credentials)

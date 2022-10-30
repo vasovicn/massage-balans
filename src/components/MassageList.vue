@@ -1,5 +1,7 @@
 <template>
-  <MassageCard v-for="massage in massages" :key="massage" :massage="massage" />  
+  <MassageCard v-for="(massage, index) in massages" :key="index" :massage="massage"
+    @click="toggleReservation(massage.name)"
+     />
 </template>
 
 <script>
@@ -9,20 +11,28 @@ export default {
   name: 'MassageList',
   components: {
     MassageCard
-    },
+  },
   created() {
     this.$store.dispatch('getMassagesDjango')
-        .catch(error => {
-          console.log(error)
-        })
+      .catch(error => {
+        console.log(error)
+      })
   },
   computed: {
     massages() {
       return this.$store.state.massages
     }
+  },
+  methods: {
+    toggleReservation(massage_name) { 
+      if(this.$store.state.x !== massage_name) {
+        this.$store.dispatch('setSelectedMassage', massage_name)
+      }
+    
+    },
+    focusOUT() {
+      console.log('dsadas')
+    }
   }
 }
 </script>
-
-<style scoped>
-</style>

@@ -1,7 +1,7 @@
 <template>
   <div class="container">
-    <div v-if="timesToDisplay.length" class="row">
-      <div class="col" style="font-size: 100%" v-for="time in timesToDisplay" :key="time.id" @click="this.$emit('clicked-time', time)">
+    <div v-if="timesToDisplay.length" class="row" style="justify-content: center;">
+      <div class="cols" style="font-size: 100%" v-for="time in timesToDisplay" :key="time.id" @click="this.$emit('clicked-time', time)">
         {{time}}
       </div>
     </div>
@@ -22,12 +22,15 @@ export default {
       allTerminsBooked: false
     }
   },
-  props: ['date', 'massage', 'currentTime', 'currentDate', "masseur_id"],
+  props: ['date', 'massage', 'currentTime', 'currentDate', "masseur_id", "timePeriod"],
   watch: {
     date() {
       this.calcReserved()
     },
     masseur_id() {
+      this.calcReserved()
+    },
+    timePeriod() {
       this.calcReserved()
     }
   },
@@ -36,6 +39,7 @@ export default {
   },
   methods: {
     async calcReserved() {
+      this.allTerminsBooked = false
       await this.$store.dispatch('fetchReservedTimeDjango', {'date':this.date, "masseur_id": this.masseur_id})
 
       const reserved = this.$store.state.reservedTime
@@ -129,8 +133,16 @@ export default {
           }
         })
       }
-      const finalTimes = timesToDisplay.filter(x => !aditionalDelete.includes(x))
+      const finalAllTimes = timesToDisplay.filter(x => !aditionalDelete.includes(x))
+      const finalTimes = []
+      finalAllTimes.forEach(time => {
+        var selectedTime = parseInt(time.slice(0, 2))
+        if (this.timePeriod[0] < selectedTime && selectedTime < this.timePeriod[1]) {
+          finalTimes.push(time)
+        }
+      })
       this.timesToDisplay = finalTimes
+      console.log('times', this.timesToDisplay)
       if(!finalTimes.length) {
         this.allTerminsBooked = true
       }
@@ -176,25 +188,27 @@ export default {
 </script>
 
 <style scoped>
-.col {
+.cols {
   padding: 5px;
   margin: 2px;
   border: 1px solid;
   height: 10px;
-  width: 36px;
+  width: 80px;
   padding-bottom: 7px;
   padding-top: 0px;
   border-radius: 10px;
-  background-color: rgb(129, 191, 170);
+  background-color: #33cabb;
   min-height: 30px;
   min-width: fit-content;
   text-align: center;
+  color:white
 }
-.col:hover {
+.cols:hover {
   background-color: white;
   cursor: pointer;
 }
 .container {
   margin-top: 10px;
+  max-width:760px
 }
 </style>

@@ -3,7 +3,7 @@
     <div class="col-8">
       <MassageList />
     </div>
-    <div class="col-1"/>
+    <div class="col-1" @click="focusOUT"/>
     <div class="col-3">
       <MasseurList />
     </div>
@@ -30,6 +30,11 @@ export default {
     }
     else {
       axios.defaults.headers.common['Authorization'] = ''
+    }
+  },
+  methods: {
+    focusOUT() {
+      this.$store.dispatch('setSelectedMassage', null)
     }
   }
   

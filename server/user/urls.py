@@ -11,5 +11,5 @@ urlpatterns = [
     path('login', views.login, name='login'),
     path('', views.get, name="get"),
     path('update', views.update, name="update"),
-    path('verifyPassword', views.verifyPassword, name='verifyPassword')
+    path('verify_password', views.verify_password, name='verify_password')
 ]

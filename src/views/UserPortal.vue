@@ -1,7 +1,8 @@
 <template>
   <div class="row" style="padding:30px">
     <div class="col-8">
-      <h3>Moje operacije</h3>
+      <!-- {{futureTermins}}
+      <h3 :style="{color: this.futureTermins}" @click="this.futureTermins = 'green'">Pretsojeci termini</h3>|<h3 :style="{color: this.futureTermins}" @click="this.futureTermins = 'green'">Istorija masaza</h3> -->
       <div v-for="reservationDate in sortedReservations.filter(x => Date.parse(x) >= Date.parse(currentDate))"
         :key="reservationDate" style="min-height:50px;">
         <div style="margin: 20px 0;" v-if="Date.parse(reservationDate) === Date.parse(currentDate)">
@@ -130,7 +131,8 @@ export default {
     return {
       pastReservations: false,
       readonlyInfo: true,
-      userInfoForm: null
+      userInfoForm: null,
+      futureTermins: 'green'
     }
   },
   components: {

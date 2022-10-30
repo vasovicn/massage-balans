@@ -256,6 +256,7 @@ body {
 
 .navbar {
     background: #fff;
+    background-color: #44474a !important;
     padding-left: 16px;
     padding-right: 16px;
     border-bottom: 1px solid #dfe3e8;

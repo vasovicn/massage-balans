@@ -16,6 +16,8 @@ export default createStore({
     reservations: [],
     userReservations: [],
     userInfo: null,
+    x: null,
+    selectedMasseur: null,
     allTermins: ['08:00', '08:15', '08:30', '08:45',
       '09:00', '09:15', '09:30', '09:45',
       '10:00', '10:15', '10:30', '10:45',
@@ -73,6 +75,12 @@ export default createStore({
     },
     SET_USER_INFO(state, data) {
       state.userInfo = data
+    },
+    SET_SELECTED_MASSAGE(state, massage) {
+      state.x = massage
+    },
+    SET_SELECTED_MASSAGE_BUTTON(state, y) {
+      state.y = y
     }
   },
   actions: {
@@ -221,6 +229,12 @@ export default createStore({
       .catch(error => {
         console.log(error)
       })
+  },
+  setSelectedMassage({commit}, massage) {
+    commit('SET_SELECTED_MASSAGE', massage)
+  },
+  setSelectedMassageButton({commit}, y) {
+    commit('SET_SELECTED_MASSAGE_BUTTON', y)
   }
 }
 })

@@ -37,7 +37,7 @@ def get(request):
 
 
 @csrf_exempt
-def verifyPassword(request):
+def verify_password(request):
     token = json.loads(request.body)['token']
     old_password = json.loads(request.body)['oldPassword']
     new_password = json.loads(request.body)['newPassword']
