@@ -17,9 +17,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 def index(request):
     if request.GET.get('date') and request.GET.get('masseur_id'):
-        print(request.GET.get('masseur_id'))
         reservations_list = Reservation.objects.filter(date=request.GET.get('date'), masseur_id=request.GET.get('masseur_id'), )
-        print(reservations_list)
     elif request.GET.get('token'):
         token = Token.objects.get(key=request.GET.get('token'))
         reservations_list = Reservation.objects.filter(user_id=token.user.profile)
@@ -40,7 +38,6 @@ def get(id):
 @csrf_exempt
 def create(request):
     r =json.loads(request.body)
-    print(r)
     masseur = Masseur.objects.get(id=r['masseur_id'])
     massage = Massage.objects.get(name=r['type'])
     if r.get('client'):

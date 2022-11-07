@@ -1,5 +1,5 @@
 <template>
-    <div class="modal fade" id="myModal">
+    <div class="modal fade" id="myModal" data-backdrop="false">
         <div class="modal-dialog">
             <div class="modal-content">
 

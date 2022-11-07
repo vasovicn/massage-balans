@@ -16,7 +16,6 @@ from django.views.decorators.csrf import csrf_exempt
 
 def index(request):
     messages_list = Massage.objects.all()
-    print('REQUEST', request)
     serializer = MassageSerializer(messages_list, many=True, context = {
    "request": request
 })

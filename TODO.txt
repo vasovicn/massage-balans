@@ -1,3 +1,5 @@
 login kao admin
-forgot password
-user kad se napravi on ga pravi kao masera
+
+za sada je hardkodovan url frontenda u get_reset_password
+
+bug kada se zakaze masaza, ta masaza vise ne moze da se otvori do refresha

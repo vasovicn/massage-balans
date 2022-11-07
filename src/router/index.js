@@ -5,6 +5,8 @@ import BackendView from '../views/backend/BackendView.vue'
 import CreateNewMassage from '../views/backend/CreateNewMassage'
 import MassageDetails from '../views/MassageDetails'
 import UserPortal from '../views/UserPortal'
+import ResetPassword from '../views/ResetPassword'
+import PageNotFound from '../views/PageNotFound'
 
 const routes = [
   {
@@ -41,6 +43,15 @@ const routes = [
     props: true,
     component: UserPortal
   },
+  {
+    path: '/massage-reservations/:uidb64/:token',
+    name: 'ResetPassword',
+    props: true,
+    component: ResetPassword
+  },
+  { path: '/:pathMatch(.*)*',
+    component: PageNotFound
+  }
 ]
 
 const router = createRouter({

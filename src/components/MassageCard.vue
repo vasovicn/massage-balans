@@ -6,12 +6,11 @@
       <div class="card-body">
         <h5 class="card-title">{{ massage.name }}</h5>
         <p class="card-text">{{ massage.info }}</p>
-        <!-- <button v-if="!reservationOpen" class="btn btn-primary" @click="toggleReservation()">Rezervisi</button> -->
         <MassageReservation v-if="reservationOpenTest && this.reservationOpen" :massageID="massage.id"
           @reserved="reservationOpen = false" @fold="foldcard"/>
       </div>
+      </div>
     </div>
-  </div>
 </template>
   
 <script>
@@ -19,7 +18,7 @@ import MassageReservation from '@/components/MassageReservation.vue';
 
 export default {
   components: {
-    MassageReservation
+    MassageReservation,
   },
   name: 'MassageCard',
   props: ['massage'],
@@ -73,7 +72,7 @@ export default {
   margin: auto;
 }
 
-@import'~bootstrap/dist/css/bootstrap.css'
+/* @import'~bootstrap/dist/css/bootstrap.css' */
 </style>
 
   

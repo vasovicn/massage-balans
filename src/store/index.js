@@ -18,6 +18,12 @@ export default createStore({
     userInfo: null,
     x: null,
     selectedMasseur: null,
+    successEmail: false,
+    successPassword: false,
+    countdownEmail: 0,
+    countdownPassword: 0,
+    currentMassage: null,
+    currentTime: '',
     allTermins: ['08:00', '08:15', '08:30', '08:45',
       '09:00', '09:15', '09:30', '09:45',
       '10:00', '10:15', '10:30', '10:45',
@@ -81,7 +87,25 @@ export default createStore({
     },
     SET_SELECTED_MASSAGE_BUTTON(state, y) {
       state.y = y
-    }
+    },
+    SET_SUCCESS_POPUP(state, value) {
+      state.successEmail = value
+    },
+    RESET_EMAIL_TIMER(state) {
+      state.countdownEmail = 5
+    },
+    RESET_PASSWORD_TIMER(state) {
+      state.countdownPassword = 5
+    },
+    COUNTDOWN_EMAIL(state) {
+      state.countdownEmail--
+    },
+    SET_SUCCESS_PASSWORD_RESET_POPUP(state, value) {
+      state.successPassword = value
+    },
+    COUNTDOWN_PASSWORD(state) {
+      state.countdownPassword--
+    },
   },
   actions: {
     fetchMasseur({ commit }) {
@@ -235,6 +259,28 @@ export default createStore({
   },
   setSelectedMassageButton({commit}, y) {
     commit('SET_SELECTED_MASSAGE_BUTTON', y)
+  },
+  showSuccessPopup({state, commit}, value) {
+    commit('SET_SUCCESS_POPUP', value)
+    commit('RESET_EMAIL_TIMER')
+    const interval = setInterval(() => {     
+      commit('COUNTDOWN_EMAIL');
+      if (state.countdownEmail === 0) {
+        clearInterval(interval);               
+        commit('SET_SUCCESS_POPUP', false)
+      }
+    }, 1000)
+  },
+  passwordReseted({state, commit}, value) {
+    commit('SET_SUCCESS_PASSWORD_RESET_POPUP', value)
+    commit('RESET_PASSWORD_TIMER')
+    const interval = setInterval(() => {     
+      commit('COUNTDOWN_PASSWORD');
+      if (state.countdownPassword === 0) {
+        clearInterval(interval);               
+        commit('SET_SUCCESS_PASSWORD_RESET_POPUP', false)
+      }
+    }, 1000)
   }
 }
 })

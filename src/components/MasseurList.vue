@@ -1,5 +1,5 @@
 <template>
-    <div class="band">
+    <div class="band" style="position:relative">
       <MasseurCard v-for="masseur in masseuers" :key="masseur.id" :masseur="masseur"/>
     </div>
   </template>
@@ -9,6 +9,11 @@
   
   export default {
     name: 'MasseurList',
+    data() {
+      return {
+        popupSucces: false
+      }
+    },
     components: {
         MasseurCard
   },

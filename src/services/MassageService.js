@@ -75,5 +75,14 @@ export default {
   },
   updateInfo(userInfo, token) {
     return apiClientDjango.put('/user/update', { params: { token: token }, body:userInfo })
+  },
+  searchUser(username) {
+    return apiClientDjango.get('/user/', { params: { username: username } })
+  },
+  sendResetEmail(email) {
+    return apiClientDjango.post('/user/request-reset-email', {params: { email: email}})
+  },
+  resetPasswordEmail(body) {
+    return apiClientDjango.patch('/user/password-reset-complete', {params: { body: body}})
   }
 }

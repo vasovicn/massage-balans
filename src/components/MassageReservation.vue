@@ -1,4 +1,5 @@
 <template>
+    <ModalReserve @submitReservation="sendReservation" :massage="massage" :time="time" />
     <div v-if="massageID">
         <p>Trajanje masaze: {{ massage.length }} min</p>
         <p> Cena masaze: {{ massage.price }} RSD</p>
@@ -8,40 +9,14 @@
                     {{ masseur.user.first_name }}
                 </option>
             </select> -->
-        <!-- <div class="carousel-container">
-            <input type="radio" name="slider" id="item-1" checked>
-            <input type="radio" name="slider" id="item-2">
-            <input type="radio" name="slider" id="item-3">
-            <div class="cards">
-                <label class="card" for="item-1" id="song-1">
-                    <img class="carousel-img"
-                        src="https://images.unsplash.com/photo-1530651788726-1dbf58eeef1f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=882&q=80"
-                        alt="song">
-                </label>
-                <label class="card" for="item-2" id="song-2">
-                    <img class="carousel-img"
-                        src="https://images.unsplash.com/photo-1559386484-97dfc0e15539?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1234&q=80"
-                        alt="song">
-                </label>
-                <label class="card" for="item-3" id="song-3">
-                    <img class="carousel-img"
-                        src="https://images.unsplash.com/photo-1533461502717-83546f485d24?ixlib=rb-1.2.1&auto=format&fit=crop&w=900&q=60"
-                        alt="song">
-                </label>
-            </div>
-        </div> -->
-        <div class="carousel-container">
-            <input v-for="(masseur, index) in masseuers" :key="index" type="radio" name="slider"
-                :id="'item-' + parseInt(parseInt(index) + parseInt(1))" :checked="index === 0"/>
-            <div class="cards">
-                <label v-for="(masseur, index) in masseuers" :key="index" class="card"
-                    :for="'item-' + parseInt(parseInt(index) + parseInt(1))"
-                    :id="'song-' + parseInt(parseInt(index) + parseInt(1))">
-                    <img class="carousel-img" :src="masseur.photo_url" alt="song" @click="this.selectedMasseur = masseur">
-                </label>
-            </div>
-        </div>
-        <div>{{selectedMasseur.user.first_name}}</div>
+        <carousel-3d :display="3">
+            <slide class="customize-carousel" v-for="(masseur, i) in masseuers" :index="i" :key="i" @click="this.selectedMasseur = masseur">
+                <!-- <template #addons="{ index, isCurrent, leftIndex, rightIndex }"> -->
+                    <img :data-index="i"
+                        :src="masseur.photo_url">
+                <!-- </template> -->
+            </slide>
+        </carousel-3d>
         <br />
         <div style="margin-bottom:10px">
             <input id="date_picker" :min="dateMin" type="date" v-model="date" @change="changedDate" />
@@ -66,39 +41,14 @@
         <button v-if="this.$store.state.isAuthenticated && date && !clicked" class="button"
             @click="sendReservation">Posalji
             rezervaciju</button>
-        <ModalReserve @submitReservation="sendReservation" :massage="massage" :time="time" />
-
-        <!-- <div id="carouselExampleControls" class="carousel slide" data-ride="carousel" data-interval="false">
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <p>A</p>
-                </div>
-                <div class="carousel-item">
-                    <p>B</p>
-                </div>
-                <div class="carousel-item">
-                    <p>C</p>
-                </div>
-            </div>
-            <button class="carousel-control-prev" type="button" data-target="#carouselExampleControls"
-                data-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-target="#carouselExampleControls"
-                data-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
-            </button>
-        </div> -->
-    </div>
+        </div>
 </template>
     
 <script>
 import TimeComponent from '@/components/TimeComponent.vue'
 import ModalReserve from '@/views/ModalReserve.vue'
-
 import { uuid } from 'vue-uuid';
+import { Carousel3d, Slide } from 'vue3-carousel-3d';
 
 export default {
     name: 'MassageReservation',
@@ -110,12 +60,14 @@ export default {
             currentTime: "",
             masseur_id: 1,
             timePeriod: [7, 12],
-            selectedMasseur: this.$store.state.masseuers[0]
+            selectedMasseur: this.$store.state.masseuers[0],
         }
     },
     components: {
         TimeComponent,
-        ModalReserve
+        ModalReserve,
+        Carousel3d,
+        Slide
     },
     props: ['massageID'],
     created() {
@@ -136,28 +88,6 @@ export default {
             return today
         },
         masseuers() {
-            // var masseursPointer = null
-            // let masseuers = this.$store.state.masseuers
-            // for (let i = 0; i < masseuers.legth; i++) {
-            //     if (i === masseuers.length - 1) {
-            //         masseursPointer.push(i, masseuers[0])
-            //     }
-            //     else {
-            //         masseursPointer.push(i, masseuers[i + 1])
-            //     }
-            // }
-
-            // let currentMasseurIndex = currentMasseurIndex % masseuers.length;
-            // let x = []
-            // for (let [index, [key, value]] of Object.entries(Object.entries(masseursPointer))) {
-            //     let endIndex = (currentMasseurIndex + index) % masseuers.length
-            //     if (key >= currentMasseurIndex && key <= endIndex) {
-            //         x.push(value)
-            //     }
-            // }
-
-            // return x
-
             return this.$store.state.masseuers
         }
     },
@@ -216,6 +146,19 @@ export default {
 input[type=radio] {
     display: none;
 }
+/* .customize-carousel {
+    height:100px !important;
+    width:50px !important;
+} */
+.carousel-3d-container {
+    min-width: 650px;
+    /* max-height: 150px; */
+    /* display: flex !important; */
+}
+/* .carousel-3d-slide {
+    height: 50px;
+    width: 50px;
+} */
 
 .card {
     position: absolute;
@@ -247,6 +190,94 @@ input[type=radio] {
     height: 15%;
 }
 
+
+.massage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* border:1px solid; */
+    min-width: 200px;
+    max-width: 700px;
+    max-height: 500px;
+    margin: auto;
+    padding: 10px
+}
+
+.time {
+    margin-top: 10px;
+    padding: 3px;
+    min-height: 20px;
+}
+
+.time:hover {
+    background-color: rgb(218, 218, 218);
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+.button {
+    background-color: #c2fbd7;
+    border-radius: 100px;
+    box-shadow: rgba(44, 187, 99, .2) 0 -25px 18px -14px inset, rgba(44, 187, 99, .15) 0 1px 2px, rgba(44, 187, 99, .15) 0 2px 4px, rgba(44, 187, 99, .15) 0 4px 8px, rgba(44, 187, 99, .15) 0 8px 16px, rgba(44, 187, 99, .15) 0 16px 32px;
+    color: green;
+    cursor: pointer;
+    display: inline-block;
+    font-family: CerebriSans-Regular, -apple-system, system-ui, Roboto, sans-serif;
+    padding: 7px 20px;
+    text-align: center;
+    text-decoration: none;
+    transition: all 250ms;
+    border: 0;
+    font-size: 16px;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+}
+
+.button:hover {
+    box-shadow: rgba(44, 187, 99, .35) 0 -25px 18px -14px inset, rgba(44, 187, 99, .25) 0 1px 2px, rgba(44, 187, 99, .25) 0 2px 4px, rgba(44, 187, 99, .25) 0 4px 8px, rgba(44, 187, 99, .25) 0 8px 16px, rgba(44, 187, 99, .25) 0 16px 32px;
+    transform: scale(1.05);
+}
+
+.choosen-time {
+    padding: 10px;
+}
+
+.choosen-time:hover {
+    transform: scale(1.05);
+    background-color: #c2fbd7;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.btn-abc {
+    margin: 5px 0px 5px 0px;
+    width: 20%;
+    border: none;
+    border-radius: 5px;
+    background-color: #f1f1f1;
+    width: 100%;
+}
+
+.btn-abc-selected {
+    background-color: white;
+}
+
+.btns-background {
+    background-color: #f1f1f1;
+    border-radius: 5px;
+    width: 310px;
+    margin: 0 auto;
+    display: inline-flex;
+}
+
+.btn-left {
+    margin-left: 5px;
+}
+
+.btn-right {
+    margin-right: 5px;
+}
 .carousel-img {
     width: 100%;
     height: 100%;
@@ -373,92 +404,5 @@ input[type=radio] {
     transform: translateY(-80px);
 }
 
-.massage {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    /* border:1px solid; */
-    min-width: 200px;
-    max-width: 700px;
-    max-height: 500px;
-    margin: auto;
-    padding: 10px
-}
-
-.time {
-    margin-top: 10px;
-    padding: 3px;
-    min-height: 20px;
-}
-
-.time:hover {
-    background-color: rgb(218, 218, 218);
-    cursor: pointer;
-    border-radius: 10px;
-}
-
-.button {
-    background-color: #c2fbd7;
-    border-radius: 100px;
-    box-shadow: rgba(44, 187, 99, .2) 0 -25px 18px -14px inset, rgba(44, 187, 99, .15) 0 1px 2px, rgba(44, 187, 99, .15) 0 2px 4px, rgba(44, 187, 99, .15) 0 4px 8px, rgba(44, 187, 99, .15) 0 8px 16px, rgba(44, 187, 99, .15) 0 16px 32px;
-    color: green;
-    cursor: pointer;
-    display: inline-block;
-    font-family: CerebriSans-Regular, -apple-system, system-ui, Roboto, sans-serif;
-    padding: 7px 20px;
-    text-align: center;
-    text-decoration: none;
-    transition: all 250ms;
-    border: 0;
-    font-size: 16px;
-    user-select: none;
-    -webkit-user-select: none;
-    touch-action: manipulation;
-}
-
-.button:hover {
-    box-shadow: rgba(44, 187, 99, .35) 0 -25px 18px -14px inset, rgba(44, 187, 99, .25) 0 1px 2px, rgba(44, 187, 99, .25) 0 2px 4px, rgba(44, 187, 99, .25) 0 4px 8px, rgba(44, 187, 99, .25) 0 8px 16px, rgba(44, 187, 99, .25) 0 16px 32px;
-    transform: scale(1.05);
-}
-
-.choosen-time {
-    padding: 10px;
-}
-
-.choosen-time:hover {
-    transform: scale(1.05);
-    background-color: #c2fbd7;
-    cursor: pointer;
-    border-radius: 5px;
-}
-
-.btn-abc {
-    margin: 5px 0px 5px 0px;
-    width: 20%;
-    border: none;
-    border-radius: 5px;
-    background-color: #f1f1f1;
-    width: 100%;
-}
-
-.btn-abc-selected {
-    background-color: white;
-}
-
-.btns-background {
-    background-color: #f1f1f1;
-    border-radius: 5px;
-    width: 310px;
-    margin: 0 auto;
-    display: inline-flex;
-}
-
-.btn-left {
-    margin-left: 5px;
-}
-
-.btn-right {
-    margin-right: 5px;
-}
 </style>
     

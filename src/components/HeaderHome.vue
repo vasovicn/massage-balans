@@ -1,26 +1,15 @@
 <template>
-    <header>
+    <header class="fixed-top" style="box-shadow: 0px 0px 5px 0px rgba(81, 81, 81, 0.47);">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <router-link :to="{ name: 'HomeView' }" class="navbar-brand">Masaza<b>Balans</b></router-link>
+            <router-link :to="{ name: 'HomeView' }" class="logo navbar-brand" style="padding:4px"><img style="height:65px;margin-top:-32px;margin-bottom: -16px;" src="http://localhost:8000/media/logo_lotus.jpg"/><b>Balans</b></router-link>
             <!-- Collection of nav links, forms, and other content for toggling -->
             <div id="navbarCollapse" class="collapse navbar-collapse justify-content-start">
                 <div class="navbar-nav">
-                    <a href="#" class="nav-item nav-link">Contact</a>
-                    <router-link :to="{ name: 'UserPortal' }" v-if="loggedIn">My portal</router-link> 
+                    <router-link style="color:white;margin-top:11px" :to="{ name: 'UserPortal' }" v-if="loggedIn">My portal</router-link>
                 </div>
-                <form class="navbar-form form-inline">
-                    <div class="input-group search-box">
-                        <input type="text" id="search" class="form-control" placeholder="Search here...">
-                        <div class="input-group-append">
-                            <span class="input-group-text">
-                                <i class="material-icons">&#xE8B6;</i>
-                            </span>
-                        </div>
-                    </div>
-                </form>
                 <div class="navbar-nav ml-auto action-buttons" v-if="!loggedIn">
                     <div class="nav-item dropdown">
-                        <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle mr-4">Login</a>
+                        <a style="color:white" data-toggle="dropdown" class="login forgot nav-link dropdown-toggle mr-3">Login</a>
                         <div class="dropdown-menu action-form">
                             <form @submit.prevent="login">
                                 <div class="form-group">
@@ -29,12 +18,13 @@
                                 </div>
                                 <div class="form-group">
                                     <input type="password" class="form-control" placeholder="Password"
-                                        required="required" v-model="credentials.password" @input="this.wrongCredentials=''">
-                                        <a style="color:red">{{wrongCredentials}}</a>
+                                        required="required" v-model="credentials.password"
+                                        @input="this.wrongCredentials = ''">
+                                    <a style="color:red">{{ wrongCredentials }}</a>
                                 </div>
                                 <input type="submit" class="btn btn-primary btn-block" value="Login">
                                 <div class="text-center mt-2">
-                                    <a href="#">Forgot Your password?</a>
+                                    <a class="forgot" data-toggle="modal" data-target="#resetPassword" @click="closeLogin">Forgot Your password?</a>
                                 </div>
                             </form>
                         </div>
@@ -65,21 +55,23 @@
                                         the <a href="#">Terms &amp; Conditions</a></label>
                                 </div>
                                 <ul v-for="error in signupErrors" :key="error" style="color:red">
-                                    <li>{{error}}</li>
+                                    <li>{{ error }}</li>
                                 </ul>
-                                <input type="submit" class="btn btn-primary btn-block" value="Sign up" :disabled="!matchingPasswords">
+                                <input type="submit" class="btn btn-primary btn-block" value="Sign up"
+                                    :disabled="!matchingPasswords">
                             </form>
                         </div>
                     </div>
                 </div>
                 <div v-if="loggedIn" class="nav-item dropdown" style="margin-right:0;margin-left:auto">
-                    <a href="#" id="reset" data-toggle="dropdown" class="nav-link dropdown-toggle mr-4">Reset Password</a>
+                    <a href="#" id="reset" data-toggle="dropdown" class="nav-link dropdown-toggle mr-4" style="color:white">Reset
+                        Password</a>
                     <div class="dropdown-menu action-form">
                         <form @submit.prevent="resetPassword">
                             <div class="form-group">
                                 <input type="password" class="form-control" placeholder="Old Password"
                                     required="required" v-model="reset.oldPassword" @input="this.wrongPassword = ''">
-                                <a style="color:red">{{wrongPassword}}</a>
+                                <a style="color:red">{{ wrongPassword }}</a>
                             </div>
                             <div class="form-group">
                                 <input type="password" class="form-control" placeholder="New Password"
@@ -90,8 +82,9 @@
                                     required="required" v-model="reset.newPasswordConfirm">
                             </div>
                             <p style="color: red;" class="hint-text" v-if="!matchingResetPasswords">Passwords are not
-                                        matching!</p>
-                            <input type="submit" class="btn btn-primary btn-block" value="Reset Password" :disabled="!matchingResetPasswords">
+                                matching!</p>
+                            <input type="submit" class="btn btn-primary btn-block" value="Reset Password"
+                                :disabled="!matchingResetPasswords">
                         </form>
                     </div>
                 </div>
@@ -101,14 +94,19 @@
             </div>
         </nav>
     </header>
+    <ModalResetPassword/>
 </template>
-  
+
 <script>
 import MassageService from '@/services/MassageService'
 import axios from 'axios'
+import ModalResetPassword from '@/views/ModalResetPassword.vue'
 
 export default {
     name: 'HeaderHome',
+    components: {
+        ModalResetPassword
+    },
     data() {
         return {
             credentials: {
@@ -132,22 +130,25 @@ export default {
         }
     },
     methods: {
+        closeLogin() {
+            document.querySelector('.forgot').click()
+        },
         signup() {
             if (this.signupCredentials.password == this.signupCredentials.passwordConfirm) {
                 this.$store.dispatch('signupDjango', this.signupCredentials)
-                .then(response => {
-                    console.log(response)
-                }
-                )
-                .catch(error => {
-                    if(JSON.parse(error.response.request.responseText).username) {
-                        this.signupErrors = JSON.parse(error.response.request.responseText).username
+                    .then(response => {
+                        console.log(response)
                     }
-                    else if(JSON.parse(error.response.request.responseText).password) {
-                        this.signupErrors = JSON.parse(error.response.request.responseText).password 
-                    }
+                    )
+                    .catch(error => {
+                        if (JSON.parse(error.response.request.responseText).username) {
+                            this.signupErrors = JSON.parse(error.response.request.responseText).username
+                        }
+                        else if (JSON.parse(error.response.request.responseText).password) {
+                            this.signupErrors = JSON.parse(error.response.request.responseText).password
+                        }
 
-                })
+                    })
             }
         },
         login() {
@@ -163,7 +164,12 @@ export default {
 
             }
             else {
-                this.$store.dispatch('loginDjango', this.credentials).catch(error => {
+                this.$store.dispatch('loginDjango', this.credentials)
+                .then(response => {
+                    this.$router.push({name: 'HomeView'})
+                    console.log(response)
+                })
+                .catch(error => {
                     console.log(error)
                     this.wrongCredentials = 'Wrong credentials'
                 })
@@ -173,7 +179,7 @@ export default {
             this.$store.state.token = ''
             this.$store.state.isAuthenticated = false
             localStorage.removeItem("token")
-            this.$router.push({ name: 'HomeView'})
+            this.$router.push({ name: 'HomeView' })
         },
         resetPassword() {
             if (this.reset.newPassword === this.reset.newPasswordConfirm) {
@@ -226,21 +232,18 @@ export default {
         }
     },
     beforeCreate() {
-    this.$store.dispatch('initialToken')
-    const token = this.$store.state.token
+        this.$store.dispatch('initialToken')
+        const token = this.$store.state.token
 
-    if (token) {
-      axios.defaults.headers.common['Authorization'] = 'Token' + token
-    }
-    else {
-      axios.defaults.headers.common['Authorization'] = ''
-    }
-  },
+        if (token) {
+            axios.defaults.headers.common['Authorization'] = 'Token' + token
+        }
+        else {
+            axios.defaults.headers.common['Authorization'] = ''
+        }
+    },
 }
-// Prevent dropdown menu from closing when click inside the form
-// $(document).on("click", ".action-buttons .dropdown-menu", function(e){
-// 	e.stopPropagation();
-// });
+
 </script>
   
 <style scoped>
@@ -256,7 +259,7 @@ body {
 
 .navbar {
     background: #fff;
-    background-color: #44474a !important;
+    background-color: #7e8c92fd !important;
     padding-left: 16px;
     padding-right: 16px;
     border-bottom: 1px solid #dfe3e8;
@@ -274,12 +277,13 @@ body {
 
 .navbar .navbar-brand {
     padding-left: 0;
-    font-size: 20px;
+    font-size: 30px;
     padding-right: 50px;
+    margin-left: 20px;
 }
 
 .navbar .navbar-brand b {
-    color: #33cabb;
+    color: #81bfaa;
 }
 
 .navbar .form-inline {
@@ -333,7 +337,7 @@ body {
 
 .navbar a,
 .navbar a:active {
-    color: #888;
+    color: rgb(136, 136, 136);
     padding: 8px 20px;
     background: transparent;
     line-height: normal;
@@ -352,7 +356,7 @@ body {
 }
 
 .navbar .action-form a {
-    color: #33cabb;
+    color: #81bfaa;
     padding: 0 !important;
     font-size: 14px;
 }
@@ -366,14 +370,14 @@ body {
 .navbar .btn-primary,
 .navbar .btn-primary:active {
     color: #fff;
-    background: #33cabb !important;
+    background: #81bfaa !important;
     border: none;
 }
 
 .navbar .btn-primary:hover,
 .navbar .btn-primary:focus {
     color: #fff;
-    background: #31bfb1 !important;
+    background: #6bbda2 !important;
 }
 
 .or-seperator {
@@ -430,6 +434,15 @@ body {
     .navbar .input-group {
         width: 100%;
     }
+}
+.forgot:hover {
+    cursor: pointer;
+}
+.login:hover {
+    transform: scale(1.1);
+}
+.logo:hover {
+    transform: scale(1.1);
 }
 </style>
   

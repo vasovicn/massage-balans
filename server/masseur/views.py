@@ -19,7 +19,6 @@ class MasseurList(APIView):
 
 def index(request):
     messeurs_list = Masseur.objects.all()
-    print('REQUEST', request)
     serializer = MasseurSerializer(messeurs_list, many=True, context = {
    "request": request
 })

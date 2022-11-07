@@ -1,7 +1,8 @@
 <template>
-  <div id="app">
+  <div style="overflow-x: hidden;" id="app">
     <HeaderHome></HeaderHome>
-    <router-view />
+    <router-view/>
+    <FooterHome></FooterHome>
   </div>
 </template>
 
@@ -19,11 +20,13 @@
 
 <script>
 import HeaderHome from './components/HeaderHome.vue'
+import FooterHome from './components/FooterHome.vue'
 
 export default {
   name: 'App',
   components: {
-    HeaderHome
+    HeaderHome,
+    FooterHome
   }
 }
 </script>
