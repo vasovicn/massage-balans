@@ -1,22 +1,14 @@
 <template>
-    <ModalReserve @submitReservation="sendReservation" :massage="massage" :time="time" />
     <div v-if="massageID">
         <p>Trajanje masaze: {{ massage.length }} min</p>
         <p> Cena masaze: {{ massage.price }} RSD</p>
-        <!-- <select v-if="masseuers" @change="onChange($event)">
-                <option disabled selected value> -- select masseur -- </option>
-                <option v-for="masseur in masseuers" :key="masseur" :value="masseur.id">
-                    {{ masseur.user.first_name }}
-                </option>
-            </select> -->
-        <carousel-3d :display="3">
-            <slide class="customize-carousel" v-for="(masseur, i) in masseuers" :index="i" :key="i" @click="this.selectedMasseur = masseur">
-                <!-- <template #addons="{ index, isCurrent, leftIndex, rightIndex }"> -->
-                    <img :data-index="i"
-                        :src="masseur.photo_url">
-                <!-- </template> -->
+        <carousel-3d :display="3" style="width:200px !important">
+            <slide class="customize-carousel" v-for="(masseur, i) in masseuers" :index="i" :key="i"
+                @click="this.selectedMasseur = masseur">
+                <img :data-index="i" :src="masseur.photo_url" style="height: inherit;">
             </slide>
         </carousel-3d>
+        <div>{{ this.selectedMasseur.user.first_name }}</div>
         <br />
         <div style="margin-bottom:10px">
             <input id="date_picker" :min="dateMin" type="date" v-model="date" @change="changedDate" />
@@ -36,19 +28,19 @@
             Vreme:{{ time }}
         </div>
         <button v-if="!this.$store.state.isAuthenticated && date && !clicked" class="button" data-toggle="modal"
-            data-target="#myModal">Posalji
+            data-target="#myModal" @click="setCurrentMasseur">Posalji
             rezervaciju</button>
         <button v-if="this.$store.state.isAuthenticated && date && !clicked" class="button"
             @click="sendReservation">Posalji
             rezervaciju</button>
-        </div>
+    </div>
 </template>
     
 <script>
 import TimeComponent from '@/components/TimeComponent.vue'
-import ModalReserve from '@/views/ModalReserve.vue'
 import { uuid } from 'vue-uuid';
 import { Carousel3d, Slide } from 'vue3-carousel-3d';
+
 
 export default {
     name: 'MassageReservation',
@@ -61,17 +53,18 @@ export default {
             masseur_id: 1,
             timePeriod: [7, 12],
             selectedMasseur: this.$store.state.masseuers[0],
+            client_token: ""
         }
     },
+    emits: ["reserved", "fold"],
     components: {
         TimeComponent,
-        ModalReserve,
         Carousel3d,
         Slide
     },
     props: ['massageID'],
     created() {
-        this.$store.dispatch('fetchMassageDjango', this.massageID)
+        this.$store.dispatch('fetchMassageDjango', this.massageID.id)
         this.timeMin()
 
     },
@@ -92,38 +85,34 @@ export default {
         }
     },
     methods: {
+        setCurrentMasseur() {
+            this.$store.commit('SET_CURRENT_MASSEUR', this.selectedMasseur)
+            this.$store.commit('SET_CURRENT_MASSAGE_DATE', this.date)
+        },
         clickedTime(time) {
             this.clicked = !this.clicked
             this.time = time
+            this.$store.commit('SET_MASSAGE_TIME', time)
         },
         changedDate() {
             if (!this.clicked) {
                 this.clicked = !this.clicked
             }
         },
-        sendReservation(reservation) {
+        sendReservation() {
             const reservedTermin = {
                 "id": uuid.v4(),
                 "date": this.date,
                 "time": this.time,
                 "length": this.massage.length,
                 "type": this.massage.name,
+                "token": this.$store.state.token,
+                "masseur_id": parseInt(this.selectedMasseur.id)
             }
-            if (reservation.name != undefined) {
-                reservedTermin["client"] = {
-                    'name': reservation.name,
-                    'email': reservation.email,
-                    'phone': reservation.phone,
-                }
-            }
-            else {
-                reservedTermin["token"] = this.$store.state.token
-            }
-            reservedTermin['masseur_id'] = parseInt(this.selectedMasseur.id)
             this.$store.dispatch('postReservationDjango', reservedTermin)
-            // this.$router.push({ name: 'MassageConfirmation', params: {id: reservation.id}})
-            this.$emit('reserved')
-            this.$emit('fold')
+            this.$store.dispatch('setSelectedMassageButton', true)
+            this.$store.commit('SET_SELECTED_MASSAGE', false)
+            window.scrollTo(0, 0);
         },
         timeMin() {
             var today = new Date();
@@ -146,6 +135,7 @@ export default {
 input[type=radio] {
     display: none;
 }
+
 /* .customize-carousel {
     height:100px !important;
     width:50px !important;
@@ -155,6 +145,7 @@ input[type=radio] {
     /* max-height: 150px; */
     /* display: flex !important; */
 }
+
 /* .carousel-3d-slide {
     height: 50px;
     width: 50px;
@@ -205,7 +196,7 @@ input[type=radio] {
 
 .time {
     margin-top: 10px;
-    padding: 3px;
+    /* padding: 3px; */
     min-height: 20px;
 }
 
@@ -216,10 +207,10 @@ input[type=radio] {
 }
 
 .button {
-    background-color: #c2fbd7;
-    border-radius: 100px;
-    box-shadow: rgba(44, 187, 99, .2) 0 -25px 18px -14px inset, rgba(44, 187, 99, .15) 0 1px 2px, rgba(44, 187, 99, .15) 0 2px 4px, rgba(44, 187, 99, .15) 0 4px 8px, rgba(44, 187, 99, .15) 0 8px 16px, rgba(44, 187, 99, .15) 0 16px 32px;
-    color: green;
+    background-color: #81bfaa;
+    border-radius: 18px;
+    /* box-shadow: #81bfaa 0 -25px 18px -14px inset, #81bfaa 0 1px 2px, #81bfaa 0 2px 4px, #81bfaa 0 4px 8px, #81bfaa 0 8px 16px, #81bfaa 0 16px 32px; */
+    color: white;
     cursor: pointer;
     display: inline-block;
     font-family: CerebriSans-Regular, -apple-system, system-ui, Roboto, sans-serif;
@@ -235,17 +226,20 @@ input[type=radio] {
 }
 
 .button:hover {
-    box-shadow: rgba(44, 187, 99, .35) 0 -25px 18px -14px inset, rgba(44, 187, 99, .25) 0 1px 2px, rgba(44, 187, 99, .25) 0 2px 4px, rgba(44, 187, 99, .25) 0 4px 8px, rgba(44, 187, 99, .25) 0 8px 16px, rgba(44, 187, 99, .25) 0 16px 32px;
+    /* box-shadow: rgba(44, 187, 99, .35) 0 -25px 18px -14px inset, rgba(44, 187, 99, .25) 0 1px 2px, rgba(44, 187, 99, .25) 0 2px 4px, rgba(44, 187, 99, .25) 0 4px 8px, rgba(44, 187, 99, .25) 0 8px 16px, rgba(44, 187, 99, .25) 0 16px 32px; */
     transform: scale(1.05);
 }
 
 .choosen-time {
-    padding: 10px;
+    padding: 5px;
+    width: fit-content;
+    margin: auto;
+    margin-bottom: 5px;
 }
 
 .choosen-time:hover {
     transform: scale(1.05);
-    background-color: #c2fbd7;
+    background-color: rgb(241, 241, 241);
     cursor: pointer;
     border-radius: 5px;
 }
@@ -269,6 +263,8 @@ input[type=radio] {
     width: 310px;
     margin: 0 auto;
     display: inline-flex;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
 }
 
 .btn-left {
@@ -278,6 +274,7 @@ input[type=radio] {
 .btn-right {
     margin-right: 5px;
 }
+
 .carousel-img {
     width: 100%;
     height: 100%;
@@ -403,6 +400,5 @@ input[type=radio] {
 #item-3:checked~.player #test {
     transform: translateY(-80px);
 }
-
 </style>
     

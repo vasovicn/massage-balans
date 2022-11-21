@@ -1,5 +1,5 @@
 <template>
-    <div class="container-fluid pb-0 mb-0 justify-content-center text-light" style="box-shadow:5px">
+    <div class="container-fluid pb-0 mb-0 justify-content-center text-light" style="box-shadow:5px;margin-top: auto;">
         <footer>
             <div class="row my-3 justify-content-center">
                 <div class="col-11">
@@ -7,7 +7,7 @@
                         <div class="col-xl-6 col-md-4 col-sm-4 col-12   my-auto mx-auto a">
 
                             <img src="http://localhost:8000/media/logo_lotus.jpg"
-                                style="height: 200px;margin:-35px 0 -40px 0" />
+                                style="height: 200px;margin:-35px 0 -40px 0"/>
                         </div>
                         <div class="col-xl-2 col-md-4 col-sm-4 col-12">
                             <h6 class="mb-3 mb-lg-4 bold-text "><b>RADNO VREME</b></h6>

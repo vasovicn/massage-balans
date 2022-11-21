@@ -1,5 +1,5 @@
 <template>
-  <div class="row" style="padding:30px">
+  <div class="row" style="padding:30px;margin-top: 50px;">
     <div class="col-8">
       <!-- {{futureTermins}}
       <h3 :style="{color: this.futureTermins}" @click="this.futureTermins = 'green'">Pretsojeci termini</h3>|<h3 :style="{color: this.futureTermins}" @click="this.futureTermins = 'green'">Istorija masaza</h3> -->
@@ -15,7 +15,7 @@
           <div class="card" style="width: 30%; margin: 10px;"
           v-for="reservation in reservations.filter(x => x.date === reservationDate).sort(function (a, b) { return a.time.localeCompare(b.time) })"
           :key="reservation.id">
-          <div class="card-header" style="text-align: center; background-color: #5BD5C9">
+          <div class="card-header" style="text-align: center; background-color: #81bfaa;">
             {{reservation.massage_id.name}}
           </div>
           <div class="card-body">
@@ -69,7 +69,7 @@
 
             <p><b>Adresa:</b> &nbsp;&nbsp;{{ userInfo.location }}</p>
             <button class=" btn btn-outline-primary"
-              style="color: #fff; background: #33cabb !important; border: none; margin-top: 0px !important; width: 100%;"
+              style="color: #fff; background: rgb(129, 191, 170) !important; border: none; margin-top: 0px !important; width: 100%;"
               v-if="this.readonlyInfo" @click="this.readonlyInfo = false">Izmeni</button>
           </div>
 
@@ -111,7 +111,7 @@
             </div>
             <div>
               <button type="submit" class="btn btn-primary" data-dismiss="modal" aria-label="Save"
-              @click="saveInfo" style="margin: 10px 10px 0 0;color: #fff; background: #33cabb !important; border: none;">Save</button>
+              @click="saveInfo" style="margin: 10px 10px 0 0;color: #fff; background: rgb(129, 191, 170) !important; border: none;">Save</button>
             <button class="btn btn-secondary" aria-label="Close" @click="readonlyInfo = true" style="margin: 11px 0 0 0; border: none;">Discard</button>
             </div>
             

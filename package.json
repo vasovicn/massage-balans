@@ -13,6 +13,7 @@
     "@fortawesome/free-solid-svg-icons": "^6.2.0",
     "@fortawesome/vue-fontawesome": "^3.0.0-5",
     "bootstrap-vue": "^2.22.0",
+    "braintree-web-drop-in": "^1.33.7",
     "core-js": "^3.8.3",
     "font-awesome": "^4.7.0",
     "uuid": "^8.3.2",
@@ -27,17 +28,13 @@
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",
-    "@babel/eslint-parser": "^7.12.16",
     "@vue/cli-plugin-babel": "~5.0.0",
-    "@vue/cli-plugin-eslint": "~5.0.0",
     "@vue/cli-plugin-router": "~5.0.0",
     "@vue/cli-plugin-vuex": "~5.0.0",
     "@vue/cli-service": "~5.0.0",
     "@vue/compiler-sfc": "^3.0.0-0",
     "axios": "^1.0.0",
     "bootstrap": "^4.6.2",
-    "eslint": "^7.32.0",
-    "eslint-plugin-vue": "^8.0.3",
     "jquery": "^3.6.1",
     "node-sass": "^7.0.3",
     "popper.js": "^1.16.1",
@@ -45,20 +42,7 @@
     "stylus": "^0.59.0",
     "stylus-loader": "^7.1.0"
   },
-  "eslintConfig": {
-    "root": true,
-    "env": {
-      "node": true
-    },
-    "extends": [
-      "plugin:vue/vue3-essential",
-      "eslint:recommended"
-    ],
-    "parserOptions": {
-      "parser": "@babel/eslint-parser"
-    },
-    "rules": {}
-  },
+
   "browserslist": [
     "> 1%",
     "last 2 versions",

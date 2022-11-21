@@ -5,6 +5,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.contrib import messages
 from rest_framework.authtoken.models import Token
 import json
+import braintree
 from user.serializers import ProfileSerializer, ResetPasswordEmailRequestSerializer, SetNewPasswordSerializer
 
 from user.models import Profile
@@ -44,7 +45,7 @@ def get(request):
     if username:
         email = User.objects.filter(username=username).values('email')
         if email:
-            return HttpResponse(email[0]['email'],status=200)
+            return HttpResponse(email[0]['email'], status=200)
         else:
             return HttpResponse(status=404)
     if not token:
@@ -102,7 +103,8 @@ class RequestPasswordResetEmail(GenericAPIView):
             uidb64 = urlsafe_base64_encode(force_bytes(user.pk))
             token = PasswordResetTokenGenerator().make_token(user)
             current_site = get_current_site(request=request).domain
-            absurl = 'http://' + current_site + '/user/password-reset-confirm/' + uidb64 + '/'  + token
+            absurl = 'http://' + current_site + \
+                '/user/password-reset-confirm/' + uidb64 + '/' + token
             email_body = 'Hello, \nUse link bellow to reset password \n' + absurl
             data = {
                 'email_body': email_body, 'to_email': user.email,
@@ -111,20 +113,22 @@ class RequestPasswordResetEmail(GenericAPIView):
             Util.send_email(data)
         return JsonResponse({'success': 'We have send link to reset password'}, status=200)
 
+
 def get_reset_password(self, uidb64, token):
     id = smart_str(urlsafe_base64_decode(uidb64))
     user = User.objects.get(pk=id)
     if not PasswordResetTokenGenerator().check_token(user, token):
         return render(self, 'email_template.html')
     else:
-        return redirect('http://localhost:8080/massage-reservations/%s/%s' %(uidb64, token), body={'success': True, 'message': 'Credentials Valid', 'uidb64': uidb64, 'token': token})
-        
+        return redirect('http://localhost:8080/massage-reservations/%s/%s' % (uidb64, token), body={'success': True, 'message': 'Credentials Valid', 'uidb64': uidb64, 'token': token})
+
+
 class SetNewpasswordAPIView(GenericAPIView):
     permission_classes = (AllowAny,)
     serializer_class = SetNewPasswordSerializer
 
     def patch(self, request):
-        serializer = self.serializer_class(data = request.data['params']['body'])
+        serializer = self.serializer_class(data=request.data['params']['body'])
 
         serializer.is_valid(raise_exception=True)
         return JsonResponse({'success': True, 'message': 'Success'})

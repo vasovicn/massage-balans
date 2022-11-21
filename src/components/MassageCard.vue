@@ -6,8 +6,7 @@
       <div class="card-body">
         <h5 class="card-title">{{ massage.name }}</h5>
         <p class="card-text">{{ massage.info }}</p>
-        <MassageReservation v-if="reservationOpenTest && this.reservationOpen" :massageID="massage.id"
-          @reserved="reservationOpen = false" @fold="foldcard"/>
+        <MassageReservation v-if="reservationOpenTest" :massageID="massage"/>
       </div>
       </div>
     </div>
@@ -71,8 +70,6 @@ export default {
 .card-body {
   margin: auto;
 }
-
-/* @import'~bootstrap/dist/css/bootstrap.css' */
 </style>
 
   

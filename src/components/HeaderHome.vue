@@ -1,11 +1,11 @@
 <template>
     <header class="fixed-top" style="box-shadow: 0px 0px 5px 0px rgba(81, 81, 81, 0.47);">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light" style="min-height: 84px !important;">
             <router-link :to="{ name: 'HomeView' }" class="logo navbar-brand" style="padding:4px"><img style="height:65px;margin-top:-32px;margin-bottom: -16px;" src="http://localhost:8000/media/logo_lotus.jpg"/><b>Balans</b></router-link>
             <!-- Collection of nav links, forms, and other content for toggling -->
             <div id="navbarCollapse" class="collapse navbar-collapse justify-content-start">
                 <div class="navbar-nav">
-                    <router-link style="color:white;margin-top:11px" :to="{ name: 'UserPortal' }" v-if="loggedIn">My portal</router-link>
+                    <router-link style="color:white;margin-top:11px" to="/user-portal" v-if="loggedIn">Moj Portal</router-link>
                 </div>
                 <div class="navbar-nav ml-auto action-buttons" v-if="!loggedIn">
                     <div class="nav-item dropdown">
@@ -38,6 +38,10 @@
                                 <div class="form-group">
                                     <input type="text" class="form-control" placeholder="Username" required="required"
                                         v-model="signupCredentials.username">
+                                </div>
+                                <div class="form-group">
+                                    <input type="email" class="form-control" placeholder="Email" required="required"
+                                        v-model="signupCredentials.email">
                                 </div>
                                 <div class="form-group">
                                     <input type="password" class="form-control" placeholder="Password"
@@ -120,6 +124,7 @@ export default {
             },
             signupCredentials: {
                 username: '',
+                email: '',
                 password: '',
                 passwordConfirm: '',
             },

@@ -32,7 +32,6 @@ export default {
     props: ['uidb64', 'token'],
     methods: {
         resetPassword() {
-            console.log('dasdas')
             if (this.password === this.passwordRepeat) {
                 const body = {
                     "password": this.password,
@@ -72,7 +71,7 @@ export default {
 }
 </script>
     
-<style scoped>
-@import'~bootstrap/dist/css/bootstrap.css'
+<style>
+
 </style>
     

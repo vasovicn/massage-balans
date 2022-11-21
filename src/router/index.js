@@ -4,7 +4,10 @@ import MassageConfirmation from '../views/MassageConfirmation.vue'
 import BackendView from '../views/backend/BackendView.vue'
 import CreateNewMassage from '../views/backend/CreateNewMassage'
 import MassageDetails from '../views/MassageDetails'
-import UserPortal from '../views/UserPortal'
+// import UserPortal from '../views/portal/UserPortal'
+import LayoutPortal from '../views/portal/LayoutPortal'
+import FeautureReservations from '../views/portal/FeautureReservations'
+import PastReservations from '../views/portal/PastReservations'
 import ResetPassword from '../views/ResetPassword'
 import PageNotFound from '../views/PageNotFound'
 
@@ -39,9 +42,21 @@ const routes = [
   },
   {
     path: '/user-portal',
-    name: 'UserPortal',
+    name: 'LayoutPortal',
     props: true,
-    component: UserPortal
+    component: LayoutPortal,
+    children: [
+      {
+        path: '',
+        name: 'FeautureReservations',
+        component: FeautureReservations
+      },
+      {
+        path: 'past',
+        name: 'PastReservations',
+        component: PastReservations
+      }
+    ]
   },
   {
     path: '/massage-reservations/:uidb64/:token',

@@ -2,4 +2,6 @@ login kao admin
 
 za sada je hardkodovan url frontenda u get_reset_password
 
-bug kada se zakaze masaza, ta masaza vise ne moze da se otvori do refresha
+modal reserve ostalo jos sendReservation
+
+sredi carusel

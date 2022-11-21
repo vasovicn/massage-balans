@@ -8,8 +8,8 @@
 			</div>
 			<h1>oops!</h1>
 			<h2>Error 404 : Page Not Found</h2>
-			<a class="buttons" @click="this.$router.back()" style="background-color:#33cabb !important;padding: 11px;">go back</a>
-			<a class="buttons" @click="this.$router.push({name: 'HomeView'})" style="background-color:#33cabb !important;padding: 11px;">Home</a>
+			<a class="buttons" @click="this.$router.back()">go back</a>
+			<a class="buttons" @click="this.$router.push({name: 'HomeView'})">Home</a>
 			<div class="notfound-social" style="padding: 5px;">
                 <font-awesome-icon style="height: 40px;margin: 5px;" :icon="{ prefix: 'fas', iconName: 'phone' }" class="phone" @click="callNumber()"/>
                 <font-awesome-icon style="height: 40px;margin: 5px;" :icon="{ prefix: 'fab', iconName: 'facebook' }" class="facebook" @click="goFacebook"/>
@@ -24,11 +24,6 @@
 
 export default {
     name: 'PageNotFound',
-    // data() {
-    //     return {
-    //     }
-    // },
-    // props: ['uidb64', 'token'],
     methods: {
         back() {
             this.$router.back()
@@ -46,8 +41,6 @@ export default {
             window.location ='mailto:'+ 'nikolazemun97@gmail.com';
         }
     },
-    // computed: {
-    // }
 
 }
 </script>
@@ -57,7 +50,6 @@ export default {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
 }
-/* @import '../node_modules/font-awesome/css/font-awesome.css'; */
 
 body {
   padding: 0;
@@ -148,7 +140,7 @@ body {
   font-size: 14px;
   text-decoration: none;
   text-transform: uppercase;
-  background: #18e06f;
+  background: #81bfaa;
   display: inline-block;
   padding: 15px 30px;
   border-radius: 5px;
@@ -172,7 +164,7 @@ body {
   transition: 0.2s all;
 }
 .notfound-social>a:hover {
-  background-color: #18e06f;
+  background-color: #81bfaa;
 }
 
 @media only screen and (max-width: 767px) {
@@ -198,6 +190,8 @@ body {
 .buttons {
     margin: 3px;
     width: 130px;
+    background-color: #81bfaa !important;
+    padding: 11px;
 }
 .buttons:hover {
     cursor: pointer;

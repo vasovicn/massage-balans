@@ -17,13 +17,20 @@ export default createStore({
     userReservations: [],
     userInfo: null,
     x: null,
+    y: false,
     selectedMasseur: null,
     successEmail: false,
     successPassword: false,
     countdownEmail: 0,
     countdownPassword: 0,
+    successMassageReserved: false,
+    countdownMassageReserved: 0,
     currentMassage: null,
     currentTime: '',
+    time: false,
+    currentMasseur: false,
+    currentMassageDate: false,
+    isMasseur: false,
     allTermins: ['08:00', '08:15', '08:30', '08:45',
       '09:00', '09:15', '09:30', '09:45',
       '10:00', '10:15', '10:30', '10:45',
@@ -77,7 +84,8 @@ export default createStore({
       state.username = username
     },
     SET_USER_PORTAL(state, data) {
-      state.userReservations = data
+      state.userReservations = data.data;
+      state.isMasseur = data.isMasseur
     },
     SET_USER_INFO(state, data) {
       state.userInfo = data
@@ -105,6 +113,24 @@ export default createStore({
     },
     COUNTDOWN_PASSWORD(state) {
       state.countdownPassword--
+    },
+    SET_MASSAGE_RESERVED_POPUP(state, value) {
+      state.successMassageReserved = value
+    },
+    RESET_MASSAGE_RESERVED_TIMER(state) {
+      state.countdownMassageReserved = 5
+    },
+    COUNTDOWN_MASSAGE_RESERVED(state) {
+      state.countdownMassageReserved--
+    },
+    SET_MASSAGE_TIME(state, time) {
+      state.time = time
+    },
+    SET_CURRENT_MASSEUR(state, masseur) {
+      state.currentMasseur = masseur
+    },
+    SET_CURRENT_MASSAGE_DATE(state, date) {
+      state.currentMassageDate = date
     },
   },
   actions: {
@@ -159,10 +185,11 @@ export default createStore({
         console.log(error)
       })
   },
-  postReservationDjango({ commit }, reservation) {
+  postReservationDjango({ commit, dispatch }, reservation) {
     return MassageService.postDjangoReservation(reservation)
       .then(response => {
         commit('POST_RESERVE_TIME', response.data)
+        dispatch('massageReserved', true)
       })
       .catch(error => {
         console.log(error)
@@ -185,7 +212,7 @@ export default createStore({
   fetchReservedTimeDjango({ commit }, reservation_data) {
     return MassageService.getReservedTimeDjango(reservation_data)
       .then(response => {
-        commit('SET_RESERVE_TIME', response.data)
+        commit('SET_RESERVE_TIME', response.data['data'])
       })
       .catch(error => {
         console.log(error)
@@ -209,7 +236,7 @@ export default createStore({
   loginDjango({ commit }, formData) {
     return MassageService.loginDjango(formData)
       .then(response => {
-
+        console.log('aaaaa', response.data)
         const token = response.data.auth_token
         commit('SET_TOKEN', token)
         axios.defaults.headers.common["Authorization"] = "Token" + token
@@ -228,8 +255,9 @@ export default createStore({
   userPortal({ commit }) {
     return MassageService.fetchUserReservations(localStorage.getItem("token"))
       .then(response => {
-        console.log(response)
-        commit('SET_USER_PORTAL', response.data)
+        console.log('aaaa', response.data['data'])
+        console.log('bbbb', response.data['is_masseur'])
+        commit('SET_USER_PORTAL', {'data': response.data['data'], 'isMasseur': response.data['is_masseur']})
       })
       .catch(error => {
         console.log(error)
@@ -254,8 +282,14 @@ export default createStore({
         console.log(error)
       })
   },
-  setSelectedMassage({commit}, massage) {
-    commit('SET_SELECTED_MASSAGE', massage)
+  setSelectedMassage({commit, state}, massage) {
+    if (!state.y) {
+      commit('SET_SELECTED_MASSAGE', massage)
+    }
+    else {
+    commit('SET_SELECTED_MASSAGE_BUTTON', false)
+
+    }
   },
   setSelectedMassageButton({commit}, y) {
     commit('SET_SELECTED_MASSAGE_BUTTON', y)
@@ -263,7 +297,7 @@ export default createStore({
   showSuccessPopup({state, commit}, value) {
     commit('SET_SUCCESS_POPUP', value)
     commit('RESET_EMAIL_TIMER')
-    const interval = setInterval(() => {     
+    const interval = setInterval(() => {
       commit('COUNTDOWN_EMAIL');
       if (state.countdownEmail === 0) {
         clearInterval(interval);               
@@ -279,6 +313,17 @@ export default createStore({
       if (state.countdownPassword === 0) {
         clearInterval(interval);               
         commit('SET_SUCCESS_PASSWORD_RESET_POPUP', false)
+      }
+    }, 1000)
+  },
+  massageReserved({state, commit}, value) {
+    commit('SET_MASSAGE_RESERVED_POPUP', value)
+    commit('RESET_MASSAGE_RESERVED_TIMER')
+    const interval = setInterval(() => {     
+      commit('COUNTDOWN_MASSAGE_RESERVED');
+      if (state.countdownMassageReserved === 0) {
+        clearInterval(interval);               
+        commit('SET_MASSAGE_RESERVED_POPUP', false)
       }
     }, 1000)
   }

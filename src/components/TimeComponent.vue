@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div v-if="timesToDisplay.length" class="row" style="justify-content: center;">
+    <div v-if="timesToDisplay.length" class="row" style="justify-content: center;background-color: rgb(241, 241, 241);padding: 6px 0 4px 0;border-radius: 5px;">
       <div class="cols" style="font-size: 100%" v-for="time in timesToDisplay" :key="time.id" @click="this.$emit('clicked-time', time)">
         {{time}}
       </div>
@@ -142,7 +142,6 @@ export default {
         }
       })
       this.timesToDisplay = finalTimes
-      console.log('times', this.timesToDisplay)
       if(!finalTimes.length) {
         this.allTerminsBooked = true
       }
@@ -197,7 +196,7 @@ export default {
   padding-bottom: 7px;
   padding-top: 0px;
   border-radius: 10px;
-  background-color: #33cabb;
+  background-color: #6bbda2 ;
   min-height: 30px;
   min-width: fit-content;
   text-align: center;
@@ -206,9 +205,11 @@ export default {
 .cols:hover {
   background-color: white;
   cursor: pointer;
+  color: black;
 }
 .container {
-  margin-top: 10px;
-  max-width:760px
+  max-width:760px;
+  width: fit-content;
+  min-width: 312px;
 }
 </style>

@@ -7,6 +7,7 @@
 <script>
 import MassageCard from '@/components/MassageCard.vue'
 
+
 export default {
   name: 'MassageList',
   components: {
@@ -29,9 +30,6 @@ export default {
         this.$store.dispatch('setSelectedMassage', massage_name)
       }
     
-    },
-    focusOUT() {
-      console.log('dsadas')
     }
   }
 }

@@ -13,8 +13,9 @@ import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faFacebook } from '@fortawesome/free-brands-svg-icons'
 import { faInstagram } from '@fortawesome/free-brands-svg-icons'
 import { faEnvelope} from '@fortawesome/free-solid-svg-icons';
+import { faCalendar} from '@fortawesome/free-solid-svg-icons';
 
-library.add(faPhone, faFacebook, faInstagram, faEnvelope);
+library.add(faPhone, faFacebook, faInstagram, faEnvelope, faCalendar);
 
 createApp(App)
 .use(store)
