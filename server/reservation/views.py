@@ -10,6 +10,7 @@ from masseur.models import Masseur
 from massage.models import Massage
 
 from .models import Reservation
+from product.models import Product
 import json
 from .serializers import ReservationSerializer
 from user.utils import Util
@@ -46,17 +47,20 @@ def get(id):
 def create(request):
     r =json.loads(request.body)
     masseur = Masseur.objects.get(id=r['masseur_id'])
-    massage = Massage.objects.get(name=r['type'])
+    product_id = Product.objects.get(id=r['product_id']['id'])
+    
+    print('r', r)
     if r.get('client'):
-        reservation = Reservation(date=r['date'], time=r['time'], guest_name = r['client']['name'], guest_email = r['client']['email'], guest_phone = r['client']['phone'], masseur_id=masseur, massage_id=massage,)
+        print('dasdasdas')
+        reservation = Reservation(date=r['date'], time=r['time'], guest_name = r['client']['name'], guest_email = r['client']['email'], guest_phone = r['client']['phone'], masseur_id=masseur, product_id = product_id)
     elif r.get('token'):
        token = Token.objects.get(key=r['token'])
-       reservation = Reservation(date=r['date'], time=r['time'], user_id = token.user.profile, masseur_id=masseur, massage_id=massage,)
+       reservation = Reservation(date=r['date'], time=r['time'], user_id = token.user.profile, masseur_id=masseur, product_id = product_id)
     else:
-        reservation = Reservation(date=r['date'], time=r['time'], massage_id=massage, masseur_id=masseur)
+        reservation = Reservation(date=r['date'], time=r['time'], masseur_id=masseur, product_id = product_id)
     reservation.save()
     
-
+    print('res', reservation.guest_email)
     client_email = reservation.guest_email if reservation.guest_email else reservation.user_id.user.email
     masseur_email = reservation.masseur_id.user.email
     email_body_masseur = 'Napravljena je nova rezervacija kod vas na datum %s u %sh' % (r['date'], r['time'])
