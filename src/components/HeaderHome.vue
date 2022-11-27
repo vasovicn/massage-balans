@@ -6,6 +6,7 @@
             <div id="navbarCollapse" class="collapse navbar-collapse justify-content-start">
                 <div class="navbar-nav">
                     <router-link style="color:white;margin-top:11px" to="/user-portal" v-if="loggedIn">Moj Portal</router-link>
+                    <router-link style="color:white;margin-top:11px" to="/price-list">Cenovnik</router-link>
                 </div>
                 <div class="navbar-nav ml-auto action-buttons" v-if="!loggedIn">
                     <div class="nav-item dropdown">

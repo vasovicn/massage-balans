@@ -1,6 +1,6 @@
 <template>
     <div class="band" style="position:relative">
-      <MasseurCard v-for="masseur in masseuers" :key="masseur.id" :masseur="masseur"/>
+      <MasseurCard v-for="masseur in masseurs" :key="masseur.id" :masseur="masseur"/>
     </div>
   </template>
   
@@ -18,14 +18,14 @@
         MasseurCard
   },
     created() {
-      this.$store.dispatch('fetchMasseuers')
+      this.$store.dispatch('fetchmasseurs')
       .catch(error => {
         console.log(error)
       })
     },
     computed: {
-      masseuers() {
-        return this.$store.state.masseuers
+      masseurs() {
+        return this.$store.state.masseurs
       }
     }
   }

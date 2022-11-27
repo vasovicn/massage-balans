@@ -20,8 +20,8 @@
                             <p>Vreme: {{ time }}h</p>
                         </div>
                         <div class="col-6">
-                            <p>Cena: {{ massage.price }} RSD</p>
-                            <p>Trajanje: {{ massage.length }}min</p>
+                            <p>Cena: {{ this.$store.state.selectedProduct.price }} RSD</p>
+                            <p>Trajanje: {{ this.$store.state.selectedProduct.length }}min</p>
                         </div>
                     </div>
                     <form @submit.prevent="sendReservation">

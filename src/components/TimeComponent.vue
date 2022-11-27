@@ -22,7 +22,7 @@ export default {
       allTerminsBooked: false
     }
   },
-  props: ['date', 'massage', 'currentTime', 'currentDate', "masseur_id", "timePeriod"],
+  props: ['date', 'massage', 'currentTime', 'currentDate', "masseur_id", "timePeriod", "selectedProduct"],
   watch: {
     date() {
       this.calcReserved()
@@ -32,7 +32,10 @@ export default {
     },
     timePeriod() {
       this.calcReserved()
-    }
+    },
+    selectedProduct() {
+      this.calcReserved()
+    },
   },
   created() {
     this.calcReserved()
@@ -53,7 +56,7 @@ export default {
 
         var helperMinutes = minutes
         var helperHour = hour
-        for (let i = 0; i < element.massage_id.length / 15; i++) {
+        for (let i = 0; i < element.product_id.length / 15; i++) {
           if (helperMinutes === 45) {
             helperHour += 1
             helperMinutes = 0
@@ -79,10 +82,12 @@ export default {
 
       // Aditional times to be deleted because of length of massage
       var moreTimesToBeDeleted = []
+      console.log('dasddsada', finalListOfReservedTimes)
       finalListOfReservedTimes.forEach(time => {
         var helpHour = parseInt(time.slice(0, 2))
         var helpMinutes = parseInt(time.slice(-2))
-        for (let i = 0; i < this.massage.length / 15; i++) {
+        console.log('aaaaaaaaaaaaaaaaaaaa', this.selectedProduct)
+        for (let i = 0; i < this.selectedProduct.length / 15; i++) {
           if (helpMinutes === 45) {
             helpHour += 1
             helpMinutes = 0
@@ -147,7 +152,7 @@ export default {
       }
     },
     hoverFunc(time) {
-      const length = this.massage.length / 15
+      const length = this.selectedProduct.length / 15
       const listReservedTime = []
       var hour = parseInt(time.slice(0, 2))
       const minutes = parseInt(time.slice(-2))

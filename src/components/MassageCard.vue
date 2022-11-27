@@ -1,15 +1,16 @@
 <template>
-  <div :id="massage.name" class="container"
-    :style="{ transform: reservationOpenTest && this.reservationOpen ? 'scale(1.1)' : '' }">
+  <RouterLink :to="{name : 'MassageDetails', params: {id: this.massage.id}}">
+  <div :id="massage.name" class="col-3" style=" padding: 3px" :style="{maxWidth : location ? '150px' : '220px', minWidth : location ? '150px' : '220px'}">
     <div class="card">
-      <!-- <img class="card-img-top" :src="massage.photo_url" /> -->
-      <div class="card-body">
-        <h5 class="card-title">{{ massage.name }}</h5>
-        <p class="card-text">{{ massage.info }}</p>
-        <MassageReservation v-if="reservationOpenTest" :massageID="massage"/>
+      <img class="card-img-top" :src="massage.photo_url" style="width: 100%" :style="{height : location ? '130px' : '160px'}"/>
+      <div class="card-body" style="padding:7px">
+        <h5 class="card-title" style="margin:auto;color: rgba(99, 103, 104, 0.99)" :style="{fontSize : location ? 'inherit' : '1.25rem'}">{{ massage.name }}</h5>
+        <!-- <p class="card-text">{{ massage.info }}</p> -->
+        <!-- <MassageReservation :massageID="massage"/> -->
       </div>
       </div>
     </div>
+    </RouterLink>
 </template>
   
 <script>
@@ -27,48 +28,43 @@ export default {
     }
   },
   computed: {
-    reservationOpenTest() {
-      if (this.$store.state.x == this.massage.name) {
+    location() {
+      if (document.location.pathname.includes('details')) {
         return true
       }
-      else {
-        return false
-      }
-    },
+      return false
+    }
   },
   methods: {
-    foldcard() {
-      this.reservationOpen = false
-    }
+
   }
 }
 </script>
 <style scoped>
-.container {
-  padding: 20px;
-  transition: 0.5s;
-  transition-timing-function: ease-in-out;
-}
 
-.container:hover {
-
-  transform: scale(1.1);
-  cursor: pointer;
-}
 
 .card {
-  border-radius: 20px;
+  /* border-radius: 20px; */
   text-align: center;
+  padding: 1px !important;
+}
+
+.card-img-top:hover {
+  cursor: pointer;
+  opacity: 0.7;
+  width: 400px;
 }
 
 .card-img-top {
   border-radius: inherit;
   max-width: 100%;
-  height: auto;
 }
 
 .card-body {
   margin: auto;
+}
+.card-title:hover {
+  cursor: pointer;
 }
 </style>
 

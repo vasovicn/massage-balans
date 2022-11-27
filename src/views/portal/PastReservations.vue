@@ -1,7 +1,7 @@
 <template>
     <div class="row" style="padding:30px">
       <div class="col-8" v-if="this.$store.state.isMasseur">
-        <div style="margin-top: 78px;display: flex;justify-content: center;" v-if="sortedReservations.filter(x => Date.parse(x) < Date.parse(currentDate)).length === 0">Istorija rezervacija nije dostupna</div>
+        <div style="margin-top: 78px;display: flex;justify-content: center;" v-if="sortedReservations.filter(x => Date.parse(x) < Date.parse(currentDate)).length === 0"><p style="font-size: x-large;">Istorija rezervacija nije dostupna</p></div>
         <div v-for="reservationDate in sortedReservations.filter(x => Date.parse(x) < Date.parse(currentDate))"
           :key="reservationDate" style="min-height:50px;">
           <div style="margin: 20px 0;">
@@ -11,13 +11,13 @@
             <div class="card" style="width: 30%; margin: 10px;"
             v-for="reservation in reservations.filter(x => x.date === reservationDate).sort(function (a, b) { return a.time.localeCompare(b.time) })"
             :key="reservation.id">
-            <div class="card-header" style="text-align: center; background-color: #81bfaa;">
-              {{reservation.massage_id.name}}
+            <div class="card-header" style="text-align: center; background-color: #81bfaa;font-size: larger;font-weight: 500;color: rgba(99, 103, 104, 0.99);">
+              {{reservation.product_id.massage_id.name}}
             </div>
             <div class="card-body">
               <p>Vreme: {{ reservation.time }} h</p>
-              <p>Trajanje: {{ reservation.massage_id.length }} min</p>
-              <p>Cena masaze: {{ reservation.massage_id.price }} RSD</p>
+              <p>Trajanje: {{ reservation.product_id.length }} min</p>
+              <p>Cena masaze: {{ reservation.product_id.price }} RSD</p>
               <p>Klijent: {{ reservation.user_id.user.first_name }} {{ reservation.user_id.user.last_name }}</p>
               <p>Telefon: {{ reservation.user_id.phone_number }}</p>
               <p>Email: {{ reservation.user_id.user.email }}</p>
@@ -27,7 +27,7 @@
         </div>
       </div>
       <div class="col-8" v-else>
-        <div style="margin-top: 78px;display: flex;justify-content: center;" v-if="sortedReservations.filter(x => Date.parse(x) < Date.parse(currentDate)).length === 0">Istorija rezervacija nije dostupna</div>
+        <div style="margin-top: 78px;display: flex;justify-content: center;" v-if="sortedReservations.filter(x => Date.parse(x) < Date.parse(currentDate)).length === 0"><p style="font-size: x-large;">Istorija rezervacija nije dostupna</p></div>
         <div v-for="reservationDate in sortedReservations.filter(x => Date.parse(x) < Date.parse(currentDate))"
           :key="reservationDate" style="min-height:50px;">
           <div style="margin: 20px 0;">
@@ -37,13 +37,13 @@
             <div class="card" style="width: 30%; margin: 10px;"
             v-for="reservation in reservations.filter(x => x.date === reservationDate).sort(function (a, b) { return a.time.localeCompare(b.time) })"
             :key="reservation.id">
-            <div class="card-header" style="text-align: center; background-color: #81bfaa;">
-              {{reservation.massage_id.name}}
+            <div class="card-header" style="text-align: center; background-color: #81bfaa;font-size: larger;font-weight: 500;color: rgba(99, 103, 104, 0.99);">
+              {{reservation.product_id.massage_id.name}}
             </div>
             <div class="card-body">
               <p>Vreme: {{ reservation.time }} h</p>
-              <p>Trajanje: {{ reservation.massage_id.length }} min</p>
-              <p>Cena masaze: {{ reservation.massage_id.price }} RSD</p>
+              <p>Trajanje: {{ reservation.product_id.length }} min</p>
+              <p>Cena masaze: {{ reservation.product_id.price }} RSD</p>
               <p>Maser: {{ reservation.masseur_id.user.first_name }} {{ reservation.masseur_id.user.last_name }}</p>
               
             </div>

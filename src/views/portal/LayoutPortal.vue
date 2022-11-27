@@ -1,6 +1,6 @@
 <template>
     <div style="margin-top:90px">
-        <div class="col-8" style="margin-left: auto;">
+        <div class="col-8" style="margin-left: auto;font-size: larger;margin-top: 112px;">
             <RouterLink :to="{ name: 'FeautureReservations' }">Predstojece Masaze</RouterLink>  |
             <RouterLink :to="{ name: 'PastReservations' }">Istorija masaza</RouterLink>
         </div>
@@ -105,7 +105,7 @@ export default {
       
 <style scoped>
 .router-link-exact-active {
-    color: green
+    color: rgb(129, 191, 170)
   }
 a {
     color: black;

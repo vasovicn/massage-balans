@@ -8,7 +8,5 @@ router = routers.DefaultRouter()
 # router.register(r'messsages', views.MassageViewSet)
 
 urlpatterns = [
-    path('', views.index, name='index'),
-    # path('create', views.create, name='create'),
-    path('<int:id>/', views.get, name='get'),
+    path("", views.get, name='get'),
 ]

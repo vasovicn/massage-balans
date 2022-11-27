@@ -19,11 +19,11 @@ const apiClientDjango = axios.create({
 })
 
 export default {
-  getMasseuers() {
+  getmasseurs() {
     return apiClientDjango.get('/masseur/')
   },
   getMasseur(id) {
-    return apiClient.get('/masseuers/' + id)
+    return apiClient.get('/masseurs/' + id)
   },
   deleteMassage(massage) {
     return apiClient.delete('/massages/' + massage.id)
@@ -34,9 +34,9 @@ export default {
   getMassagesDjango() {
     return apiClientDjango.get('/massage')
   },
-  postDjangoMassage(massage) {
-    return apiClientDjango.post('/massage/create', massage)
-  },
+  // postDjangoMassage(massage) {
+  //   return apiClientDjango.post('/massage/create', massage)
+  // },
   postDjangoReservation(reservation) {
     return apiClientDjango.post('/reservation/create', reservation)
   },
@@ -81,5 +81,8 @@ export default {
   },
   resetPasswordEmail(body) {
     return apiClientDjango.patch('/user/password-reset-complete', {params: { body: body}})
+  },
+  getProducts() {
+    return apiClientDjango.get('/product/')
   },
 }

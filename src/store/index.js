@@ -10,7 +10,7 @@ export default createStore({
     massages: [],
     reservedTime: [],
     massage: null,
-    masseuers: [],
+    masseurs: [],
     masseur: null,
     reservation: [],
     reservations: [],
@@ -31,6 +31,7 @@ export default createStore({
     currentMasseur: false,
     currentMassageDate: false,
     isMasseur: false,
+    selectedProduct: null,
     allTermins: ['08:00', '08:15', '08:30', '08:45',
       '09:00', '09:15', '09:30', '09:45',
       '10:00', '10:15', '10:30', '10:45',
@@ -57,8 +58,9 @@ export default createStore({
     SET_RESERVE_TIME(state, reservedTime) {
       state.reservedTime = reservedTime
     },
-    SET_MASSEUERS(state, masseuers) {
-      state.masseuers = masseuers
+    SET_masseurs(state, masseurs) {
+      console.log('maseri', masseurs)
+      state.masseurs = masseurs
     },
     SET_MASSEUR(state, masseur) {
       state.masseur = masseur
@@ -132,6 +134,9 @@ export default createStore({
     SET_CURRENT_MASSAGE_DATE(state, date) {
       state.currentMassageDate = date
     },
+    SET_SELECTED_PRODUCT(state, product) {
+      state.selectedProduct = product
+    }
   },
   actions: {
     fetchMasseur({ commit }) {
@@ -143,10 +148,10 @@ export default createStore({
           console.log(error)
         })
     },
-    fetchMasseuers({ commit }) {
-      return MassageService.getMasseuers()
+    fetchmasseurs({ commit }) {
+      return MassageService.getmasseurs()
         .then(response => {
-          commit('SET_MASSEUERS', response.data)
+          commit('SET_masseurs', response.data)
         })
         .catch(error => {
           console.log(error)
@@ -196,7 +201,7 @@ export default createStore({
       })
   },
   fetchMassageDjango({ commit, state }, id) {
-    const massage = state.massages.find(massage => massage.id === id)
+    const massage = state.massages.find(massage => massage.id === parseInt(id))
     if (massage) {
       commit('SET_MASSAGE', massage)
     } else {
@@ -236,7 +241,6 @@ export default createStore({
   loginDjango({ commit }, formData) {
     return MassageService.loginDjango(formData)
       .then(response => {
-        console.log('aaaaa', response.data)
         const token = response.data.auth_token
         commit('SET_TOKEN', token)
         axios.defaults.headers.common["Authorization"] = "Token" + token
@@ -255,8 +259,6 @@ export default createStore({
   userPortal({ commit }) {
     return MassageService.fetchUserReservations(localStorage.getItem("token"))
       .then(response => {
-        console.log('aaaa', response.data['data'])
-        console.log('bbbb', response.data['is_masseur'])
         commit('SET_USER_PORTAL', {'data': response.data['data'], 'isMasseur': response.data['is_masseur']})
       })
       .catch(error => {
@@ -326,6 +328,9 @@ export default createStore({
         commit('SET_MASSAGE_RESERVED_POPUP', false)
       }
     }, 1000)
-  }
+  },
+  setSelectedProduct({ commit }, product) {
+    commit('SET_SELECTED_PRODUCT', product)
+  },
 }
 })

@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import MassageConfirmation from '../views/MassageConfirmation.vue'
 import BackendView from '../views/backend/BackendView.vue'
-import CreateNewMassage from '../views/backend/CreateNewMassage'
+// import CreateNewMassage from '../views/backend/CreateNewMassage'
 import MassageDetails from '../views/MassageDetails'
 // import UserPortal from '../views/portal/UserPortal'
 import LayoutPortal from '../views/portal/LayoutPortal'
@@ -10,6 +10,7 @@ import FeautureReservations from '../views/portal/FeautureReservations'
 import PastReservations from '../views/portal/PastReservations'
 import ResetPassword from '../views/ResetPassword'
 import PageNotFound from '../views/PageNotFound'
+import PriceList from '../views/PriceList'
 
 const routes = [
   {
@@ -29,11 +30,11 @@ const routes = [
     props: true,
     component: BackendView
   },
-  {
-    path: '/create-new-masasge',
-    name: 'CreateNewMassage',
-    component: CreateNewMassage
-  },
+  // {
+  //   path: '/create-new-masasge',
+  //   name: 'CreateNewMassage',
+  //   component: CreateNewMassage
+  // },
   {
     path: '/massage-details/:id',
     name: 'MassageDetails',
@@ -66,7 +67,12 @@ const routes = [
   },
   { path: '/:pathMatch(.*)*',
     component: PageNotFound
-  }
+  },
+  {
+    path: '/price-list',
+    name: 'PriceList',
+    component: PriceList
+  },
 ]
 
 const router = createRouter({

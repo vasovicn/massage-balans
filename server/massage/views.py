@@ -23,15 +23,14 @@ def index(request):
 
 def get(request, id):
     massage = Massage.objects.get(pk=id)
-    template = loader.get_template('massage/detail.html')
-    context = {
-        'massage': massage,
-    }
-    return HttpResponse(template.render(context, request))
+    serializer = MassageSerializer(massage, context = {
+   "request": request
+    })
+    return JsonResponse(serializer.data)
 
-@csrf_exempt
-def create(request):
-    r =json.loads(request.body)
-    massage = Massage(name=r['name'], info=r['info'], price = r['price'], length = r['length'], image = r['image'])
-    massage.save()
-    return HttpResponse(status=200)
+# @csrf_exempt
+# def create(request):
+#     r =json.loads(request.body)
+#     massage = Massage(name=r['name'], info=r['info'], price = r['price'], length = r['length'], image = r['image'])
+#     massage.save()
+#     return HttpResponse(status=200)

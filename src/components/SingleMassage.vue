@@ -1,21 +1,27 @@
 <template>
-    <div v-if="massageID">
-        <select v-model="selectedProduct" @change="setSelectedProduct">
+    <ModalReserve @submitReservation="sendReservation"/>
+    <div v-if="massageID" style="text-align: center;">
+        <img :src="massage.photo_url" style="width: 60%" :style="{height : location ? '130px' : '160px'}"/>
+        <div>
+            <h2>{{massage.name}}</h2>
+            <p style="text-align:justify">{{massage.info}}</p>
+        </div>
+        <button v-if="!this.open" class="btn btn-transparent" style="border: 1px solid #81bfaa; color:#81bfaa;" @click="this.open = !this.open">Zakazi online</button>
+        <div v-if="this.open">
+        <select v-model="selectedProduct" style="border-radius: 5px;" @change="setSelectedProduct">
             <option value="Odaberi trajanje" disabled selected>Odaberi trajanje</option>
             <option v-for="product in massage.products" :value="product">{{product.length}} min - {{product.price}} din</option>
         </select>
-        <!-- <p>Trajanje masaze: {{ massage.length }} min</p>
-        <p> Cena masaze: {{ massage.price }} RSD</p> -->
         <carousel-3d :display="3" style="width:200px !important" v-if="this.selectedProduct !== 'Odaberi trajanje'">
             <slide class="customize-carousel" v-for="(masseur, i) in masseurs" :index="i" :key="i"
                 @click="this.selectedMasseur = masseur">
                 <img :data-index="i" :src="masseur.photo_url" style="height: inherit;">
             </slide>
         </carousel-3d>
-        <div v-if="this.selectedProduct !== 'Odaberi trajanje'">{{ this.selectedMasseur.user.first_name }}</div>
+        <div style="width: fit-content;margin:auto;" v-if="this.selectedProduct !== 'Odaberi trajanje'">{{ this.selectedMasseur.user.first_name }}</div>
         <br />
         <div style="margin-bottom:10px" v-if="this.selectedProduct !== 'Odaberi trajanje'">
-            <input id="date_picker" :min="dateMin" type="date" v-model="date" @change="changedDate" />
+            <input style="border-radius: 5px;" id="date_picker" :min="dateMin" type="date" v-model="date" @change="changedDate" />
         </div>
         <div class="btns-background" v-if="date && clicked && this.selectedProduct !== 'Odaberi trajanje'" >
             <button @click="this.timePeriod = [7, 12]" class="btn-abc btn-left"
@@ -31,23 +37,25 @@
         <div class="choosen-time" v-if="date && !clicked" @click="this.clicked = !this.clicked">
             Vreme:{{ time }}
         </div>
-        <button v-if="!this.$store.state.isAuthenticated && date && !clicked" class="button" data-toggle="modal"
+        <button v-if="!this.$store.state.isAuthenticated && date && !clicked" class="button" data-toggle="modal" style="border-radius:0.25rem"
             data-target="#myModal" @click="setCurrentMasseur">Posalji
             rezervaciju</button>
-        <button v-if="this.$store.state.isAuthenticated && date && !clicked" class="button"
-            @click="sendReservation">Posalji
-            rezervaciju</button>
+        <button v-if="this.$store.state.isAuthenticated && date && !clicked" class="button" style="border-radius:0.25rem"
+            @click="sendReservationUser">Posalji
+            rezervaciju</button> 
+        </div>
     </div>
 </template>
     
 <script>
 import TimeComponent from '@/components/TimeComponent.vue'
+import ModalReserve from '@/views/ModalReserve.vue'
 import { uuid } from 'vue-uuid';
 import { Carousel3d, Slide } from 'vue3-carousel-3d';
 
 
 export default {
-    name: 'MassageReservation',
+    name: 'SingleMassage',
     data() {
         return {
             date: "",
@@ -58,24 +66,30 @@ export default {
             timePeriod: [7, 12],
             selectedMasseur: this.$store.state.masseurs[0],
             client_token: "",
-            selectedProduct: "Odaberi trajanje"
+            selectedProduct: "Odaberi trajanje",
+            open: false,
         }
     },
     emits: ["reserved", "fold"],
     components: {
         TimeComponent,
         Carousel3d,
-        Slide
+        Slide,
+        ModalReserve
     },
-    props: ['massageID'],
-    created() {
+    props: ['massageID', 'masseurs'],
+    mounted() {
         this.$store.dispatch('fetchMassageDjango', this.massageID.id)
+        // this.$store.dispatch('fetchmasseurs')
+        // .catch(error => {
+        //   console.log(error)
+        // })
+        console.log(this.$store.state.masseurs)
         this.timeMin()
-
     },
     computed: {
         massage() {
-            return this.$store.state.massage
+            return this.$store.state.massages.find(massage => massage.id === this.massageID.id)
         },
         dateMin() {
             var today = new Date();
@@ -90,7 +104,28 @@ export default {
         }
     },
     methods: {
-        setSelectedProduct() {
+        sendReservation(reservation) {
+            console.log('aaaaaaa')
+              const reservedTermin = {
+                  "id": uuid.v4(),
+                  "date": this.$store.state.currentMassageDate,
+                  "time": this.$store.state.time,
+                  // "length": this.massage.length,
+                  // "type": this.massage.name,
+                  "product_id": this.$store.state.selectedProduct,
+                  "client": {
+                    'name': reservation.name,
+                    'email': reservation.email,
+                    'phone': reservation.phone,
+                  },
+                  "masseur_id": parseInt(this.$store.state.currentMasseur.id)
+              }
+              this.$store.dispatch('postReservationDjango', reservedTermin)
+              this.$store.dispatch('setSelectedMassageButton', true)
+              this.$store.commit('SET_SELECTED_MASSAGE', false)
+              window.scrollTo(0,0);
+          },
+        setSelectedProduct() {  
             this.$store.dispatch('setSelectedProduct', this.selectedProduct)
         },
         setCurrentMasseur() {
@@ -107,15 +142,14 @@ export default {
                 this.clicked = !this.clicked
             }
         },
-        sendReservation() {
-            console.log('bbbbb')
+        sendReservationUser() {
             const reservedTermin = {
                 "id": uuid.v4(),
                 "date": this.date,
                 "time": this.time,
                 // "length": this.massage.length,
                 // "type": this.massage.name,
-                "product_id": this.selectedProduct.id,
+                "product_id": {"id": this.selectedProduct.id},
                 "token": this.$store.state.token,
                 "masseur_id": parseInt(this.selectedMasseur.id)
             }
