@@ -1,7 +1,9 @@
 <template>
   <div style="overflow-x: hidden" id="app">
     <HeaderHome></HeaderHome>
-    <router-view />
+      <div style="height: 100vh !important;">
+        <router-view/>
+      </div>
     <FooterHome></FooterHome>
   </div>
 </template>

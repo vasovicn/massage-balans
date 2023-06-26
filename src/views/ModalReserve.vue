@@ -62,6 +62,7 @@ export default {
         async sendReservation() {
                 await this.$emit('submitReservation', this.reservation)
                 document.querySelector('#close').click()
+                this.open = false
         },
         nextStep() {
             this.paymentStep = true

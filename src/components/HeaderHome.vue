@@ -141,19 +141,27 @@ export default {
         },
         signup() {
             if (this.signupCredentials.password == this.signupCredentials.passwordConfirm) {
-                this.$store.dispatch('signupDjango', this.signupCredentials)
+                this.$store.dispatch('checkEmailUnique', this.signupCredentials)
                     .then(response => {
-                        console.log(response)
-                    }
-                    )
-                    .catch(error => {
-                        if (JSON.parse(error.response.request.responseText).username) {
-                            this.signupErrors = JSON.parse(error.response.request.responseText).username
-                        }
-                        else if (JSON.parse(error.response.request.responseText).password) {
-                            this.signupErrors = JSON.parse(error.response.request.responseText).password
-                        }
+                        console.log('aaaaa', response)
+                        console.log('response.success', response.data.success)
+                        if (response && response.data.error) {
+                            this.signupErrors = [response.error]
+                        } else if (response && response.data.success) {
+                            this.$store.dispatch('signupDjango', this.signupCredentials)
+                                .then(response => {
+                                        console.log(response)
+                                    }
+                                )
+                                .catch(error => {
+                                    if (JSON.parse(error.response.request.responseText).username) {
+                                        this.signupErrors = JSON.parse(error.response.request.responseText).username
+                                    } else if (JSON.parse(error.response.request.responseText).password) {
+                                        this.signupErrors = JSON.parse(error.response.request.responseText).password
+                                    }
 
+                                })
+                        }
                     })
             }
         },

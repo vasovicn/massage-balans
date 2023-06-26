@@ -156,6 +156,7 @@ export default {
             this.$store.dispatch('postReservationDjango', reservedTermin)
             this.$store.dispatch('setSelectedMassageButton', true)
             this.$store.commit('SET_SELECTED_MASSAGE', false)
+            this.open = false
             window.scrollTo(0, 0);
         },
         timeMin() {

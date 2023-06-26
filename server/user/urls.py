@@ -12,6 +12,7 @@ urlpatterns = [
     path('login', views.login, name='login'),
     path('', views.get, name="get"),
     path('update', views.update, name="update"),
+    path('check_email_unique', views.check_email_unique, name="check_email_unique"),
     path('verify_password', views.verify_password, name='verify_password'),
     path('request-reset-email', RequestPasswordResetEmail.as_view(), name="request-reset-email"),
     path('password-reset-confirm/<uidb64>/<token>/', views.get_reset_password, name='get_reset_password'),

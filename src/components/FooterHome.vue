@@ -1,5 +1,6 @@
 <template>
-    <div class="container-fluid pb-0 mb-0 justify-content-center text-light" style="box-shadow:5px;margin-top: auto;">
+    <div class="container-fluid pb-0 mb-0 justify-content-center text-light" style="box-shadow: 5px;margin-top: auto;position: sticky;
+    bottom: 0;">
         <footer>
             <div class="row my-3 justify-content-center">
                 <div class="col-11">

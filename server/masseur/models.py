@@ -9,6 +9,7 @@ class Masseur(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     age = models.IntegerField(null=True, blank=True)
     info = models.CharField(max_length=200, blank=True)
-    image = models.ImageField(upload_to ='', blank=True)
+    image = models.ImageField(upload_to='', blank=True)
 
-
+    def __str__(self):
+        return self.user

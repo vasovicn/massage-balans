@@ -10,3 +10,5 @@ class Product(models.Model):
     massage_id = models.ForeignKey(Massage, on_delete=models.CASCADE, null=True, related_name='products')
     # massage_name = models.CharField()
 
+    def __str__(self):
+        return '%s %sdin %smin' % (self.massage_id.name, self.price, self.length)

@@ -55,6 +55,10 @@ export default {
   signupDjango(credentials) {
     return apiClientDjango.post('/api/v1/users/',  credentials)
   },
+  checkEmailUnique(credentials) {
+    console.log('check cred', credentials)
+    return apiClientDjango.get('/user/check_email_unique',  {params: {email: credentials.email}})
+  },
   loginAdmin(credentials) {
     return apiClientDjango.post('/user/login', credentials)
   },

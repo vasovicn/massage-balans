@@ -256,6 +256,14 @@ export default createStore({
       }
       )
   },
+    checkEmailUnique({dispatch}, credentials) {
+      return MassageService.checkEmailUnique(credentials)
+          .then(response => {
+            return response
+          }).catch(error => {
+            console.log('error', error)
+          })
+    },
   userPortal({ commit }) {
     return MassageService.fetchUserReservations(localStorage.getItem("token"))
       .then(response => {
@@ -302,7 +310,7 @@ export default createStore({
     const interval = setInterval(() => {
       commit('COUNTDOWN_EMAIL');
       if (state.countdownEmail === 0) {
-        clearInterval(interval);               
+        clearInterval(interval);
         commit('SET_SUCCESS_POPUP', false)
       }
     }, 1000)
@@ -310,10 +318,10 @@ export default createStore({
   passwordReseted({state, commit}, value) {
     commit('SET_SUCCESS_PASSWORD_RESET_POPUP', value)
     commit('RESET_PASSWORD_TIMER')
-    const interval = setInterval(() => {     
+    const interval = setInterval(() => {
       commit('COUNTDOWN_PASSWORD');
       if (state.countdownPassword === 0) {
-        clearInterval(interval);               
+        clearInterval(interval);
         commit('SET_SUCCESS_PASSWORD_RESET_POPUP', false)
       }
     }, 1000)
@@ -321,10 +329,10 @@ export default createStore({
   massageReserved({state, commit}, value) {
     commit('SET_MASSAGE_RESERVED_POPUP', value)
     commit('RESET_MASSAGE_RESERVED_TIMER')
-    const interval = setInterval(() => {     
+    const interval = setInterval(() => {
       commit('COUNTDOWN_MASSAGE_RESERVED');
       if (state.countdownMassageReserved === 0) {
-        clearInterval(interval);               
+        clearInterval(interval);
         commit('SET_MASSAGE_RESERVED_POPUP', false)
       }
     }, 1000)

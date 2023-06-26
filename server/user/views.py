@@ -91,6 +91,16 @@ def update(request):
     return JsonResponse(serializer.data)
 
 
+def check_email_unique(request):
+    email = request.GET.get('email')
+
+    user = User.objects.filter(email=email)
+    if user:
+        return JsonResponse({'error': 'Email is not unique'})
+
+    return JsonResponse({'success': True})
+
+
 class RequestPasswordResetEmail(GenericAPIView):
     permission_classes = (AllowAny,)
     serializer_class = ResetPasswordEmailRequestSerializer
