@@ -5,9 +5,12 @@ from .models import Massage
 from django.conf import settings
 from product.serializers import ProductSerializer
 
+
 class MassageSerializer(serializers.ModelSerializer):
     photo_url = serializers.SerializerMethodField()
     products = ProductSerializer(many=True, read_only=True)
+    type = serializers.CharField(source='get_type_display')
+
     class Meta:
         model = Massage
         fields = '__all__'

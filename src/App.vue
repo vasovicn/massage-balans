@@ -1,5 +1,5 @@
 <template>
-  <div style="overflow-x: hidden" id="app">
+  <div  style="overflow-x: hidden" id="app">
     <HeaderHome></HeaderHome>
       <div style="height: 100vh !important;">
         <router-view/>
